@@ -16,4 +16,10 @@ class ExampleTest extends TestCase
         $this->visit('/')
              ->see('Laravel');
     }
+
+    public function testSPO2()
+    {
+      $spo = true;
+      $this->assertTrue($spo);
+    }
 }
