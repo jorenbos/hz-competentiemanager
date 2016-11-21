@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Smakelijk Project
                 </div>
 
                 <div class="links">
