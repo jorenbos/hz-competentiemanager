@@ -1,4 +1,3 @@
 # Compentiemanager
 
-![badge](https://travis-ci.com/FrontEndCoffee/hz-competentiemanager.svg?token=HU7iyWJy1gqEuxwPbgiV&branch=master)
-
+[![Build Status](https://travis-ci.org/hz-competentiemanager/hz-competentiemanager.svg?branch=master)](https://travis-ci.org/hz-competentiemanager/hz-competentiemanager)
