@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Smakelijk Project
+                    Smakelijk Project - Voor de fijnproevers
                 </div>
 
                 <div class="links">
