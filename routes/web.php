@@ -15,10 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function() {
+  return 'dashboard';
+});
+
 //login routes
 Route::get('login', 'Auth\LoginController@showLoginForm');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+Route::get('logout', 'Auth\LoginController@logout');
 
 //register routes
 Route::get('register', 'Auth\RegisterController@showRegistrationForm');
