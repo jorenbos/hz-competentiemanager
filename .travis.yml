@@ -1,4 +1,4 @@
-flanguage: php
+language: php
 
 php:
  - 7.0
