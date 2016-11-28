@@ -19,4 +19,4 @@ script:
 notifications:
   slack:
     rooms:
-      - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#general
+      - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#teamblauw
