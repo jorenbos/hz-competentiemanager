@@ -16,7 +16,7 @@ before_script:
 script:
   - vendor/bin/phpunit
   - php coverage-checker.php clover.xml 70
-  - vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'
+  # - vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'
 
 notifications:
   slack:
