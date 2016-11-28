@@ -25,7 +25,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
+
+    /**
+     * Show the application's login form.
+     * Mind, this is directly overriden from the used trait, why it was there in
+     * the first place, I don't know
+     * @return \Illuminate\Http\Response
+     */
+     public function showLoginForm()
+     {
+         return view('auth.login');
+     }
 
     /**
      * Create a new controller instance.
