@@ -30,6 +30,6 @@ class CreateCompetencyTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('competencies');
     }
 }
