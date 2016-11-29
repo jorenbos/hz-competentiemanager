@@ -16,7 +16,7 @@ before_script:
 script:
   - vendor/bin/phpunit
   - php coverage-checker.php clover.xml 70
-  - vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml' --exclude 'app/console,app/exceptions,app/providers'
+  - vendor/bin/phpmd app,tests xml codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers
 
 notifications:
   slack:
