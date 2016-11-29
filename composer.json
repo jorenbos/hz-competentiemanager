@@ -46,7 +46,7 @@
         ],
         "test": [
             "phpunit",
-            "vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'"
+            "vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml' --exclude 'app/console,app/exceptions,app/providers'"
         ],
         "fix": [
             "vendor/bin/phpcbf ./app ./tests"
