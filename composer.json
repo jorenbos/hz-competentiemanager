@@ -43,6 +43,13 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
+        ],
+        "test": [
+            "phpunit",
+            "vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'"
+        ],
+        "fix": [
+            "vendor/bin/phpcbf ./app ./tests"
         ]
     },
     "config": {

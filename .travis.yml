@@ -15,8 +15,10 @@ before_script:
 
 script:
   - vendor/bin/phpunit
+  - php coverage-checker.php clover.xml 70
+  # - vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'
 
 notifications:
   slack:
     rooms:
-      - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#general
+      - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#teamblauw
