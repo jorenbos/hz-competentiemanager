@@ -14,7 +14,9 @@
         "phpunit/phpunit": "~5.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
-        "phpunit/php-code-coverage": "^4.0"
+        "phpunit/php-code-coverage": "^4.0",
+        "squizlabs/php_codesniffer": "^2.7",
+        "phpmd/phpmd": "^2.5"
     },
     "autoload": {
         "classmap": [
@@ -46,7 +48,7 @@
         ],
         "test": [
             "phpunit",
-            "vendor/bin/phpmd 'app,tests' text 'phpmd-ruleset.xml'"
+            "vendor/bin/phpmd app,tests text codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers"
         ],
         "fix": [
             "vendor/bin/phpcbf ./app ./tests"

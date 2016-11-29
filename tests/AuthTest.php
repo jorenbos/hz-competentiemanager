@@ -67,7 +67,7 @@ class AuthTest extends TestCase
    */
     public function testLogin()
     {
-        $user = User::create(
+        User::create(
             [
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
