@@ -12,6 +12,8 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
+  - gem install scss_lint
+  - npm install
 
 script:
   - vendor/bin/phpunit
