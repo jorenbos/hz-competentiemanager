@@ -3,6 +3,9 @@ language: php
 php:
  - 7.0
 
+rvm:
+ - 2.0
+
 services:
   - mysql
 
