@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Util\Constants;
 
 class AddAdditionalFieldToUser extends Migration
 {
@@ -14,7 +15,7 @@ class AddAdditionalFieldToUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('STUDENT');
+            $table->tinyInteger('role')->default(Constants::USER_ROLE_STUDENT);
         });
     }
 
