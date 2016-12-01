@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,6 +16,7 @@ class CreateCompetencyTable extends Migration
           $table->increments('id');
           $table->string('name');
           $table->string('abbreviation');
+          $table->text('description');
           $table->float('EC-value');
           $table->string('CU-code');
           $table->timestamps();
@@ -30,6 +30,7 @@ class CreateCompetencyTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::drop('competencies');
     }
 }
