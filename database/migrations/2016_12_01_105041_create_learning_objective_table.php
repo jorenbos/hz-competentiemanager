@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class LearningObjectiveTable extends Migration
+class CreateLearningObjectiveTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,6 +33,6 @@ class LearningObjectiveTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('learning_objectives');
     }
 }

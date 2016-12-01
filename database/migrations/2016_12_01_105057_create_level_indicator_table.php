@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class LevelIndicatorTable extends Migration
+class CreateLevelIndicatorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,6 @@ class LevelIndicatorTable extends Migration
             $table->string('description');
 
         });
-        //
     }
 
     /**
@@ -35,6 +34,6 @@ class LevelIndicatorTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('level_indicator');
     }
 }

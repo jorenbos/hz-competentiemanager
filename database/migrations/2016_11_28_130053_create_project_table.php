@@ -23,7 +23,7 @@ class CreateProjectTable extends Migration
           $table->foreign('project_contact_id')
               ->references('id')
               ->on('users')
-              ->onDelete('cascade');
+              ->onDelete('set null');
           $table->timestamps();
       });
     }
