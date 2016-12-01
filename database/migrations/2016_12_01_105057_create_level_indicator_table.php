@@ -34,6 +34,6 @@ class CreateLevelIndicatorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('level_indicator');
+        Schema::drop('level_indicators');
     }
 }
