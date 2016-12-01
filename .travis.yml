@@ -17,6 +17,7 @@ script:
   - vendor/bin/phpunit
   - php coverage-checker.php clover.xml 70
   - vendor/bin/phpmd app,tests text codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers
+  - vendor/bin/phpcbf ./app ./tests
 
 notifications:
   slack:

@@ -1,4 +1,5 @@
 const elixir = require('laravel-elixir');
+const scsslint = require('gulp-scss-lint');
 
 require('laravel-elixir-vue-2');
 
@@ -12,8 +13,13 @@ require('laravel-elixir-vue-2');
  | file for our application, as well as publishing vendor resources.
  |
  */
-
 elixir(mix => {
     mix.sass('app.scss')
-       .webpack('app.js');
+    .webpack('app.js');
+});
+
+gulp.task('test', function() {
+    return gulp.src('./resources/assets/sass/**/*.scss')
+        .pipe(scsslint())
+        .pipe(scsslint.failReporter());
 });
