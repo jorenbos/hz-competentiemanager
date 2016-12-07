@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -20,4 +20,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
+});
+
+$factory->define(App\Models\Competency::class, function(Faker\Generator $faker) {
+	return [
+		'name' => $faker->bs,
+		'abbreviation' => $faker->bothify('???#'),
+		'description' => $faker->catchPhrase,
+		'EC-value' => $faker->randomElement($array = [2.5, 5.0]),
+		'CU-code' => $faker->bothify('CU#####')
+	];
 });
