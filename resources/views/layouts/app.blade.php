@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'HZ Competentiemanager') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -35,9 +35,15 @@
                     </button>
 
                     <!-- Branding Image -->
+                @if (Auth::guest())
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                @else
+                    <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                @endif
+                        <img src="/img/hz.png" class="header-logo">
+                        <span class="header-title">Competentiemanager</span>
                     </a>
+
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
