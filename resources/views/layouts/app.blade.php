@@ -43,7 +43,15 @@
                         <img src="/img/hz.png" class="header-logo">
                         <span class="header-title">Competentiemanager</span>
                     </a>
-
+                @if (Auth::guest())
+                    <span class="role"></span>
+                @elseif (Auth::user()->role == 0)
+                    <span class="role">Student</span>
+                @elseif (Auth::user()->role == 1)
+                    <span class="role">Teacher</span>
+                @elseif (Auth::user()->role == 2)
+                    <span class="role">Admin</span>
+                @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
