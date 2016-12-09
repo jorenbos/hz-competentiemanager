@@ -45,6 +45,6 @@ interface RepositoryInterface
      * @param $ids The id of the user to update
      * @return Model
      */
-    public function update($ids);
+    //public function update($ids);
 
 }
