@@ -58,7 +58,23 @@ class UserCrudTest extends TestCase
 
     public function testCreate()
     {
+        //Positive test
+        $this->visit('users/create')
+            ->type('hans@kpnplanet.nl','email')
+            ->type('Hans','name')
+            ->type('admin123', 'password')
+            ->press('Maak')
+            ->visit('/users')
+            ->see('Hans');
 
+        //Negative test, do not create users and break validation
+        $this->visit('users/create')
+            ->type('hans@kpnplanet','email')
+            ->type('Hans','name')
+            ->type('admin', 'password')
+            ->press('Maak')
+            ->see('6 characters')
+            ->see('valid');
     }
 
     private function mockSomeUsers()
