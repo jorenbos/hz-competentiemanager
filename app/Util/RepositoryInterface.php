@@ -41,4 +41,10 @@ interface RepositoryInterface
      */
     public function delete($ids);
 
+    /**
+     * @param $ids The id of the user to update
+     * @return Model
+     */
+    public function update($ids);
+
 }

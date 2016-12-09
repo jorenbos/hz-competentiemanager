@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
 use Validator;
+use View;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return \View::make('crud.user.create');
+        return View::make('crud.user.create');
     }
 
     /**
@@ -68,7 +69,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return View::make('crud.user.show',['user' => $this->users->getById($id)]);
     }
 
     /**
@@ -79,19 +80,23 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return View::make('crud.user.edit',['user' => $this->users->getById($id)]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = $this->users->getById($id);
+        $user->fill($request->all());
+        $user->save();
+
+        return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
     }
 
     /**
@@ -104,6 +109,15 @@ class UserController extends Controller
     {
         $this->users->delete($id);
         return redirect('/users')->with('status', 'Gebruiker Verwijderd!');
+    }
+
+    protected function updateValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'sometimes|max:255',
+            'email' => 'sometimes|email|max:255|unique:users',
+            'password' => 'sometimes|min:6',
+        ]);
     }
 
     protected function validator(array $data)

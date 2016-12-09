@@ -9,6 +9,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Util\The;
+use Illuminate\Database\Eloquent\Model;
 use Validator;
 use App\Util\RepositoryInterface;
 
@@ -51,7 +53,14 @@ class UserRepository implements RepositoryInterface
         return User::destroy($id);
     }
 
+    /**
+     * @param $ids
+     * @return mixed
+     */
+    public function update($ids)
+    {
 
+    }
 
 
 }
