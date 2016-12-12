@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-{!! Form::open(['route' => ['user.store'], 'method' => 'post', 'class' => 'form-horizontal']) !!}
+{!! Form::open(['route' => ['competency.store'], 'method' => 'post', 'class' => 'form-horizontal']) !!}
 <div class="form-group">
 	<div class="col-sm-6">
 		{!! Form::label('name', 'Name', ['class' => 'control-label']) !!}

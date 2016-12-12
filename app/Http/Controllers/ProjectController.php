@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Competency;
 
-class CompetencyController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +13,7 @@ class CompetencyController extends Controller
      */
     public function index()
     {
-
-        return view(
-            'competency/index', [
-            'competenties' => Competency::orderBy('name', 'asc')->get(),
-             ]
-        );
-
+        //
     }
 
     /**
@@ -30,9 +23,7 @@ class CompetencyController extends Controller
      */
     public function create()
     {
-
-        return view('competency/create');
-
+        //
     }
 
     /**
@@ -42,21 +33,8 @@ class CompetencyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-   {
-
-   // Check if the form was correctly filled in
-   $this->validate ( $request, [
-       'name' => 'required|max:255',
-   ] );
-   // Create new Competency object with the info in the request
-   $competency = Competency::create ( [
-       'name' => $request ['name'],
-   ] );
-   // Save this object in the database
-   $competency->save ();
-   // Redirect to the competency.index page with a success message.
-   return redirect ( 'competency' )->with( 'success', $competency->name.' is toegevoegd.' );
-
+    {
+        //
     }
 
     /**
@@ -67,13 +45,7 @@ class CompetencyController extends Controller
      */
     public function show($id)
     {
-
-        return view(
-            'competency/show', [
-            'competency' => Competency::findOrFail($id),
-             ]
-        );
-
+        //
     }
 
     /**
@@ -84,13 +56,7 @@ class CompetencyController extends Controller
      */
     public function edit($id)
     {
-
-        return view(
-            'competency/edit', [
-            'competency' => Competency::findOrFail($id),
-             ]
-        );
-
+        //
     }
 
     /**
@@ -102,7 +68,7 @@ class CompetencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
     }
 
     /**

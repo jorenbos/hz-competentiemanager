@@ -2,14 +2,27 @@
 
 @section('title')
 	Lijst van competenties
-	<div style="float:right">
-		<a class="btn btn-primary" href="{!! url('competency/create') !!}">
-			Toevoegen
-		</a>
-	</div>
 @endsection
 
 @section('content')
+<div style="float:left">
+	<a class="btn btn-primary" href="{!! url('competency/create') !!}">
+		Competentie toevoegen
+	</a>
+</div>
+
+<div style="float:left">
+	<a class="btn btn-primary" href="{!! url('competency/edit') !!}">
+		Een competentie wijzigen
+	</a>
+</div>
+
+<div style="float:left">
+	<a class="btn btn-primary" href="{!! url('competency/show') !!}">
+		Alle competenties weergeven
+	</a>
+</div>
+
 	@if (count($competenties) > 0)
 		<table class="table table-striped table-hover">
 			<thead>
@@ -23,6 +36,13 @@
 					data-href="{{action('CompetencyController@show', ['id' => $competency->id]) }}">
 					<td class="table-text">{{ $competency->id }}</td>
 					<td class="table-text">{{ $competency->name}}</td>
+					<td class="table-text">
+						<div>
+							<a class="btn btn-primary" href="{!! url('competency/' . $competency->id .'/edit' ) !!}">
+								Competentie wijzigen
+							</a>
+						</div>
+					</td>
 				</tr>
 				@endforeach
 			</tbody>

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<div style="float: right">
 {!! Form::model($competency, ['route' => ['competency.update', $competency->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 <div class="form-group">
 	<div class="form-group">
@@ -53,6 +54,7 @@
 			</button>
 		</div>
 	</div>
+</div>
 
 {!! Form::close() !!}
 
