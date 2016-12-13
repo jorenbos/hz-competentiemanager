@@ -28,6 +28,7 @@ class UserRepository implements RepositoryInterface
 
     /**
      * Returns all instances of User in the database
+     *
      * @return \Illuminate\Database\Eloquent\Collection|User[]
      */
     public function getAll()

@@ -43,14 +43,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $validator = $this->validator($request->all());
 
-        if($validator->fails()){
+        if($validator->fails()) {
             return redirect('/users/create')
                 ->withErrors($validator)
                 ->withInput();
@@ -64,30 +64,31 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return View::make('crud.user.show',['user' => $this->users->getById($id)]);
+        return View::make('crud.user.show', ['user' => $this->users->getById($id)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        return View::make('crud.user.edit',['user' => $this->users->getById($id)]);
+        return View::make('crud.user.edit', ['user' => $this->users->getById($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -102,7 +103,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -113,11 +114,13 @@ class UserController extends Controller
 
     protected function updateValidator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make(
+            $data, [
             'name' => 'sometimes|max:255',
             'email' => 'sometimes|email|max:255|unique:users',
             'password' => 'sometimes|min:6',
-        ]);
+            ]
+        );
     }
 
     protected function validator(array $data)
