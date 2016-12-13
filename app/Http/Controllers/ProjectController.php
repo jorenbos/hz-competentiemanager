@@ -86,7 +86,24 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+      echo 'update';
+              // Check if the form was correctly filled in
+              $this->validate ( $request, [
+                  'name' => 'required|max:255',
+                  'projectnumber' => 'required|max:255',
+                  'description' => 'required|max:255',
+              ] );
 
+              $project = Project::findorfail ( $id );
+              $project->name = $request ['name'];
+              $project->projectnumber = $request ['projectnumber'];
+
+              // Save the changes in the database
+              $project->save ();
+
+              // Redirect to the project.index page with a success message.
+              return redirect ( 'project' )->with( 'success', $project->name.' is bijgewerkt.' );
+              //
     }
 
     /**
@@ -97,6 +114,8 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $project = Project::findOrFail ($id);
+      $project->delete();
+      return rediract ('project')->with('success', $project->name.'is verwijderd.');
     }
 }

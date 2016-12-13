@@ -11,16 +11,6 @@
 		Project toevoegen
 	</a>
 </div>
-<div style="float:left">
-	<a class="btn btn-primary" href="{!! url('project/edit') !!}">
-		Project wijzigen
-	</a>
-</div>
-<div style="float:left">
-	<a class="btn btn-primary" href="{!! url('project/show') !!}">
-		Alle projecten weergeven
-	</a>
-</div>
 	@if (count($projecten) > 0)
 		<table class="table table-striped table-hover">
 			<thead>
@@ -38,11 +28,10 @@
 					<td class="table-text">
 						<div>
 							<a class="btn btn-primary" href="{!! url('project/' . $project->id .'/edit' ) !!}">
-								Project wijzigen
+								Wijzigen
 							</a>
 						</div>
 					</td>
-
 				</tr>
 				@endforeach
 			</tbody>
