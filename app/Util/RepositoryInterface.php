@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Interface RepositoryInterface
  * Repositories must define the following methods to alter models
+ *
  * @package App\Util
  */
 interface RepositoryInterface
