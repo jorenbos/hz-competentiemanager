@@ -102,7 +102,30 @@ class CompetencyController extends Controller
      */
     public function update(Request $request, $id)
     {
+      echo 'update';
+        // Check if the form was correctly filled in
+        $this->validate ( $request, [
+            'name' => 'required|max:255',
+            'abbreviation' => 'required|max:255',
+            'description' => 'required|max:255',
+            'EC-value' => 'required|max:255',
+            'CU-code' => 'required|max:255',
+        ] );
 
+        $competency = Competency::findorfail ( $id );
+        $competency->name = $request ['name'];
+        $competency->abbreviation = $request ['abbreviation'];
+        $competency->description = $request ['description'];
+      //  $competency->EC-value = $request ['EC-value'];
+      //  $competency->CU-code = $request ['CU-code'];
+
+        // Associate the role to the user
+        // Save the changes in the database
+        $competency->save ();
+
+        // Redirect to the competency.index page with a success message.
+        return redirect ( 'competency' )->with( 'success', $competency->name. '  is bijgewerkt.' );
+        //
     }
 
     /**
@@ -113,6 +136,11 @@ class CompetencyController extends Controller
      */
     public function destroy($id)
     {
-        //
+      //Find the competency object in the database
+      $competency = Competency::findorfail ( $id );
+      //Remove the competency from the database
+      $competency->delete ();
+      //Redirect to the competency. index page with a succes message.
+      return redirect ( 'competency' )->with( 'success', $competency->name.' is verwijderd.');
     }
 }

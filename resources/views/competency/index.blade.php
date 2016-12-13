@@ -43,6 +43,16 @@
 							</a>
 						</div>
 					</td>
+
+					<td class="table-text">
+						<div class="col-sm-1">
+							{!! Form::open(['route' => ['competency.destroy', $competency->id], 'method'=>'DELETE']) !!}
+							{!! Form::submit('Verwijderen', array('class'=>'btn btn-danger')) !!}
+							{!! Form::close() !!}
+						</div>
+						</div>
+					</td>
+
 				</tr>
 				@endforeach
 			</tbody>
