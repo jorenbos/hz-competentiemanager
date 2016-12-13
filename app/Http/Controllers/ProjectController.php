@@ -116,6 +116,6 @@ class ProjectController extends Controller
     {
       $project = Project::findOrFail ($id);
       $project->delete();
-      return rediract ('project')->with('success', $project->name.'is verwijderd.');
+      return redirect ('project');
     }
 }
