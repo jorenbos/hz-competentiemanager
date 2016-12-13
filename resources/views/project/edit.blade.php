@@ -6,11 +6,11 @@
 
 @section('content')
 <div class='container-fluid'>
-	<div class='row'; style='align: right'>
-		<div class='col-md-8'>
+	<div class='row'>
 		<div class='col-md-8'>
 		{!! Form::model($project, ['route' => ['project.update', $project->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
+<!--Fillable form which needs a name for the project being edited-->
 			<div class="form-group">
 					<div class="col-md-8">
 						{!! Form::label('name', 'Name', ['class' => 'control-label']) !!}
@@ -18,6 +18,7 @@
 					</div>
 			</div>
 
+<!--Fillable form which needs a projectnumber for the project being edited-->
 			<div class="form-group">
 					<div class="col-md-8">
 						{!! Form::label('projectnumber', 'Projectnumber', ['class' => 'control-label']) !!}
@@ -25,6 +26,7 @@
 					</div>
 			</div>
 
+<!--Fillable form which needs a description for the project being edited-->
 			<div class="form-group">
 					<div class="col-md-8">
 						{!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
@@ -32,6 +34,7 @@
 					</div>
 			</div>
 
+<!--This button save the edited project by calling upon the update method in the ProjectController-->
 			<div class="form-group">
 				<div class="col-md-8">
 					<button type="submit" class="btn btn-primary">
@@ -41,6 +44,7 @@
 			</div>
 
 		</div>
+	</div>
 </div>
 {!! Form::close() !!}
 

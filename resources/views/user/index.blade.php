@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	Lijst van competenties
+	Lijst van gebruikers
 
 @endsection
 
@@ -11,8 +11,9 @@
 			<thead>
 				<th class="col-sm-1">Id</th>
 				<th class="col-sm-4">Naam</th>
-
 			</thead>
+
+<!--List of the all users in the database-->
 			<tbody>
 				@foreach ($users as $user)
 				<tr class="row-link" style="cursor: pointer;"
@@ -21,6 +22,7 @@
 					<td class="table-text">{{ $user->name}}</td>
           <td class="table-text">{{ $user->email}}</td>
 
+<!--Button in the user row which redirects to the /user/edit page-->
 					<td class="table-text">
 						<div>
 							<a class="btn btn-primary" href="{!! url('user/' . $user->id .'/edit' ) !!}">
@@ -28,6 +30,8 @@
 							</a>
 						</div>
 					</td>
+
+<!--Button in the user row which deletes the user from the database without a warning-->
 					<td class="table-text">
 						<div class="col-sm-1">
 								{!! Form::open(['route' => ['user.destroy', $user->id], 'method'=>'DELETE']) !!}
