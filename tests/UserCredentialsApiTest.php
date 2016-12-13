@@ -13,10 +13,12 @@ class UserCredentialsApiTest extends TestCase
     {
         parent::setUp();
 
-        \App\Models\UserCredentials::create([
+        \App\Models\UserCredentials::create(
+            [
             'name' => 'John Doe',
             'student_code' => '00038574'
-        ]);
+            ]
+        );
     }
 
     /**
@@ -38,21 +40,25 @@ class UserCredentialsApiTest extends TestCase
 
     public function testUserCredentialsCreate()
     {
-        $this->json('POST', 'api/usercredentials', [
+        $this->json(
+            'POST', 'api/usercredentials', [
             'name' => 'Co de Klopper',
             'student_code' => '00055976',
             'gender' => 'man',
             'date_of_birth' => '1996-11-11',
             'starting_date' => '2011-09-01'
-        ])->seeJson(['name' => 'Co de Klopper']);
+            ]
+        )->seeJson(['name' => 'Co de Klopper']);
 
         // If we do this again it should fail because of duplicate student_code
-        $this->json('POST', 'api/usercredentials', [
+        $this->json(
+            'POST', 'api/usercredentials', [
             'name' => 'Co de Klopper',
             'student_code' => '00055976',
             'gender' => 'man',
             'date_of_birth' => '1996-11-11',
             'starting_date' => '2011-09-01'
-        ])->seeJson(['student_code' => ['The student code has already been taken.']]);
+            ]
+        )->seeJson(['student_code' => ['The student code has already been taken.']]);
     }
 }
