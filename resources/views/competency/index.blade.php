@@ -24,6 +24,7 @@
 </div>
 
 	@if (count($competenties) > 0)
+	<!-- Shows ID of item in database and name-->
 		<table class="table table-striped table-hover">
 			<thead>
 				<th class="col-sm-1">Id</th>

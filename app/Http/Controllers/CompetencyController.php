@@ -48,13 +48,13 @@ class CompetencyController extends Controller
         $this->validate(
             $request, [
             'name' => 'required|max:255',
-             ] 
+             ]
         );
         // Create new Competency object with the info in the request
         $competency = Competency::create(
             [
             'name' => $request ['name'],
-             ] 
+             ]
         );
         // Save this object in the database
         $competency->save();
@@ -115,23 +115,22 @@ class CompetencyController extends Controller
             'description' => 'required|max:255',
             'EC-value' => 'required|max:255',
             'CU-code' => 'required|max:255',
-             ] 
+             ]
         );
 
         $competency = Competency::findorfail($id);
         $competency->name = $request ['name'];
         $competency->abbreviation = $request ['abbreviation'];
         $competency->description = $request ['description'];
-        //  $competency->EC-value = $request ['EC-value'];
-        //  $competency->CU-code = $request ['CU-code'];
+      //  $competency->EC-value = $request ['EC-value'];
+      //  $competency->CU-code = $request ['CU-code'];
 
-        // Associate the role to the user
         // Save the changes in the database
         $competency->save();
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name. '  is bijgewerkt.');
-        //
+
     }
 
     /**
