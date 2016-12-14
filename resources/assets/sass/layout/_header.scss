@@ -1,0 +1,29 @@
+.navbar-header {
+
+	.navbar-brand {
+		display: inline-block;
+		padding: 0;
+		line-height: 2.8em;
+		vertical-align: middle;
+
+		.header-logo {
+			display: inline;
+			height: 2em;
+			vertical-align: middle;
+		}
+
+	}
+
+
+
+	.role {
+		display: inline-block;
+		font-size: 18px;
+		font-weight: bold;
+		opacity: 0.5;
+		vertical-align: middle;
+		line-height: 2.8em;
+		position: relative;
+		left: 0.5em;
+	}
+}

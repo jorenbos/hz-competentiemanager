@@ -42,15 +42,15 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan migrate --force"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
         "test": [
-            "phpunit",
-            "vendor/bin/phpmd app,tests text codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers"
+            "phpunit"
         ],
         "fix": [
             "vendor/bin/phpcbf ./app ./tests"
