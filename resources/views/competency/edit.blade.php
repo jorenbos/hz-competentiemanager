@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="form-group">
-<!-- Fill in EC-value of competency -->
+<!-- Fill in EC_value of competency -->
 					<div class="col-md-4">
 						{!! Form::label('EC-value', 'Ec-value', ['class' => 'control-label']) !!}
 						{!! Form::text('EC-value', null, ['class' => 'form-control', 'placeholder' => 'Aantal ECs']) !!}
@@ -41,7 +41,7 @@
 				</div>
 
 				<div class="form-group">
-<!-- Fill in CU-value of competency -->
+<!-- Fill in CU_value of competency -->
 						<div class="col-md-4">
 							{!! Form::label('CU-code', 'Cu-code', ['class' => 'control-label']) !!}
 					    {!! Form::text('CU-code', null, ['class' => 'form-control', 'placeholder' => 'CU code']) !!}
@@ -50,7 +50,6 @@
 
 	<div class="form-group">
 		<div class="col-md-6">
-			<!-- A button for saving made changes-->
 			<button type="submit" class="btn btn-primary">
 				Opslaan
 			</button>

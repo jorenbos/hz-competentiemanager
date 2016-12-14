@@ -113,8 +113,8 @@ class CompetencyController extends Controller
             'name' => 'required|max:255',
             'abbreviation' => 'required|max:255',
             'description' => 'required|max:255',
-            'EC-value' => 'required|max:255',
-            'CU-code' => 'required|max:255',
+            //'ec_value' => 'required|max:255',
+            //'cu_code' => 'required|max:255',
              ]
         );
 
@@ -122,8 +122,8 @@ class CompetencyController extends Controller
         $competency->name = $request ['name'];
         $competency->abbreviation = $request ['abbreviation'];
         $competency->description = $request ['description'];
-      //  $competency->EC-value = $request ['EC-value'];
-      //  $competency->CU-code = $request ['CU-code'];
+        $competency->ec_value = $request ['ec_value'];
+        $competency->cu_code = $request ['cu_code'];
 
         // Save the changes in the database
         $competency->save();
