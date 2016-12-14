@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Repositories\UserRepository;
+use Validator;
+use View;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
 {
+
+    /**
+     * @var UserRepository
+     */
+    private $users;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->users = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +29,7 @@ class UserController extends Controller
     public function index()
     {
         return view(
-            'user/index', [
+            '/users/index', [
             'users' => User::orderBy('name', 'asc')->get(),
              ] 
         );
@@ -28,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user/create');
+        return view('/users/create');
     }
 
     /**
@@ -39,22 +53,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Check if the form was correctly filled in
-        $this->validate(
-            $request, [
-            'name' => 'required|max:255',
-             ] 
-        );
-        // Create new Location object with the info in the request
-        $user = User::create(
-            [
-            'name' => $request ['name'],
-             ] 
-        );
-        // Save this object in the database
-        $user->save();
-        // Redirect to the location.index page with a success message.
-        return redirect('user')->with('success', $user->name.' is toegevoegd.');
+    
+        $validator = $this->validator($request->all());
+
+        if($validator->fails()) {
+            return redirect('/users/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $this->users->create($request->all());
+        return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
     /**
@@ -66,7 +74,7 @@ class UserController extends Controller
     public function show($id)
     {
         return view(
-            'user/show', [
+            '/users/show', [
             'user' => User::findOrFail($id),
              ] 
         );
@@ -81,7 +89,7 @@ class UserController extends Controller
     public function edit($id)
     {
         return view(
-            'user/edit', [
+            '/users/edit', [
             'user' => User::findOrFail($id)
              ] 
         );
@@ -89,6 +97,7 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
@@ -113,7 +122,7 @@ class UserController extends Controller
               $user->save();
 
               // Redirect to the user.index page with a success message.
-              return redirect('user')->with('success', $user->name.' is bijgewerkt.');
+              return redirect('/users')->with('success', $user->name.' is bijgewerkt.');
               //
     }
 
@@ -127,6 +136,29 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('user');
+        return redirect('/users');
+    }
+
+    protected function updateValidator(array $data)
+    {
+        return Validator::make(
+            $data, [
+            'name' => 'sometimes|max:255',
+            'email' => 'sometimes|email|max:255|unique:users',
+            'password' => 'sometimes|min:6',
+            ]
+        );
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make(
+            $data, [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6',
+            ]
+        );
+
     }
 }

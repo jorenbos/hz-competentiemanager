@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Project;
+
 
 class ProjectController extends Controller
 {
@@ -19,6 +21,7 @@ class ProjectController extends Controller
             'projects' => Project::orderBy('name', 'asc')->get(),
              ]
         );
+
     }
 
     /**
@@ -39,6 +42,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
         // Check if the form was correctly filled in
         $this->validate(
             $request, [
@@ -115,7 +119,6 @@ class ProjectController extends Controller
 
               // Redirect to the project.index page with a success message.
               return redirect('project')->with('success', $project->name.' is bijgewerkt.');
-              //
     }
 
     /**
