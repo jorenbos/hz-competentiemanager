@@ -13,11 +13,13 @@ class CompetencyController extends Controller
      */
     public function index()
     {
+
         return view(
             'competency/index', [
             'competenties' => Competency::orderBy('name', 'asc')->get(),
              ] 
         );
+
     }
 
     /**
@@ -27,7 +29,9 @@ class CompetencyController extends Controller
      */
     public function create()
     {
+
         return view('competency/create');
+
     }
 
     /**
@@ -54,6 +58,7 @@ class CompetencyController extends Controller
             'competency' => Competency::findOrFail($id),
              ] 
         );
+
     }
 
     /**
@@ -69,6 +74,7 @@ class CompetencyController extends Controller
             'competency' => Competency::findOrFail($id)
              ] 
         );
+
     }
 
     /**
@@ -80,6 +86,8 @@ class CompetencyController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        //
 
     }
 

@@ -10,3 +10,5 @@ _ide_helper.php
 Vagrantfile
 app/bootstrap/cache/*
 !app/bootstrap/cache/.gitignore
+/_ide_helper_models.php
+
