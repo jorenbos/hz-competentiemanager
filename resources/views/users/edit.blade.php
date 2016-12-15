@@ -9,7 +9,7 @@
 
         <form method="post" action="{{url("/users/$user->id")}}">
             <input type="hidden" name="_method" value="PUT">
-            @include('crud.user.partials.baseform')
+            @include('users.partials.baseform')
             <input class="btn btn-success" type="submit" value="Opslaan">
         </form>
 
