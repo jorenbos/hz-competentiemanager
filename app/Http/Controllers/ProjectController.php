@@ -4,11 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Repositories\ProjectRepository;
+use Validator;
+use View;
 use App\Models\Project;
 
 
 class ProjectController extends Controller
 {
+
+  /**
+  * @var ProjectRepository
+  */
+  private $projects;
+
+  public function __construct(ProjectRepository $projectRepository)
+  {
+      $this->projects = $projectRepository;
+  }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +30,8 @@ class ProjectController extends Controller
     public function index()
     {
         return view(
-            'project/index', [
-            'projects' => Project::orderBy('name', 'asc')->get(),
+            'project.index', [
+            'projects' => $this->projects->getAll(),
              ]
         );
 
@@ -31,7 +44,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project/create');
+        return view('project.create');
     }
 
     /**
@@ -43,22 +56,15 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
 
-        // Check if the form was correctly filled in
-        $this->validate(
-            $request, [
-            'name' => 'required|max:255',
-             ]
-        );
-        // Create new Location object with the info in the request
-        $project = Project::create(
-            [
-            'name' => $request ['name'],
-             ]
-        );
-        // Save this object in the database
-        $project->save();
-        // Redirect to the location.index page with a success message.
-        return redirect('project')->with('success', $project->name.' is toegevoegd.');
+      $validator = $this->validator($request->all());
+
+      if($validator->fails()) {
+          return redirect('/project/create')
+              ->withErrors($validator)
+              ->withInput();
+      }
+    $this->projects->create($request->all());
+      return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
     }
 
     /**
@@ -70,8 +76,8 @@ class ProjectController extends Controller
     public function show($id)
     {
         return view(
-            'project/show', [
-            'project' => Project::findOrFail($id),
+            'project.show', [
+            'project' => $this->projects->getById($id),
              ]
         );
     }
@@ -85,8 +91,8 @@ class ProjectController extends Controller
     public function edit($id)
     {
         return view(
-            'project/edit', [
-            'project' => Project::findOrFail($id)
+            'project.edit', [
+            'project' => $this->projects->getById($id),
              ]
         );
     }
@@ -110,7 +116,7 @@ class ProjectController extends Controller
                    ]
               );
 
-              $project = Project::findorfail($id);
+              $project = $this->projects->getById($id);
               $project->name = $request ['name'];
               $project->projectnumber = $request ['projectnumber'];
 
@@ -118,7 +124,7 @@ class ProjectController extends Controller
               $project->save();
 
               // Redirect to the project.index page with a success message.
-              return redirect('project')->with('success', $project->name.' is bijgewerkt.');
+              return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
     }
 
     /**
@@ -129,8 +135,20 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = Project::findOrFail($id);
+        $project = $this->projects->getById($id);
         $project->delete();
-        return redirect('project');
+        return redirect('project')->with(['status' => "$project->name is verwijderd"]);
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make(
+            $data, [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6',
+            ]
+        );
+
     }
 }

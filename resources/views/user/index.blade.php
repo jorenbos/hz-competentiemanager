@@ -1,23 +1,16 @@
 @extends('layouts.app')
 
 @section('title')
-		Gebruikers
+	Gebruikers
+
 @endsection
 
 @section('content')
 
-@if (session('status'))
-		<div class="col-lg-8 col-lg-offset-2">
-				<div class="alert alert-success">
-						{{ session('status') }}
-				</div>
-		</div>
-@endif
-
-<!--Button to add new users, directs the user to the create page-->
+<!--Button to add a new users, directs the user to the create page-->
 <div style="float:left">
-	<a class="btn btn-primary" href="{!! url('users/create') !!}">
-		Gebruiker toevoegen
+	<a class="btn btn-primary" href="{!! url('user/create') !!}">
+		Project toevoegen
 	</a>
 </div>
 
@@ -29,35 +22,29 @@
 				<th class="col-sm-4">Naam</th>
 			</thead>
 
-<!--Table will be filled with the users in the database-->
+<!--Table will be filled with the users present in the database-->
 			<tbody>
 				@foreach ($users as $user)
 				<tr class="row-link" style="cursor: pointer;"
 									data-href="{{action('UserController@show', ['id' => $user->id]) }}">
 					<td class="table-text">{{ $user->id }}</td>
-					<td class="table-text">
-						<a href="{{url("/users/$user->id")}}">{{ $user->name }}</a>
-					</td>
+					<td class="table-text">{{ $user->name}}</td>
 
-<!--This button will redirect the user to the /users/edit page-->
+<!--This button will redirect the user to the /user/edit page-->
 					<td class="table-text">
 						<div>
-							<a class="btn btn-primary" href="{!! url("users/$user->id/edit" ) !!}">
+							<a class="btn btn-primary" href="{!! url('user/' . $user->id .'/edit' ) !!}">
 								Wijzigen
 							</a>
 						</div>
 					</td>
 
-<!--This button will delete the user, without a warning -->
+<!--This button will delete the user in the same row without a warning-->
 					<td class="table-text">
 						<div class="col-sm-1">
-							<form action="{{url("/users/$user->id")}}" method="post">
-									<input type="hidden" name="_method" value="DELETE">
-									{{csrf_field()}}
-									<span class="input-group-btn">
-											<input type="submit" class="btn btn-sm btn-danger" value="Verwijder">
-									</span>
-							</form>
+								{!! Form::open(['route' => ['user.destroy', $user->id], 'method'=>'DELETE']) !!}
+								{!! Form::submit('Verwijderen', array('class'=>'btn btn-danger')) !!}
+								{!! Form::close() !!}
 						</div>
 					</td>
 

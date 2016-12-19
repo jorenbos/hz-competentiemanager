@@ -33,7 +33,7 @@ class UserRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return User::all();
+        return User::orderBy('name', 'asc')->get();
     }
 
     /**

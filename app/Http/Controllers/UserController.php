@@ -29,9 +29,9 @@ class UserController extends Controller
     public function index()
     {
         return view(
-            '/users/index', [
-            'users' => User::orderBy('name', 'asc')->get(),
-             ] 
+            'users.index', [
+            'users' => $this->users->getAll(),
+             ]
         );
     }
 
@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('/users/create');
+        return view('users.create');
     }
 
     /**
@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-    
+
         $validator = $this->validator($request->all());
 
         if($validator->fails()) {
@@ -61,7 +61,7 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $this->users->create($request->all());
+      $this->users->create($request->all());
         return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
@@ -74,9 +74,9 @@ class UserController extends Controller
     public function show($id)
     {
         return view(
-            '/users/show', [
-            'user' => User::findOrFail($id),
-             ] 
+            'users.show', [
+            'user' => $this->users->getById($id),
+             ]
         );
     }
 
@@ -89,9 +89,9 @@ class UserController extends Controller
     public function edit($id)
     {
         return view(
-            '/users/edit', [
-            'user' => User::findOrFail($id)
-             ] 
+            'users.edit', [
+            'user' => $this->users->getById($id)
+             ]
         );
     }
 
@@ -111,10 +111,10 @@ class UserController extends Controller
                   $request, [
                   'name' => 'required|max:255',
                   'email' => 'required|max:255',
-                   ] 
+                   ]
               );
 
-              $user = User::findorfail($id);
+              $user = $this->users->getById($id);
               $user->name = $request ['name'];
               $user->email = $request ['email'];
 
@@ -122,7 +122,7 @@ class UserController extends Controller
               $user->save();
 
               // Redirect to the user.index page with a success message.
-              return redirect('/users')->with('success', $user->name.' is bijgewerkt.');
+              return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
               //
     }
 
@@ -134,7 +134,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->users->getById($id);
         $user->delete();
         return redirect('/users');
     }
