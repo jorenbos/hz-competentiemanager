@@ -50,6 +50,7 @@ class UserCrudTest extends TestCase
         $this->visit('/users/1/edit')
             ->type('Meme', 'name')
             ->press('Opslaan')
+            ->see('Gebruiker aangepast')
             ->see('Meme');
 
         $this->visit('/users/1/edit')
@@ -64,6 +65,7 @@ class UserCrudTest extends TestCase
             ->type('Hans', 'name')
             ->type('admin123', 'password')
             ->press('Maak')
+            ->see('Gebruiker Aangemaakt')
             ->visit('/users')
             ->see('Hans');
 
