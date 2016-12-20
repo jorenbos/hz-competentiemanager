@@ -42,7 +42,7 @@ class UserCredentialsApiController extends Controller
             'name' => 'required|max:255',
             'student_code' => 'required|max:8|unique:user_credentials',
             'date_of_birth' => 'sometimes|date',
-            'starting_year' => 'sometimes|date',
+            'starting_date' => 'sometimes|date',
             'gender' => 'sometimes|max:10'
             ]
         );
