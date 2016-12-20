@@ -145,7 +145,8 @@ class CompetencyController extends Controller
             'description' => $request['description'],
             'ec_value' => $request['EC-value'],
             'cu_code' => $request['CU-code']
-        ], $id);
+            ], $id
+        );
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
@@ -168,7 +169,8 @@ class CompetencyController extends Controller
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');
     }
 
-    protected function validator($data) {
+    protected function validator($data) 
+    {
         return Validator::make(
             $data, [
                 'name' => 'required|max:255',
