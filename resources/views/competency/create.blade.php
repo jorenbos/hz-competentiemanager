@@ -12,6 +12,8 @@
 </li>
 @endsection
 
+@include('includes.status-errors')
+
 @section('content')
 {!! Form::open(['route' => ['competency.store'], 'method' => 'post', 'class' => 'form-horizontal']) !!}
 <!-- Holds all the forms for filling in competency info-->

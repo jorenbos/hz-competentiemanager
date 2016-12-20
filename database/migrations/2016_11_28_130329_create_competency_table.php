@@ -17,8 +17,8 @@ class CreateCompetencyTable extends Migration
           $table->string('name');
           $table->string('abbreviation');
           $table->text('description');
-          $table->float('ec_value');
-          $table->string('cu_code');
+          $table->float('ec-value');
+          $table->string('cu-code');
           $table->timestamps();
       });
     }
