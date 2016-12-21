@@ -50,5 +50,10 @@ class CompetencyRepository implements RepositoryInterface
         return Competency::destroy($ids);
     }
 
+    public function update($data, $id)
+    {
+        return Competency::findOrFail($id)->update($data);
+    }
+
 
 }
