@@ -61,7 +61,7 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-      $this->users->create($request->all());
+        $this->users->create($request->all());
         return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 

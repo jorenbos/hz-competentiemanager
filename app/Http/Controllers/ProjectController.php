@@ -13,15 +13,15 @@ use App\Models\Project;
 class ProjectController extends Controller
 {
 
-  /**
+    /**
   * @var ProjectRepository
   */
-  private $projects;
+    private $projects;
 
-  public function __construct(ProjectRepository $projectRepository)
-  {
-      $this->projects = $projectRepository;
-  }
+    public function __construct(ProjectRepository $projectRepository)
+    {
+        $this->projects = $projectRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,17 +56,16 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
 
-      $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all());
 
-      if($validator->fails())
-      {
-          return redirect('/project/create')
+        if($validator->fails()) {
+            return redirect('/project/create')
               ->withErrors($validator)
               ->withInput();
-      }
+        }
 
-      $this->projects->create($request->all());
-      return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
+        $this->projects->create($request->all());
+        return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
     }
 
     /**
