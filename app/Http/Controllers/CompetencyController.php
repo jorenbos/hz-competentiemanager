@@ -30,7 +30,7 @@ class CompetencyController extends Controller
 
         return view(
             'competency.index', [
-            'competenties' => $this->competency->getAll(),
+               'competenties' => $this->competency->getAll(),
              ]
         );
 
@@ -65,15 +65,7 @@ class CompetencyController extends Controller
         }
 
         // Create new Competency object with the info in the request
-        $competency = $this->competency->create(
-            [
-                'name' => $request['name'],
-                'abbreviation' => $request['abbreviation'],
-                'description' => $request['description'],
-                'ec_value' => $request['EC-value'],
-                'cu_code' => $request['CU-code']
-            ]
-        );
+        $competency = $this->competency->create($request-all());
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
@@ -88,10 +80,9 @@ class CompetencyController extends Controller
      */
     public function show($id)
     {
-
         return view(
             'competency/show', [
-            'competency' => $this->competency->getById($id),
+                'competency' => $this->competency->getById($id),
              ]
         );
 
@@ -108,7 +99,7 @@ class CompetencyController extends Controller
 
         return view(
             'competency/edit', [
-            'competency' => $this->competency->getById($id),
+                'competency' => $this->competency->getById($id),
              ]
         );
 
@@ -131,16 +122,7 @@ class CompetencyController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
-        $this->competency->update(
-            [
-                'name' => $request['name'],
-                'abbreviation' => $request['abbreviation'],
-                'description' => $request['description'],
-                'ec_value' => $request['EC-value'],
-                'cu_code' => $request['CU-code']
-            ], $id
-        );
+        $this->competency->update($request->all(), $id);
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');

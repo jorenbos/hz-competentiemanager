@@ -7,7 +7,7 @@
 @section('tools')
 <li role="navigation">
 	<a onClick="window.history.back()">
-		<i class="fa fa-arrow-left"></i>&nbspTerug
+		<i class="fa fa-arrow-left"></i>&nbsp;Terug
 	</a>
 </li>
 @endsection
@@ -35,14 +35,14 @@
 	</div>
 	<!-- A form for filling in the EC-value of the project-->
 	<div class="col-sm-6">
-		{!! Form::label('EC-value', 'Ec-value', ['class' => 'control-label']) !!}
-		{!! Form::text('EC-value', null, ['class' => 'form-control', 'placeholder' => 'Aantal ECs']) !!}
+		{!! Form::label('ec_value', 'Ec-value', ['class' => 'control-label']) !!}
+		{!! Form::text('ec_value', null, ['class' => 'form-control', 'placeholder' => 'Aantal ECs']) !!}
 	</div>
 	<!-- A form for filling in the CU-code of the project-->
-  <div class="col-sm-6">
-    {!! Form::label('CU-code', 'Cu-code', ['class' => 'control-label']) !!}
-    {!! Form::text('CU-code', null, ['class' => 'form-control', 'placeholder' => 'CU code']) !!}
-  </div>
+	<div class="col-sm-6">
+		{!! Form::label('cu_code', 'Cu-code', ['class' => 'control-label']) !!}
+		{!! Form::text('cu_code', null, ['class' => 'form-control', 'placeholder' => 'CU code']) !!}
+	</div>
 </div>
 
 <div class="form-group">
