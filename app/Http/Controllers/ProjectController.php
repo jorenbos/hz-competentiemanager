@@ -58,12 +58,14 @@ class ProjectController extends Controller
 
       $validator = $this->validator($request->all());
 
-      if($validator->fails()) {
+      if($validator->fails())
+      {
           return redirect('/project/create')
               ->withErrors($validator)
               ->withInput();
       }
-    $this->projects->create($request->all());
+
+      $this->projects->create($request->all());
       return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
     }
 
@@ -145,8 +147,8 @@ class ProjectController extends Controller
         return Validator::make(
             $data, [
                 'name' => 'required|max:255',
-                'email' => 'required|email|max:255|unique:users',
-                'password' => 'required|min:6',
+                'projectnumber' => 'required|max:255',
+                'description' => 'required|min:6',
             ]
         );
 

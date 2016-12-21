@@ -13,6 +13,9 @@
 @endsection
 
 @section('content')
+<div class="col-md-6 col-md-offset-3">
+		@include('includes.status-errors')
+
 <!--Container with the page content -->
 <div class='container-fluid'>
 {!! Form::open(['route' => ['project.store'], 'method' => 'post', 'class' => 'form-horizontal']) !!}
@@ -48,5 +51,6 @@
 						</button>
 					</div>
 				</div>
+			</div>
 {!! Form::close() !!}
 @endsection
