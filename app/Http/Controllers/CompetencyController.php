@@ -43,9 +43,7 @@ class CompetencyController extends Controller
      */
     public function create()
     {
-
         return view('competency.create');
-
     }
 
     /**
@@ -58,7 +56,7 @@ class CompetencyController extends Controller
     {
 
         // Check if the form was correctly filled in
-        $validator = $this->validator($request->all());
+        $validator = $this->storeValidator($request->all());
 
         if($validator->fails()) {
             return redirect('/competency/create')
@@ -76,8 +74,7 @@ class CompetencyController extends Controller
                 'cu_code' => $request['CU-code']
             ]
         );
-        // Save this object in the database
-        //$competency->save();
+
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
 
@@ -126,11 +123,8 @@ class CompetencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        //echo 'update';
         // Check if the form was correctly filled in
-        // Check if the form was correctly filled in
-        $validator = $this->validator($request->all());
+        $validator = $this->updateValidator($request->all());
 
         if($validator->fails()) {
             return redirect('/competency')
@@ -140,11 +134,11 @@ class CompetencyController extends Controller
 
         $this->competency->update(
             [
-            'name' => $request['name'],
-            'abbreviation' => $request['abbreviation'],
-            'description' => $request['description'],
-            'ec_value' => $request['EC-value'],
-            'cu_code' => $request['CU-code']
+                'name' => $request['name'],
+                'abbreviation' => $request['abbreviation'],
+                'description' => $request['description'],
+                'ec_value' => $request['EC-value'],
+                'cu_code' => $request['CU-code']
             ], $id
         );
 
@@ -162,14 +156,29 @@ class CompetencyController extends Controller
     public function destroy($id)
     {
         //Find the competency object in the database
-        $competency = Competency::findorfail($id);
+        $competency = $this->competency->getById($id);
+
         //Remove the competency from the database
         $competency->delete();
+
         //Redirect to the competency. index page with a succes message.
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');
     }
 
-    protected function validator($data) 
+    protected function storeValidator($data)
+    {
+        return Validator::make(
+            $data, [
+                'name' => 'required|max:255',
+                'abbreviation' => 'required|max:5|unique:competencies',
+                'description' => 'required|max:2056',
+                'EC-value' => 'required',
+                'CU-code' => 'required|max:10'
+            ]
+        );
+    }
+
+    protected function updateValidator($data)
     {
         return Validator::make(
             $data, [
