@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Competency extends Model
 {
     protected $fillable = [
-        'name', 'abbreviation', 'description', 'EC-value', 'CU-code'
+        'name', 'abbreviation', 'description', 'ec_value', 'cu_code'
     ];
 }

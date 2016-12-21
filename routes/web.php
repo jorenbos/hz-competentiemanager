@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 Route::auth();
 
+Route::get('/dashboard', 'HomeController@index');
 Route::resource('users','UserController');
 Route::resource('projects','ProjectController');
-Route::resource('competencies','CompetencyController');
-
-Route::get('/dashboard', 'HomeController@index');
+Route::resource('competency', 'CompetencyController');
