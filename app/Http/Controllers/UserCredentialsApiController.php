@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserCredentials;
+use App\Util\StatusCodes;
 use Illuminate\Http\Request;
 
 class UserCredentialsApiController extends Controller
@@ -49,13 +50,13 @@ class UserCredentialsApiController extends Controller
 
         if ($validator->fails()) {
             return response()
-                ->json($validator->messages(), 422);
+                ->json($validator->messages(), StatusCodes::UNPROCESSABLE_ENTITY);
         }
 
         $userCredentials = UserCredentials::create($request->all());
 
         return response()
-            ->json($userCredentials);
+            ->json($userCredentials, StatusCodes::CREATED);
     }
 
     /**
@@ -102,7 +103,7 @@ class UserCredentialsApiController extends Controller
 
         if ($validator->fails()) {
             return response()
-                ->json($validator->messages(), 422);
+                ->json($validator->messages(), StatusCodes::UNPROCESSABLE_ENTITY);
         }
 
         $userCredentials = UserCredentials::findOrFail($id)->change($request->all());
@@ -122,6 +123,6 @@ class UserCredentialsApiController extends Controller
         UserCredentials::destroy($id);
 
         return response()
-            ->json([], 200);
+            ->json([], StatusCodes::NO_CONTENT);
     }
 }
