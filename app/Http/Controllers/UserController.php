@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Repositories\UserRepository;
 use Validator;
 use View;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -19,7 +21,6 @@ class UserController extends Controller
     {
         $this->users = $userRepository;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +28,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return \View::make('crud.user.list', ['users' => $this->users->getAll()]);
+        return view(
+            'users.index', [
+            'users' => $this->users->getAll(),
+             ]
+        );
     }
 
     /**
@@ -37,7 +42,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return View::make('crud.user.create');
+        return view('users.create');
     }
 
     /**
@@ -48,6 +53,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = $this->validator($request->all());
 
         if($validator->fails()) {
@@ -55,9 +61,7 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
         $this->users->create($request->all());
-
         return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
@@ -69,7 +73,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return View::make('crud.user.show', ['user' => $this->users->getById($id)]);
+        return view(
+            'users.show', [
+            'user' => $this->users->getById($id),
+             ]
+        );
     }
 
     /**
@@ -80,7 +88,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return View::make('crud.user.edit', ['user' => $this->users->getById($id)]);
+        return view(
+            'users.edit', [
+            'user' => $this->users->getById($id)
+             ]
+        );
     }
 
     /**
@@ -93,11 +105,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = $this->users->getById($id);
-        $user->fill($request->all());
-        $user->save();
+        echo 'update';
+              // Check if the form was correctly filled in
+              $this->validate(
+                  $request, [
+                  'name' => 'required|max:255',
+                  'email' => 'required|max:255',
+                   ]
+              );
 
-        return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
+              $user = $this->users->getById($id);
+              $user->name = $request ['name'];
+              $user->email = $request ['email'];
+
+              // Save the changes in the database
+              $user->save();
+
+              // Redirect to the user.index page with a success message.
+              return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
+              //
     }
 
     /**
@@ -108,8 +134,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->users->delete($id);
-        return redirect('/users')->with('status', 'Gebruiker Verwijderd!');
+        $user = $this->users->getById($id);
+        $user->delete();
+        return redirect('/users');
     }
 
     protected function updateValidator(array $data)
@@ -132,5 +159,6 @@ class UserController extends Controller
                 'password' => 'required|min:6',
             ]
         );
+
     }
 }

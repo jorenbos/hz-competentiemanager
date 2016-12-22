@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function competencies()
+    {
+        return $this->hasMany('App\Competency');
+    }
+
     public function contactOfProject()
     {
         return $this->belongsTo('App\Models\Project', 'project_contact_id');

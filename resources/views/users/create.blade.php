@@ -8,7 +8,7 @@
         @include('includes.status-errors')
 
         <form action="{{url('/users')}}" method="post">
-            @include('crud.user.partials.baseform')
+            @include('users.partials.baseform')
             <input class="btn btn-success" type="submit" value="Maak">
         </form>
 

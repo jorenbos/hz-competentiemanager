@@ -29,7 +29,8 @@ class UserCrudTest extends TestCase
         $this->mockSomeUsers();
 
         $this->visit('/users/1')
-            ->see('where we');
+            ->see('John Doe')
+            ->see('johndoe@example.com');
     }
 
     public function testEdit()

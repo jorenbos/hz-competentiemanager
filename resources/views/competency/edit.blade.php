@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <div class = "container-fluid">
 
 	{!! Form::model($competency, ['route' => ['competency.update', $competency->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
@@ -56,7 +57,7 @@
 			</button>
 		</div>
 	</div>
-
+  
 	{!! Form::close() !!}
 
 </div>

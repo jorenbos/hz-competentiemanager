@@ -43,7 +43,9 @@ class CompetencyController extends Controller
      */
     public function create()
     {
+
         return view('competency.create');
+
     }
 
     /**
@@ -96,7 +98,6 @@ class CompetencyController extends Controller
      */
     public function edit($id)
     {
-
         return view(
             'competency/edit', [
                 'competency' => $this->competency->getById($id),
@@ -126,7 +127,6 @@ class CompetencyController extends Controller
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
-
     }
 
     /**
