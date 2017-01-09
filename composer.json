@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
-        "laravelcollective/html": "5.3.*"
+        "laravelcollective/html": "5.3.*",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -25,7 +26,8 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Illuminate\\": "src/Illuminate/"
         }
     },
     "autoload-dev": {
@@ -42,15 +44,15 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan migrate --force"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
         "test": [
-            "phpunit",
-            "vendor/bin/phpmd app,tests text codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers"
+            "phpunit"
         ],
         "fix": [
             "vendor/bin/phpcbf ./app ./tests"

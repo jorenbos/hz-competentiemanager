@@ -1,53 +1,53 @@
 @extends('layouts.app')
 
 @section('title')
-	Lijst van projecten
+	Gebruikers
 
 @endsection
 
 @section('content')
 
-<!--Button to add a new project, directs the user to the create page-->
+<!--Button to add a new users, directs the user to the create page-->
 <div style="float:left">
-	<a class="btn btn-primary" href="{!! url('project/create') !!}">
+	<a class="btn btn-primary" href="{!! url('user/create') !!}">
 		Project toevoegen
 	</a>
 </div>
 
 <!--Table headers-->
-	@if (count($projects) > 0)
+	@if (count($users) > 0)
 		<table class="table table-striped table-hover">
 			<thead>
 				<th class="col-sm-1">Id</th>
 				<th class="col-sm-4">Naam</th>
 			</thead>
 
-<!--Table will be filled with the projects present in the database-->
+<!--Table will be filled with the users present in the database-->
 			<tbody>
-				@foreach ($projects as $project)
+				@foreach ($users as $user)
 				<tr class="row-link" style="cursor: pointer;"
-									data-href="{{action('ProjectController@show', ['id' => $project->id]) }}">
-					<td class="table-text">{{ $project->id }}</td>
-					<td class="table-text">{{ $project->name}}</td>
+									data-href="{{action('UserController@show', ['id' => $user->id]) }}">
+					<td class="table-text">{{ $user->id }}</td>
+					<td class="table-text">{{ $user->name}}</td>
 
-<!--This button will redirect the user to the /project/edit page-->
+<!--This button will redirect the user to the /user/edit page-->
 					<td class="table-text">
 						<div>
-							<a class="btn btn-primary" href="{!! url('project/' . $project->id .'/edit' ) !!}">
+							<a class="btn btn-primary" href="{!! url('user/' . $user->id .'/edit' ) !!}">
 								Wijzigen
 							</a>
 						</div>
 					</td>
 
-<!--This button will delete the project in the same row without a warning-->
+<!--This button will delete the user in the same row without a warning-->
 					<td class="table-text">
 						<div class="col-sm-1">
-								{!! Form::open(['route' => ['project.destroy', $project->id], 'method'=>'DELETE']) !!}
+								{!! Form::open(['route' => ['user.destroy', $user->id], 'method'=>'DELETE']) !!}
 								{!! Form::submit('Verwijderen', array('class'=>'btn btn-danger')) !!}
 								{!! Form::close() !!}
 						</div>
 					</td>
-					
+
 				</tr>
 				@endforeach
 			</tbody>
@@ -58,7 +58,7 @@
 <script>
 	jQuery(document).ready(function($) {
 	    $(".row-link").click(function() {
-	        window.document.project = $(this).data("href");
+	        window.document.user = $(this).data("href");
 	    });
 	    $('#cohort-tabs a:first').tab('show') // Select first tab
 	});

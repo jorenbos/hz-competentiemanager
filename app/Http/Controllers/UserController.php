@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
-use App\Repositories\ProjectRepository;
+use App\Repositories\UserRepository;
 use Validator;
 use View;
-use App\Models\Project;
+use Illuminate\Http\Request;
+use App\Models\User;
 
-
-class ProjectController extends Controller
+class UserController extends Controller
 {
 
     /**
-  * @var ProjectRepository
-  */
-    private $projects;
+     * @var UserRepository
+     */
+    private $users;
 
-    public function __construct(ProjectRepository $projectRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->projects = $projectRepository;
+        $this->users = $userRepository;
     }
     /**
      * Display a listing of the resource.
@@ -30,11 +29,10 @@ class ProjectController extends Controller
     public function index()
     {
         return view(
-            'project.index', [
-            'projects' => $this->projects->getAll(),
+            'users.index', [
+            'users' => $this->users->getAll(),
              ]
         );
-
     }
 
     /**
@@ -44,7 +42,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('users.create');
     }
 
     /**
@@ -59,13 +57,12 @@ class ProjectController extends Controller
         $validator = $this->validator($request->all());
 
         if($validator->fails()) {
-            return redirect('/project/create')
-              ->withErrors($validator)
-              ->withInput();
+            return redirect('/users/create')
+                ->withErrors($validator)
+                ->withInput();
         }
-
-        $this->projects->create($request->all());
-        return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
+        $this->users->create($request->all());
+        return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
     /**
@@ -77,8 +74,8 @@ class ProjectController extends Controller
     public function show($id)
     {
         return view(
-            'project.show', [
-            'project' => $this->projects->getById($id),
+            'users.show', [
+            'user' => $this->users->getById($id),
              ]
         );
     }
@@ -92,14 +89,15 @@ class ProjectController extends Controller
     public function edit($id)
     {
         return view(
-            'project.edit', [
-            'project' => $this->projects->getById($id),
+            'users.edit', [
+            'user' => $this->users->getById($id)
              ]
         );
     }
 
     /**
      * Update the specified resource in storage.
+     * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
@@ -112,20 +110,20 @@ class ProjectController extends Controller
               $this->validate(
                   $request, [
                   'name' => 'required|max:255',
-                  'projectnumber' => 'required|max:255',
-                  'description' => 'required|max:255',
+                  'email' => 'required|max:255',
                    ]
               );
 
-              $project = $this->projects->getById($id);
-              $project->name = $request ['name'];
-              $project->projectnumber = $request ['projectnumber'];
+              $user = $this->users->getById($id);
+              $user->name = $request ['name'];
+              $user->email = $request ['email'];
 
               // Save the changes in the database
-              $project->save();
+              $user->save();
 
-              // Redirect to the project.index page with a success message.
-              return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
+              // Redirect to the user.index page with a success message.
+              return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
+              //
     }
 
     /**
@@ -136,9 +134,20 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = $this->projects->getById($id);
-        $project->delete();
-        return redirect('project')->with(['status' => "$project->name is verwijderd"]);
+        $user = $this->users->getById($id);
+        $user->delete();
+        return redirect('/users');
+    }
+
+    protected function updateValidator(array $data)
+    {
+        return Validator::make(
+            $data, [
+            'name' => 'sometimes|max:255',
+            'email' => 'sometimes|email|max:255|unique:users',
+            'password' => 'sometimes|min:6',
+            ]
+        );
     }
 
     protected function validator(array $data)
@@ -146,8 +155,8 @@ class ProjectController extends Controller
         return Validator::make(
             $data, [
                 'name' => 'required|max:255',
-                'projectnumber' => 'required|max:255',
-                'description' => 'required|min:6',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6',
             ]
         );
 

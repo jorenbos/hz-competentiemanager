@@ -7,3 +7,11 @@ Homestead.yaml
 .env
 _ide_helper.php
 /.phpstorm.meta.php
+Vagrantfile
+app/bootstrap/cache/*
+!app/bootstrap/cache/.gitignore
+/_ide_helper_models.php
+app/bootstrap/cache/*
+!app/bootstrap/cache/.gitignore
+Vagrantfile
+
