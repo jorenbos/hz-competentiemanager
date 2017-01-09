@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserCredentialsApiTest extends TestCase
+class StudentApiTest extends TestCase
 {
 
     use DatabaseMigrations;
@@ -13,7 +13,7 @@ class UserCredentialsApiTest extends TestCase
     {
         parent::setUp();
 
-        \App\Models\UserCredentials::create(
+        \App\Models\Student::create(
             [
             'name' => 'John Doe',
             'student_code' => '00038574'
@@ -26,22 +26,22 @@ class UserCredentialsApiTest extends TestCase
      *
      * @return void
      */
-    public function testUserCredentialsList()
+    public function testStudentList()
     {
-        $this->visit('api/usercredentials')
+        $this->visit('api/student')
             ->seeJson(['name' =>'John Doe']);
     }
 
-    public function testUserCredentialsShow()
+    public function testStudentShow()
     {
-        $this->visit('api/usercredentials/1')
+        $this->visit('api/student/1')
             ->seeJson(['name' =>'John Doe']);
     }
 
-    public function testUserCredentialsCreate()
+    public function testStudentCreate()
     {
         $this->json(
-            'POST', 'api/usercredentials', [
+            'POST', 'api/student', [
             'name' => 'Co de Klopper',
             'student_code' => '00055976',
             'gender' => 'man',
@@ -52,7 +52,7 @@ class UserCredentialsApiTest extends TestCase
 
         // If we do this again it should fail because of duplicate student_code
         $this->json(
-            'POST', 'api/usercredentials', [
+            'POST', 'api/student', [
             'name' => 'Co de Klopper',
             'student_code' => '00055976',
             'gender' => 'man',

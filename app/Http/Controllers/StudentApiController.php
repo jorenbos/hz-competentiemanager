@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserCredentials;
+use App\Models\Student;
 use App\Util\StatusCodes;
 use Illuminate\Http\Request;
 
-class UserCredentialsApiController extends Controller
+class StudentApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +17,7 @@ class UserCredentialsApiController extends Controller
     public function index()
     {
         return response()
-            ->json(UserCredentials::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+            ->json(Student::all());
     }
 
     /**
@@ -41,7 +31,7 @@ class UserCredentialsApiController extends Controller
         $validator = \Validator::make(
             $request->all(), [
             'name' => 'required|max:255',
-            'student_code' => 'required|max:8|unique:user_credentials',
+            'student_code' => 'required|max:8|unique:students',
             'date_of_birth' => 'sometimes|date',
             'starting_date' => 'sometimes|date',
             'gender' => 'sometimes|max:10'
@@ -53,10 +43,10 @@ class UserCredentialsApiController extends Controller
                 ->json($validator->messages(), StatusCodes::UNPROCESSABLE_ENTITY);
         }
 
-        $userCredentials = UserCredentials::create($request->all());
+        $student = Student::create($request->all());
 
         return response()
-            ->json($userCredentials, StatusCodes::CREATED);
+            ->json($student, StatusCodes::CREATED);
     }
 
     /**
@@ -68,7 +58,7 @@ class UserCredentialsApiController extends Controller
     public function show($id)
     {
         return response()
-            ->json(UserCredentials::findOrFail($id));
+            ->json(Student::findOrFail($id));
     }
 
     /**
@@ -94,7 +84,7 @@ class UserCredentialsApiController extends Controller
         $validator = \Validator::make(
             $request->all(), [
             'name' => 'required|max:255',
-            'student_code' => 'required|max:8|unique:user_credentials',
+            'student_code' => 'required|max:8|unique:students',
             'date_of_birth' => 'sometimes|date',
             'starting_date' => 'sometimes|date',
             'gender' => 'sometimes|max:10'
@@ -106,10 +96,10 @@ class UserCredentialsApiController extends Controller
                 ->json($validator->messages(), StatusCodes::UNPROCESSABLE_ENTITY);
         }
 
-        $userCredentials = UserCredentials::findOrFail($id)->change($request->all());
+        $student = Student::findOrFail($id)->change($request->all());
 
         return response()
-            ->json($userCredentials);
+            ->json($student);
     }
 
     /**
@@ -120,7 +110,7 @@ class UserCredentialsApiController extends Controller
      */
     public function destroy($id)
     {
-        UserCredentials::destroy($id);
+        Student::destroy($id);
 
         return response()
             ->json([], StatusCodes::NO_CONTENT);
