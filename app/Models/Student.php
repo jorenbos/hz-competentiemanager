@@ -26,4 +26,14 @@ class Student extends Model
         return $this->hasMany('App\Models\User');
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'project_student', 'student_id', 'project_id');
+    }
+
+    public function competencies()
+    {
+        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id');
+    }
+
 }
