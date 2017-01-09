@@ -20,4 +20,10 @@ class Student extends Model
     // We have nothing to hide
     protected $hidden = [];
 
+    public function user()
+    {
+        // business rules limit this relation to 0 or 1.
+        return $this->hasMany('App\Models\User');
+    }
+
 }

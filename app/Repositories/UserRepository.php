@@ -37,6 +37,17 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
+     * Returns isntance of coupled student if possible
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|User[]
+     */
+    public function getStudent($id)
+    {
+        return User::findOrFail($id)->student;
+    }
+
+
+    /**
      * @param array $attributes The attributes to assign to the model
      * @return User
      */
