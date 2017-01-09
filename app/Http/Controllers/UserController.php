@@ -57,12 +57,12 @@ class UserController extends Controller
         $validator = $this->validator($request->all());
 
         if($validator->fails()) {
-            return redirect('/users/create')
+            return redirect('/user/create')
                 ->withErrors($validator)
                 ->withInput();
         }
         $this->users->create($request->all());
-        return redirect('/users/create')->with(['status' => 'Gebruiker Aangemaakt']);
+        return redirect('/user/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
     /**
@@ -122,7 +122,7 @@ class UserController extends Controller
               $user->save();
 
               // Redirect to the user.index page with a success message.
-              return redirect("/users/$id/edit")->with(['status' => 'Gebruiker aangepast']);
+              return redirect("/user/$id/edit")->with(['status' => 'Gebruiker aangepast']);
               //
     }
 
@@ -136,7 +136,7 @@ class UserController extends Controller
     {
         $user = $this->users->getById($id);
         $user->delete();
-        return redirect('/users');
+        return redirect('/user');
     }
 
     protected function updateValidator(array $data)
