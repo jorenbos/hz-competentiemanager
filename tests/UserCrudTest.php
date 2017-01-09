@@ -19,7 +19,7 @@ class UserCrudTest extends TestCase
     {
         $this->mockSomeUsers();
 
-        $this->visit('/users')
+        $this->visit('/user')
             ->see('John Doe')
             ->see('Jane Doe');
     }
@@ -28,7 +28,7 @@ class UserCrudTest extends TestCase
     {
         $this->mockSomeUsers();
 
-        $this->visit('/users/1')
+        $this->visit('/user/1')
             ->see('John Doe')
             ->see('johndoe@example.com');
     }
@@ -37,7 +37,7 @@ class UserCrudTest extends TestCase
     {
         $this->mockSomeUsers();
 
-        $this->visit('/users/1/edit')
+        $this->visit('/user/1/edit')
             ->see('John Doe');
     }
 
@@ -48,30 +48,30 @@ class UserCrudTest extends TestCase
     {
         $this->mockSomeUsers();
 
-        $this->visit('/users/1/edit')
+        $this->visit('/user/1/edit')
             ->type('Meme', 'name')
             ->press('Opslaan')
             ->see('Gebruiker aangepast')
             ->see('Meme');
 
-        $this->visit('/users/1/edit')
+        $this->visit('/user/1/edit')
             ->see('Meme');
     }
 
     public function testCreate()
     {
         //Positive test
-        $this->visit('users/create')
+        $this->visit('user/create')
             ->type('hans@kpnplanet.nl', 'email')
             ->type('Hans', 'name')
             ->type('admin123', 'password')
             ->press('Maak')
             ->see('Gebruiker Aangemaakt')
-            ->visit('/users')
+            ->visit('/user')
             ->see('Hans');
 
         //Negative test, do not create users and break validation
-        $this->visit('users/create')
+        $this->visit('user/create')
             ->type('hans@kpnplanet', 'email')
             ->type('Hans', 'name')
             ->type('admin', 'password')

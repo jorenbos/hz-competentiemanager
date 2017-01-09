@@ -7,7 +7,7 @@
     <div class="col-md-6 col-md-offset-3">
         @include('includes.status-errors')
 
-        <form method="post" action="{{url("/users/$user->id")}}">
+        <form method="post" action="{{url("/user/$user->id")}}">
             <input type="hidden" name="_method" value="PUT">
             @include('users.partials.baseform')
             <input class="btn btn-success" type="submit" value="Opslaan">
