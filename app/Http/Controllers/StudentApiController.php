@@ -17,7 +17,7 @@ class StudentApiController extends Controller
     public function index()
     {
         return response()
-            ->json(Student::all());
+            ->json(['students' => Student::all()]);
     }
 
     /**
