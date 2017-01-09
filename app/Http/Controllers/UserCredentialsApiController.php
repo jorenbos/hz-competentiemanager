@@ -17,7 +17,7 @@ class UserCredentialsApiController extends Controller
     public function index()
     {
         return response()
-            ->json(UserCredentials::all());
+            ->json(['students' => UserCredentials::all()]);
     }
 
     /**
