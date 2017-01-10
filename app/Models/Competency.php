@@ -12,11 +12,11 @@ class Competency extends Model
 
     public function students()
     {
-    	return $this->belongsToMany('App\Models\Student', 'student_competency', 'competency_id', 'student_id');
+        return $this->belongsToMany('App\Models\Student', 'student_competency', 'competency_id', 'student_id');
     }
 
     public function projects()
     {
-    	return $this->belongsToMany('App\Models\Project', 'project_competency', 'competency_id', 'project_id');
+        return $this->belongsToMany('App\Models\Project', 'project_competency', 'competency_id', 'project_id');
     }
 }
