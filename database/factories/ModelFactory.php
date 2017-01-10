@@ -38,3 +38,13 @@ $factory->define(App\Models\Project::class, function(Faker\Generator $faker) {
 		'projectnumber' => $faker->numerify('########')
 	];
 });
+$factory->define(App\Models\Student::class, function(Faker\Generator $faker) {
+	$gender = $faker->randomElement($array = ['male', 'female']);
+	return [
+		'name' => $faker->name($gender),
+		'student_code' => $faker->numerify('########'),
+		'date_of_birth' => $faker->date('Y-m-d'),
+		'starting_date' => $faker->date('Y-m-d'),
+		'gender' => $gender
+	];
+});

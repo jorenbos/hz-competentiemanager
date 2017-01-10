@@ -23,6 +23,6 @@ class Project extends Model
 
     public function competencies()
     {
-    	return $this->belongsToMany('App\Models\Competencies', 'project_competencies', 'project_id', 'competency_id');
+    	return $this->belongsToMany('App\Models\Competency', 'project_competency', 'project_id', 'competency_id');
     }
 }
