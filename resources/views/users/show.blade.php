@@ -8,9 +8,9 @@
 <td>
   <div class="input-group" role="group" aria-label="...">
     <span class="input-group-btn">
-      <a class="btn btn-sm btn-default" href="{{url("/users/$user->id/edit")}}">Bewerk</a>
+      <a class="btn btn-sm btn-default" href="{{url("/user/$user->id/edit")}}">Bewerk</a>
     </span>
-      <form action="{{url("/users/$user->id")}}" method="post">
+      <form action="{{url("/user/$user->id")}}" method="post">
         <input type="hidden" name="_method" value="DELETE">
           {{csrf_field()}}
             <span class="input-group-btn">

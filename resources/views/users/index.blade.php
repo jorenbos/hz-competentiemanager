@@ -16,7 +16,7 @@
 
 <!--Button to add new users, directs the user to the create page-->
 <div style="float:left">
-	<a class="btn btn-primary" href="{!! url('users/create') !!}">
+	<a class="btn btn-primary" href="{!! url('user/create') !!}">
 		Gebruiker toevoegen
 	</a>
 </div>
@@ -36,13 +36,13 @@
 									data-href="{{action('UserController@show', ['id' => $user->id]) }}">
 					<td class="table-text">{{ $user->id }}</td>
 					<td class="table-text">
-						<a href="{{url("/users/$user->id")}}">{{ $user->name }}</a>
+						<a href="{{url("/user/$user->id")}}">{{ $user->name }}</a>
 					</td>
 
-<!--This button will redirect the user to the /users/edit page-->
+<!--This button will redirect the user to the /user/edit page-->
 					<td class="table-text">
 						<div>
-							<a class="btn btn-primary" href="{!! url("users/$user->id/edit" ) !!}">
+							<a class="btn btn-primary" href="{!! url("user/$user->id/edit" ) !!}">
 								Wijzigen
 							</a>
 						</div>
@@ -51,7 +51,7 @@
 <!--This button will delete the user, without a warning -->
 					<td class="table-text">
 						<div class="col-sm-1">
-							<form action="{{url("/users/$user->id")}}" method="post">
+							<form action="{{url("/user/$user->id")}}" method="post">
 									<input type="hidden" name="_method" value="DELETE">
 									{{csrf_field()}}
 									<span class="input-group-btn">
