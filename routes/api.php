@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 
-Route::resource('usercredentials','UserCredentialsApiController');
+Route::resource('student','StudentApiController');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
