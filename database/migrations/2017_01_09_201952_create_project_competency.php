@@ -17,6 +17,7 @@ class CreateProjectCompetency extends Migration
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('competency_id');
+            $table->integer('amount');
             $table->timestamps();
         });
     }

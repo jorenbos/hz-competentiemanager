@@ -27,7 +27,14 @@ $factory->define(App\Models\Competency::class, function(Faker\Generator $faker) 
 		'name' => $faker->bs,
 		'abbreviation' => $faker->bothify('???#'),
 		'description' => $faker->catchPhrase,
-		'EC-value' => $faker->randomElement($array = [2.5, 5.0]),
-		'CU-code' => $faker->bothify('CU#####')
+		'ec_value' => $faker->randomElement($array = [2.5, 5.0]),
+		'cu_code' => $faker->bothify('CU#####')
+	];
+});
+$factory->define(App\Models\Project::class, function(Faker\Generator $faker) {
+	return [
+		'name' => $faker->bs,
+		'description' => $faker->catchPhrase,
+		'projectnumber' => $faker->numerify('########')
 	];
 });

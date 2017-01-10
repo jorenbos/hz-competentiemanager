@@ -17,7 +17,6 @@ class CreateProjectStudent extends Migration
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('student_id');
-            $table->integer('amount');
             $table->timestamps();
         });
     }
