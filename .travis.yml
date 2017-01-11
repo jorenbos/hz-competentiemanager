@@ -6,6 +6,10 @@ php:
 services:
 - mysql
 
+branches:
+  only:
+  - master
+
 before_script:
 - cp .env.travis .env
 - mysql -e 'create database testing;'
