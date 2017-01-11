@@ -18,16 +18,16 @@ class DemandController extends Controller
 
         foreach($competencies as $competency)
         {
-            $calculated_competencies[$competency.id] = 0;
+            $calculated_competencies[$competency->id] = 0;
         }
 
         foreach($students as $student)
         {
-            foreach($student.todo_slots as $slot)
+            foreach($student->todo_slots as $slot)
             {
-                foreach($slot.competencies as $competency)
+                foreach($slot->competencies as $competency)
                 {
-                    $calculated_competencies[$competency.id] += (1 / $slot.competencies.length / $student.todo_slots.length);
+                    $calculated_competencies[$competency->id] += (1 / $slot->competencies->length / $student->todo_slots->length);
                 }
             }
         }
