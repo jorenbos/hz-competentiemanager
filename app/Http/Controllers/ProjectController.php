@@ -23,7 +23,7 @@ class ProjectController extends Controller
         $this->projects = $projectRepository;
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the projects.
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,7 +38,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new project.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +48,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created project in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -69,7 +69,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified project.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -84,7 +84,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified project.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -99,7 +99,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified project in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
@@ -129,7 +129,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified project from storage.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response

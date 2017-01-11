@@ -22,7 +22,7 @@ class UserController extends Controller
         $this->users = $userRepository;
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,7 +36,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -46,7 +46,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -66,7 +66,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified user.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -96,7 +96,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
      *
      * @param  \Illuminate\Http\Request $request
@@ -127,7 +127,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user from storage.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -139,6 +139,12 @@ class UserController extends Controller
         return redirect('/user');
     }
 
+    /**
+     * Validator for form data when a update call is made.
+     *
+     * @param  array $data
+     * @return \Validator
+     */
     protected function updateValidator(array $data)
     {
         return Validator::make(
@@ -150,6 +156,12 @@ class UserController extends Controller
         );
     }
 
+     /**
+     * Validator for form data when a generic call is made.
+     *
+     * @param  array $data
+     * @return \Validator
+     */
     protected function validator(array $data)
     {
         return Validator::make(
