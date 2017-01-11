@@ -1,25 +1,31 @@
 language: php
 
 php:
- - 7.0
+- 7.0
 
 services:
-  - mysql
+- mysql
 
 before_script:
-  - cp .env.travis .env
-  - mysql -e 'create database testing;'
-  - composer self-update
-  - composer install --no-interaction
-  - php artisan key:generate
+- cp .env.travis .env
+- mysql -e 'create database testing;'
+- composer self-update
+- composer install --no-interaction
+- php artisan key:generate
 
 script:
-  - vendor/bin/phpunit
-  - php coverage-checker.php clover.xml 70
-  # - vendor/bin/phpmd app,tests text codesize,unusedcode,naming --exclude app/console,app/exceptions,app/providers
-  - vendor/bin/phpcbf ./app ./tests
+- vendor/bin/phpunit
+- php coverage-checker.php clover.xml 70
+- vendor/bin/phpcbf ./app ./tests
+
+after_success:
+  - if  [ $TRAVIS_PHP_VERSION = '5.6' ] && [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ]; then sh generate-api-docs.sh; fi
 
 notifications:
   slack:
     rooms:
-      - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#teamblauw
+    - dashboard-hbo-ict:gLQnLByGt7u5FCPaRVB8LPm2#teamblauw
+
+env:
+  global:
+    secure: "cMFHlVE0RxC3R8Jds80QakAsv5p23PvqWk0y7+LMCHquvvEGKweL/X90479KcwbFPa6xbA6yzX70MXn3xcIBAWWqlbaSBawnzK7swoNrOTPUZ0ItqrgNr7/BuJE0Kd6Xzi2/JG1YmOHSrBMxUsvAklQVs3zguOB4CPS74IGIOehQbDmT6MSctk4Kn4fzOfdVPpMZdnEAQ5b34CmEOA2EeAL3+CIVYvXBcQACwEJibIJnJHGR2wv/Wwyh1l1nHlCfZkobsNb7jUtXDrCO2GVhYUFHAH3Dm5ah4RzjRL0jbRHfIXKJILdmrEVFFsTIOyuGCjhWD/UcUsT3B3XZoImhX1XSdPVVb7HPKRFdaXqY5NRPh2lAEguXEatxbQHbqWy0hX2vsu+wjSoUstdHj+JyESoUfJ+3UdULtcKwUlUrHmcZL11O+gABrvLqzNDfl6oZMYoqYHWfEmj8vgr/xvrvscplCyC55xoiuyYORRC/yPiIFuM7NMinHZCCMuNcjIDab8EqeBx2TRR8xeVdAHo+lE2e5XsKxjJxY6MnDMCEqTfS7JDnpI62RtR9baBTIyr7+NY8aMZr6OSy/krFgSO7hdHF9GyygwJddrqOeSwM0zttKShoHBwCjJ1kAzK2Po0vXSLhykxB003Mji4UI9H/XwPxfjI8ztFqIBBnU1aEZuA="
