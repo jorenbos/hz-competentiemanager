@@ -18,7 +18,9 @@ class UserRepository implements RepositoryInterface
 {
 
     /**
-     * @param $id
+     * Returns User with given id from database
+     *
+     * @param  $id
      * @return User
      */
     public function getById($id)
@@ -29,7 +31,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Returns all instances of User in the database
      *
-     * @return \Illuminate\Database\Eloquent\Collection|User[]
+     * @return Collection|User[]
      */
     public function getAll()
     {
@@ -39,7 +41,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Returns isntance of coupled student if possible
      *
-     * @return \Illuminate\Database\Eloquent\Collection|User[]
+     * @return Collection|User[]
      */
     public function getStudent($id)
     {
@@ -48,8 +50,10 @@ class UserRepository implements RepositoryInterface
 
 
     /**
-     * @param array $attributes The attributes to assign to the model
-     * @return User
+     * Creates a new competency and stores it in the database
+     *
+     * @param  array $attributes
+     * @return Competency
      */
     public function create(array $attributes)
     {
@@ -57,22 +61,14 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
-     * @param $id
-     * @return int the amount
+     * Removes users with given ids from the database
+     *
+     * @param  array|int $ids
+     * @return mixed
      */
     public function delete($id)
     {
         return User::destroy($id);
     }
-
-    /**
-     * @param $ids
-     * @return mixed
-     */
-    public function update($ids)
-    {
-
-    }
-
-
+    
 }

@@ -9,6 +9,7 @@ class Project extends Model
 
     /**
      * Mass fillable fields
+     *
      * @var array
      */
     protected $fillable = [
@@ -17,6 +18,7 @@ class Project extends Model
 
     /**
      * A optional contact which refers to a User. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function contact()
@@ -26,6 +28,7 @@ class Project extends Model
 
     /**
      * Many to many elequent relation with students. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function students()
@@ -35,6 +38,7 @@ class Project extends Model
 
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function competencies()

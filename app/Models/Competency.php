@@ -16,6 +16,7 @@ class Competency extends Model
 
     /**
      * Many to many elequent relation with students. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function students()
@@ -25,6 +26,7 @@ class Competency extends Model
 
     /**
      * Many to many elequent relation with students. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function projects()

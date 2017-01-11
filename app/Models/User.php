@@ -11,6 +11,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
+     *
      * @var array
      */
     protected $fillable = [
@@ -19,6 +20,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
+     *
      * @var array
      */
     protected $hidden = [
@@ -27,6 +29,7 @@ class User extends Authenticatable
 
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces)
+     *
      * @return Elequent Relation
      */
     public function competencies()
@@ -36,6 +39,7 @@ class User extends Authenticatable
 
     /**
      * If assigned to a project as contact, will return that relation.
+     *
      * @return Elequent Relation
      */
     public function contactOfProject()
@@ -45,6 +49,7 @@ class User extends Authenticatable
 
     /**
      * Optional link between a User and a Student.
+     *
      * @return Elequent Relation
      */
     public function student()
