@@ -48,9 +48,16 @@ class DemandController extends Controller
                 if(!array_key_exists('count',$competencyCount[$competency->id])){
                     $competencyCount[$competency->id]['count'] = 0;
                 }
+                if(!array_key_exists('mean_demand',$competencyCount[$competency->id])){
+                    $competencyCount[$competency->id]['mean_demand'] = 0;
+                }
+
                 $competencyCount[$competency->id]['count'] += 1;
+                $competencyCount[$competency->id]['mean_demand'] += 1/count($this->students->getUncompletedCompetencies($student->id));
             }
         }
+
+        return $competencyCount;
     }
 
 
