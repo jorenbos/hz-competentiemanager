@@ -33,4 +33,14 @@ class Competency extends Model
     {
         return $this->belongsToMany('App\Models\Project', 'project_competency', 'competency_id', 'project_id');
     }
+
+    /**
+     * Many to many elequent relation with slots. (or collection if called without parentheces)
+     *
+     * @return Relation
+     */
+    public function slots()
+    {
+        $this->belongsToMany('App\Models\Slot', 'slots_competencies', 'competency_id', 'slot_id');
+    }
 }
