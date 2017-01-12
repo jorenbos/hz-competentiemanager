@@ -19,6 +19,19 @@ class Competency extends Model
      *
      * @return Elequent Relation
      */
+    public function prerequisiteCompetencies()
+    {
+        return $this->belongsToMany(
+            'App\Models\Competency', 
+            'competencies_prerequisites', 
+            'competency_id', 'competency_prerequisite_id');
+    }
+
+    /**
+     * Many to many elequent relation with students. (or collection if called without parentheces)
+     *
+     * @return Elequent Relation
+     */
     public function students()
     {
         return $this->belongsToMany('App\Models\Student', 'student_competency', 'competency_id', 'student_id');
