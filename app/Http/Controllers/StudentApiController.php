@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class StudentApiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the student.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class StudentApiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created student in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -50,7 +50,7 @@ class StudentApiController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified student.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -62,18 +62,7 @@ class StudentApiController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified student in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
@@ -103,7 +92,7 @@ class StudentApiController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified student from storage.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response

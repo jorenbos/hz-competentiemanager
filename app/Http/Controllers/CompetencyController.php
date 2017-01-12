@@ -27,13 +27,11 @@ class CompetencyController extends Controller
    */
     public function index()
     {
-
         return view(
             'competency.index', [
                'competenties' => $this->competency->getAll(),
-             ]
+            ]
         );
-
     }
 
     /**
@@ -43,9 +41,7 @@ class CompetencyController extends Controller
      */
     public function create()
     {
-
         return view('competency.create');
-
     }
 
     /**
@@ -56,7 +52,6 @@ class CompetencyController extends Controller
      */
     public function store(Request $request)
     {
-
         // Check if the form was correctly filled in
         $validator = $this->storeValidator($request->all());
 
@@ -71,7 +66,6 @@ class CompetencyController extends Controller
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
-
     }
 
     /**
@@ -85,9 +79,8 @@ class CompetencyController extends Controller
         return view(
             'competency/show', [
                 'competency' => $this->competency->getById($id),
-             ]
+            ]
         );
-
     }
 
     /**
@@ -103,7 +96,6 @@ class CompetencyController extends Controller
                 'competency' => $this->competency->getById($id),
              ]
         );
-
     }
 
     /**
@@ -147,6 +139,12 @@ class CompetencyController extends Controller
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');
     }
 
+    /**
+     * Validator for form data when a store call is made.
+     *
+     * @param  array $data
+     * @return \Validator
+     */
     protected function storeValidator($data)
     {
         return Validator::make(
@@ -160,6 +158,12 @@ class CompetencyController extends Controller
         );
     }
 
+    /**
+     * Validator for form data when a update call is made.
+     *
+     * @param  array $data
+     * @return \Validator
+     */
     protected function updateValidator($data)
     {
         return Validator::make(
