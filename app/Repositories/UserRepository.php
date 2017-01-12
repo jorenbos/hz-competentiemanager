@@ -8,10 +8,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Student;
 use App\Models\User;
-use App\Util\The;
-use Illuminate\Database\Eloquent\Model;
-use Validator;
 use App\Util\RepositoryInterface;
 
 class UserRepository implements RepositoryInterface
@@ -39,13 +37,13 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
-     * Returns isntance of coupled student if possible
+     * Returns instance of coupled student if possible
      *
-     * @return Collection|User[]
+     * @return Collection|Student[]
      */
     public function getStudent($id)
     {
-        return User::findOrFail($id)->student;
+        return User::find($id)->student;
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Student extends Model
 {
@@ -47,7 +48,7 @@ class Student extends Model
     /**
      * Many to many elequent relation with projects. (or collection if called without parentheces)
      *
-     * @return Elequent Relation
+     * @return Relation
      */
     public function projects()
     {
@@ -57,11 +58,12 @@ class Student extends Model
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces)
      *
-     * @return Elequent Relation
+     * @return Relation
      */
     public function competencies()
     {
-        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id');
+        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id')
+            ->withPivot('status');
     }
 
 }

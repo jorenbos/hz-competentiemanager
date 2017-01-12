@@ -18,7 +18,7 @@ class CompetencyController extends Controller
 
     public function __construct(CompetencyRepository $CompetencyRepository)
     {
-        $this->competency = $CompetencyRepository;
+        $this->competencies = $CompetencyRepository;
     }
     /**
    * Display a listing of the resource.
@@ -29,7 +29,7 @@ class CompetencyController extends Controller
     {
         return view(
             'competency.index', [
-               'competenties' => $this->competency->getAll(),
+               'competenties' => $this->competencies->getAll(),
             ]
         );
     }
@@ -62,7 +62,7 @@ class CompetencyController extends Controller
         }
 
         // Create new Competency object with the info in the request
-        $competency = $this->competency->create($request-all());
+        $competency = $this->competencies->create($request->all());
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
@@ -78,7 +78,7 @@ class CompetencyController extends Controller
     {
         return view(
             'competency/show', [
-                'competency' => $this->competency->getById($id),
+                'competency' => $this->competencies->getById($id),
             ]
         );
     }
@@ -93,7 +93,7 @@ class CompetencyController extends Controller
     {
         return view(
             'competency/edit', [
-                'competency' => $this->competency->getById($id),
+                'competency' => $this->competencies->getById($id),
              ]
         );
     }
@@ -115,7 +115,7 @@ class CompetencyController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $this->competency->update($request->all(), $id);
+        $this->competencies->update($request->all(), $id);
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
@@ -130,7 +130,7 @@ class CompetencyController extends Controller
     public function destroy($id)
     {
         //Find the competency object in the database
-        $competency = $this->competency->getById($id);
+        $competency = $this->competencies->getById($id);
 
         //Remove the competency from the database
         $competency->delete();
@@ -152,8 +152,8 @@ class CompetencyController extends Controller
                 'name' => 'required|max:255',
                 'abbreviation' => 'required|max:5|unique:competencies',
                 'description' => 'required|max:2056',
-                'EC-value' => 'required',
-                'CU-code' => 'required|max:10'
+                'ec_value' => 'required',
+                'cu_code' => 'required|max:10'
             ]
         );
     }
@@ -171,8 +171,8 @@ class CompetencyController extends Controller
                 'name' => 'required|max:255',
                 'abbreviation' => 'required|max:5',
                 'description' => 'required|max:2056',
-                'EC-value' => 'required',
-                'CU-code' => 'required|max:10'
+                'ec_value' => 'required',
+                'cu_code' => 'required|max:10'
             ]
         );
     }
