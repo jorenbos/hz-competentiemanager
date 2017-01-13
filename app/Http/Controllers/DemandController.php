@@ -53,7 +53,9 @@ class DemandController extends Controller
                 }
 
                 $competencyCount[$competency->id]['count'] += 1;
-                $competencyCount[$competency->id]['mean_demand'] += 1/count($this->students->getUncompletedCompetencies($student->id));
+                $x = 2;
+                $y = count($this->students->getUncompletedCompetencies($student->id));
+                $competencyCount[$competency->id]['mean_demand'] += $x/$y;
             }
         }
 
