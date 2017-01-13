@@ -16,8 +16,10 @@ use Illuminate\Database\Eloquent\Collection;
 class CompetencyRepository implements RepositoryInterface
 {
     /**
-     * @param $id
-     * @return Competency
+     * Returns competency with given id from database
+     *
+     * @param  $id
+     * @return mixed
      */
     public function getById($id)
     {
@@ -25,6 +27,8 @@ class CompetencyRepository implements RepositoryInterface
     }
 
     /**
+     * Returns all competencies in the database
+     *
      * @return Collection|Competency[]
      */
     public function getAll()
@@ -33,7 +37,9 @@ class CompetencyRepository implements RepositoryInterface
     }
 
     /**
-     * @param array $attributes
+     * Creates a new competency and stores it in the database
+     *
+     * @param  array $attributes
      * @return Competency
      */
     public function create(array $attributes)
@@ -42,7 +48,9 @@ class CompetencyRepository implements RepositoryInterface
     }
 
     /**
-     * @param array|int $ids
+     * Removes competencies with given ids from the database
+     *
+     * @param  array|int $ids
      * @return mixed
      */
     public function delete($ids)
@@ -50,6 +58,13 @@ class CompetencyRepository implements RepositoryInterface
         return Competency::destroy($ids);
     }
 
+    /**
+     * Updates given fields of the repository with the given id
+     *
+     * @param  array
+     * @param  int   $id
+     * @return Competency
+     */
     public function update($data, $id)
     {
         return Competency::findOrFail($id)->update($data);

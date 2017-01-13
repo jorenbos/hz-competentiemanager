@@ -15,8 +15,10 @@ use App\Util\RepositoryInterface;
 class ProjectRepository implements RepositoryInterface
 {
     /**
-     * @param $id
-     * @return mixed
+     * Returns project with given id from database
+     *
+     * @param  $id
+     * @return Project
      */
     public function getById($id)
     {
@@ -24,7 +26,9 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * @return mixed
+     * Returns all projects in the database
+     *
+     * @return Collection|Project d[]
      */
     public function getAll()
     {
@@ -32,8 +36,10 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * @param array $attributes
-     * @return mixed
+     * Creates a new Project and stores it in the database
+     *
+     * @param  array $attributes
+     * @return Project
      */
     public function create(array $attributes)
     {
@@ -41,7 +47,9 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * @param array|int $ids
+     * Removes projects with given ids from the database
+     *
+     * @param  array|int $ids
      * @return mixed
      */
     public function delete($ids)

@@ -42,7 +42,7 @@ $factory->define(App\Models\Student::class, function(Faker\Generator $faker) {
 	$gender = $faker->randomElement($array = ['male', 'female']);
 	return [
 		'name' => $faker->name($gender),
-		'student_code' => $faker->numerify('########'),
+		'student_code' => $faker->numerify('000#####'),
 		'date_of_birth' => $faker->date('Y-m-d'),
 		'starting_date' => $faker->date('Y-m-d'),
 		'gender' => $gender
