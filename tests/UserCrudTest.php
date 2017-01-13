@@ -13,7 +13,7 @@ class UserCrudTest extends TestCase
      *
      * @return void
      */
-    public function testList()
+    public function testIndex()
     {
         $this->mockSomeUsers();
 
