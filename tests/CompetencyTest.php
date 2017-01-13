@@ -26,13 +26,15 @@ class CompetencyTest extends TestCase
     public function testRepositoryCreate()
     {
         $competencyRepository = new CompetencyRepository();
-        $comp = $competencyRepository->create([
+        $comp = $competencyRepository->create(
+            [
             'name' => 'Memes Posten 1a', 
             'abbreviation' => 'MEME', 
             'description' => 'blablabla', 
             'ec_value' => 5.0, 
             'cu_code' => 'CU123456'
-        ]);
+            ]
+        );
         $this->assertEquals('Memes Posten 1a', $comp->name);
         $this->assertEquals('MEME', $comp->abbreviation);
         $this->assertEquals('blablabla', $comp->description);
