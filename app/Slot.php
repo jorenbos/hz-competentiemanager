@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slot extends Model
 {
     $fillable = [
-    	'phase'
+        'phase'
     ];
 
     /**
@@ -17,6 +17,6 @@ class Slot extends Model
      */
     public function compencies()
     {
-    	$this->belongsToMany('App\Models\Competency', 'slots_competencies', 'slot_id', 'competency_id');
+        $this->belongsToMany('App\Models\Competency', 'slots_competencies', 'slot_id', 'competency_id');
     }
 }

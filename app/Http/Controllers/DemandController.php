@@ -21,7 +21,7 @@ class DemandController extends Controller
     /**
      * Inject UserRepository and CompetencyRepository dependencies
      *
-     * @param StudentRepository $studentRepository
+     * @param StudentRepository    $studentRepository
      * @param CompetencyRepository $competencyRepository
      */
     public function __construct(StudentRepository $studentRepository, CompetencyRepository $competencyRepository)
@@ -45,10 +45,10 @@ class DemandController extends Controller
         foreach ($students as $student) {
             foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
                 $competencyCount[$competency->id]['competency'] = $competency;
-                if(!array_key_exists('count',$competencyCount[$competency->id])){
+                if(!array_key_exists('count', $competencyCount[$competency->id])) {
                     $competencyCount[$competency->id]['count'] = 0;
                 }
-                if(!array_key_exists('mean_demand',$competencyCount[$competency->id])){
+                if(!array_key_exists('mean_demand', $competencyCount[$competency->id])) {
                     $competencyCount[$competency->id]['mean_demand'] = 0;
                 }
 

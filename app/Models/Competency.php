@@ -24,7 +24,8 @@ class Competency extends Model
         return $this->belongsToMany(
             'App\Models\Competency', 
             'competencies_prerequisites', 
-            'competency_id', 'competency_prerequisite_id');
+            'competency_id', 'competency_prerequisite_id'
+        );
     }
 
     /**

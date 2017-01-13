@@ -85,9 +85,8 @@ class StudentRepository implements RepositoryInterface
 
             foreach ($allCompetencies as $competency) {
                 $matching_comp = $student->competencies()->find($competency->id);
-                if($matching_comp != null)
-                {
-                    if($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE){
+                if($matching_comp != null) {
+                    if($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
                         $returnCompetencies[] = $matching_comp;
                     }
                 }
