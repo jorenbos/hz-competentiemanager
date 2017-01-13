@@ -47,9 +47,9 @@ class StudentTest extends TestCase
     {
         $studentRepository = new StudentRepository();
         $student = factory(App\Models\Student::class, 1)->create();
-        $this->assertEquals(1,count($studentRepository->getAll()));
+        $this->assertEquals(1, count($studentRepository->getAll()));
         $studentRepository->delete($student->id);
-        $this->assertEquals(0,count($studentRepository->getAll()));
+        $this->assertEquals(0, count($studentRepository->getAll()));
     }
 
     public function testRelationWithCompetencies()
