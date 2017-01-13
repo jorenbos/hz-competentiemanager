@@ -12,8 +12,8 @@ class Slot extends Model
      * @var array
      */
     protected $fillable = [
-    	'phase'
-	];
+        'phase'
+    ];
 
     /**
      * Hidden fields (we have noting to hide)
