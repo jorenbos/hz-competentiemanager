@@ -14,6 +14,7 @@ use App\Util\RepositoryInterface;
 
 class UserRepository implements RepositoryInterface
 {
+    //TODO: add update functionality.
 
     /**
      * Returns User with given id from database
@@ -68,5 +69,5 @@ class UserRepository implements RepositoryInterface
     {
         return User::destroy($id);
     }
-    
+
 }

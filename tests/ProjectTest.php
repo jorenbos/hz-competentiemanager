@@ -4,9 +4,50 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Repositories\ProjectRepository;
+
 class ProjectTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function testRepositoryGetById()
+    {
+        $projectRepository = new ProjectRepository();
+        $project = factory(App\Models\Project::class)->create();
+        $this->assertEquals($project->id, $projectRepository->getById($project->id)->id);
+    }
+
+    public function testRepositoryGetAll()
+    {
+        $projectRepository = new ProjectRepository();
+        factory(App\Models\Project::class, 10)->create();
+        $this->assertEquals(10, count($projectRepository->getAll()));
+    }
+
+    public function testRepositoryCreate()
+    {
+        $projectRepository = new ProjectRepository();
+        $project = $projectRepository->create(
+            [
+                'name' => 'Cool Project',
+                'projectnumber' => 7,
+                'description' => 'Project for all the cool people.'
+            ]
+        );
+        $this->assertEquals('Cool Project', $project->name);
+        $this->assertEquals('7', $project->projectnumber);
+        $this->assertEquals('Project for all the cool people.', $project->description);
+    }
+
+    public function testRepositoryDelete()
+    {
+        $projectRepository = new ProjectRepository();
+        $project = factory(App\Models\Project::class)->create();
+        $this->assertEquals(1, count($projectRepository->getAll()));
+        $projectRepository->delete($project->id);
+        $this->assertEquals(0, count($projectRepository->getAll()));
+
+    }
 
     public function testRelationWithCompetencies()
     {
@@ -17,7 +58,7 @@ class ProjectTest extends TestCase
 
         $project->competencies()->sync(
             [
-            $competencyA->id => ['amount'=>3], 
+            $competencyA->id => ['amount'=>3],
             $competencyC->id => ['amount'=>4]
             ]
         );
