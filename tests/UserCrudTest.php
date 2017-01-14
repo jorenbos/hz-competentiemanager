@@ -78,6 +78,24 @@ class UserCrudTest extends TestCase
             ->see('valid');
     }
 
+    public function testDelete()
+    {
+        User::create(
+            [
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => bcrypt('admin123')
+            ]
+        );
+
+        $this->visit('/user')
+            ->see('John Doe');
+
+        $this->visit('/user')
+            ->press('Verwijder')
+            ->dontSee('John Doe');
+    }
+
     private function mockSomeUsers()
     {
         User::create(
