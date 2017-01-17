@@ -54,7 +54,7 @@ class DemandController extends Controller
 
                 $competencyCount[$competency->id]['count'] += 1;
                 $competency_Perstudentperblock = 2;
-                $cempetency_Todo = count($this->students->getUncompletedCompetencies($student->id));
+                $competency_Todo = count($this->students->getUncompletedCompetencies($student->id));
                 $competencyCount[$competency->id]['mean_demand'] += $x/$y;
             }
         }
