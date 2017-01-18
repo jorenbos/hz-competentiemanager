@@ -58,9 +58,9 @@ class DemandController extends Controller
                 }
 
                 $competencyCount[$competency->id]['count'] += 1;
-                $competency_Perstudentperblock              = 2;
-                $competency_Todo = count($this->students->getUncompletedCompetencies($student->id));
-                $competencyCount[$competency->id]['mean_demand'] += ($x / $y);
+                $competenciesPerStudentPerblock             = 2;
+                $competenciesTodo = count($this->students->getUncompletedCompetencies($student->id));
+                $competencyCount[$competency->id]['mean_demand'] += ($competenciesPerStudentPerblock / $competenciesTodo);
             }
         }
 
@@ -69,8 +69,10 @@ class DemandController extends Controller
     }//end calculate()
 
 
-    private function competency_demand_algorithm()
-    {
+    /*
+        UNUSED CODE
+        private function competency_demand_algorithm()
+        {
         $calculated_competencies = [];
 
         foreach ($competencies as $competency) {
@@ -87,7 +89,7 @@ class DemandController extends Controller
 
         return $calculated_competencies;
 
-    }//end competency_demand_algorithm()
+    }//end competency_demand_algorithm()*/
 
 
     /**
