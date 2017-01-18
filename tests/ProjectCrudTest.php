@@ -1,10 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Project;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProjectCrudTest extends TestCase
 {
@@ -32,25 +29,25 @@ class ProjectCrudTest extends TestCase
     {
         Project::create(
             [
-                'name' => 'Competentie Manager',
-                'projectnumber' =>'123456',
-                'description' => 'Super cool project met leuke mensen'
+                'name'          => 'Competentie Manager',
+                'projectnumber' => '123456',
+                'description'   => 'Super cool project met leuke mensen',
             ]
         );
 
         Project::create(
             [
-                'name' => 'Wijn Proeven',
-                'projectnumber' =>'654321',
-                'description' => 'Project speciaal voor de wijn kenners'
+                'name'          => 'Wijn Proeven',
+                'projectnumber' => '654321',
+                'description'   => 'Project speciaal voor de wijn kenners',
             ]
         );
 
         Project::create(
             [
-                'name' => 'Make America Great Again',
-                'projectnumber' =>'42069',
-                'description' => 'Internationaal project'
+                'name'          => 'Make America Great Again',
+                'projectnumber' => '42069',
+                'description'   => 'Internationaal project',
             ]
         );
     }

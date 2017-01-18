@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Repositories\CompetencyRepository;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CompetencyTest extends TestCase
 {
@@ -28,11 +26,11 @@ class CompetencyTest extends TestCase
         $competencyRepository = new CompetencyRepository();
         $comp = $competencyRepository->create(
             [
-            'name' => 'Memes Posten 1a',
+            'name'         => 'Memes Posten 1a',
             'abbreviation' => 'MEME',
-            'description' => 'blablabla',
-            'ec_value' => 5.0,
-            'cu_code' => 'CU123456'
+            'description'  => 'blablabla',
+            'ec_value'     => 5.0,
+            'cu_code'      => 'CU123456',
             ]
         );
         $this->assertEquals('Memes Posten 1a', $comp->name);
@@ -49,7 +47,6 @@ class CompetencyTest extends TestCase
         $this->assertEquals(1, count($competencyRepository->getAll()));
         $competencyRepository->delete($competency->id);
         $this->assertEquals(0, count($competencyRepository->getAll()));
-
     }
 
     public function testRepositoryUpdate()
@@ -57,11 +54,11 @@ class CompetencyTest extends TestCase
         $competencyRepository = new competencyRepository();
         $competency = $competencyRepository->create(
             [
-            'name' => 'Memes Posten 1a',
+            'name'         => 'Memes Posten 1a',
             'abbreviation' => 'MEME',
-            'description' => 'blablabla',
-            'ec_value' => 5.0,
-            'cu_code' => 'CU123456'
+            'description'  => 'blablabla',
+            'ec_value'     => 5.0,
+            'cu_code'      => 'CU123456',
             ]
         );
         $this->assertEquals('Memes Posten 1a', $competency->name);
@@ -84,14 +81,13 @@ class CompetencyTest extends TestCase
         $competency->projects()->sync(
             [
             $projectA->id => ['amount'=>3],
-            $projectC->id => ['amount'=>4]
+            $projectC->id => ['amount'=>4],
             ]
         );
 
         $this->assertEquals($competency->projects->find($projectA->id)->projectnumber, $projectA->projectnumber);
         $this->assertEquals($competency->projects->find($projectB->id), null);
         $this->assertEquals($competency->projects->find($projectC->id)->projectnumber, $projectC->projectnumber);
-
     }
 
     public function testRelationWithStudents()
@@ -104,7 +100,7 @@ class CompetencyTest extends TestCase
         $competency->students()->sync(
             [
             $studentA->id => ['status'=>0],
-            $studentC->id => ['status'=>0]
+            $studentC->id => ['status'=>0],
             ]
         );
 
@@ -112,5 +108,4 @@ class CompetencyTest extends TestCase
         $this->assertEquals($competency->students->find($studentB->id), null);
         $this->assertEquals($competency->students->find($studentC->id)->student_code, $studentC->student_code);
     }
-
 }

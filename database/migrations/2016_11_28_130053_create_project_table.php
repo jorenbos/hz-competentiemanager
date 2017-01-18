@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateProjectTable extends Migration
 {
@@ -12,20 +12,20 @@ class CreateProjectTable extends Migration
      */
     public function up()
     {
-      Schema::create('projects', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('name');
-          $table->text('description');
-          $table->string('projectnumber');
-          $table->integer('project_contact_id')
+        Schema::create('projects', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description');
+            $table->string('projectnumber');
+            $table->integer('project_contact_id')
               ->unsigned()
               ->nullable();
-          $table->foreign('project_contact_id')
+            $table->foreign('project_contact_id')
               ->references('id')
               ->on('users')
               ->onDelete('set null');
-          $table->timestamps();
-      });
+            $table->timestamps();
+        });
     }
 
     /**

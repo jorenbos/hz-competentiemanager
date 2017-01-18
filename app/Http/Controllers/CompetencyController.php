@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competency;
 use App\Repositories\CompetencyRepository;
+use Illuminate\Http\Request;
 use Validator;
 use View;
-use Illuminate\Http\Request;
-use App\Models\Competency;
 
 class CompetencyController extends Controller
 {
-
     /**
      * @var CompetencyRepository
      */
     private $competencies;
 
-
     public function __construct(CompetencyRepository $CompetencyRepository)
     {
         $this->competencies = $CompetencyRepository;
+    }
 
-    }//end __construct()
-
+//end __construct()
 
     /**
      * Display a listing of the resource.
@@ -37,9 +35,9 @@ class CompetencyController extends Controller
              'competenties' => $this->competencies->getAll(),
             ]
         );
+    }
 
-    }//end index()
-
+//end index()
 
     /**
      * Show the form for creating a new resource.
@@ -49,14 +47,15 @@ class CompetencyController extends Controller
     public function create()
     {
         return view('competency.create');
+    }
 
-    }//end create()
-
+//end create()
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -73,14 +72,15 @@ class CompetencyController extends Controller
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
+    }
 
-    }//end store()
-
+//end store()
 
     /**
      * Display the specified resource.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -91,14 +91,15 @@ class CompetencyController extends Controller
              'competency' => $this->competencies->getById($id),
             ]
         );
+    }
 
-    }//end show()
-
+//end show()
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -109,15 +110,16 @@ class CompetencyController extends Controller
              'competency' => $this->competencies->getById($id),
             ]
         );
+    }
 
-    }//end edit()
-
+//end edit()
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer                  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -133,14 +135,15 @@ class CompetencyController extends Controller
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
+    }
 
-    }//end update()
-
+//end update()
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -153,14 +156,15 @@ class CompetencyController extends Controller
 
         // Redirect to the competency. index page with a succes message.
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');
+    }
 
-    }//end destroy()
-
+//end destroy()
 
     /**
      * Validator for form data when a store call is made.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Validator
      */
     protected function storeValidator($data)
@@ -175,14 +179,15 @@ class CompetencyController extends Controller
              'cu_code'      => 'required|max:10',
             ]
         );
+    }
 
-    }//end storeValidator()
-
+//end storeValidator()
 
     /**
      * Validator for form data when a update call is made.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Validator
      */
     protected function updateValidator($data)
@@ -197,8 +202,7 @@ class CompetencyController extends Controller
              'cu_code'      => 'required|max:10',
             ]
         );
+    }
 
-    }//end updateValidator()
-
-
+//end updateValidator()
 }//end class

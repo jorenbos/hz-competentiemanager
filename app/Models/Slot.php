@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Model
 {
-
     /**
-     * Mass fillable fields
+     * Mass fillable fields.
      *
      * @var array
      */
     protected $fillable = ['phase'];
 
     /**
-     * Hidden fields (we have noting to hide)
+     * Hidden fields (we have noting to hide).
      *
      * @var array
      */

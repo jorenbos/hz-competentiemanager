@@ -1,10 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Competency;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CompetencyCrudTest extends TestCase
 {
@@ -56,33 +53,32 @@ class CompetencyCrudTest extends TestCase
     {
         Competency::create(
             [
-                'name' => 'Memes Posten 1a',
+                'name'         => 'Memes Posten 1a',
                 'abbreviation' => 'MEME',
-                'description' => 'blablabla',
-                'ec_value' => 5.0,
-                'cu_code' => 'CU123456'
+                'description'  => 'blablabla',
+                'ec_value'     => 5.0,
+                'cu_code'      => 'CU123456',
             ]
         );
 
         Competency::create(
             [
-                'name' => 'Memes Posten 1b',
+                'name'         => 'Memes Posten 1b',
                 'abbreviation' => 'MEMEB',
-                'description' => 'blablabla tests',
-                'ec_value' => 5.0,
-                'cu_code' => 'CU654321'
+                'description'  => 'blablabla tests',
+                'ec_value'     => 5.0,
+                'cu_code'      => 'CU654321',
             ]
         );
 
         Competency::create(
             [
-                'name' => 'Wijn Drinken 2',
+                'name'         => 'Wijn Drinken 2',
                 'abbreviation' => 'WIJN',
-                'description' => 'drink drink drink',
-                'ec_value' => 5.0,
-                'cu_code' => 'CU456789'
+                'description'  => 'drink drink drink',
+                'ec_value'     => 5.0,
+                'cu_code'      => 'CU456789',
             ]
         );
-
     }
 }

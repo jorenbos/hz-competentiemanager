@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateLevelIndicatorTable extends Migration
 {
@@ -23,7 +23,6 @@ class CreateLevelIndicatorTable extends Migration
                 ->onDelete('cascade');
             $table->string('indicator_code');
             $table->string('description');
-
         });
     }
 

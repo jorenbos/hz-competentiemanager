@@ -3,11 +3,10 @@
  * Created by Roel van Endhoven.
  * User: Roel van Endhoven
  * Date: 8-12-16
- * Time: 12:22
+ * Time: 12:22.
  */
 
 namespace App\Repositories;
-
 
 use App\Models\Project;
 use App\Util\RepositoryInterface;
@@ -15,10 +14,12 @@ use App\Util\RepositoryInterface;
 class ProjectRepository implements RepositoryInterface
 {
     //TODO: add update functionality.
+
     /**
-     * Returns project with given id from database
+     * Returns project with given id from database.
      *
      * @param  $id
+     *
      * @return Project
      */
     public function getById($id)
@@ -27,7 +28,7 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * Returns all projects in the database
+     * Returns all projects in the database.
      *
      * @return Collection|Project d[]
      */
@@ -37,9 +38,10 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * Creates a new Project and stores it in the database
+     * Creates a new Project and stores it in the database.
      *
-     * @param  array $attributes
+     * @param array $attributes
+     *
      * @return Project
      */
     public function create(array $attributes)
@@ -48,15 +50,14 @@ class ProjectRepository implements RepositoryInterface
     }
 
     /**
-     * Removes projects with given ids from the database
+     * Removes projects with given ids from the database.
      *
-     * @param  array|int $ids
+     * @param array|int $ids
+     *
      * @return mixed
      */
     public function delete($ids)
     {
         return Project::destroy($ids);
     }
-
-
 }

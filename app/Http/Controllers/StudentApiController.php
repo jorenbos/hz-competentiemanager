@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Student;
 use App\Util\StatusCodes;
 use Illuminate\Http\Request;
 
 class StudentApiController extends Controller
 {
-
-
     /**
      * Display a listing of the student.
      *
@@ -19,14 +16,15 @@ class StudentApiController extends Controller
     public function index()
     {
         return response()->json(['students' => Student::all()]);
+    }
 
-    }//end index()
-
+//end index()
 
     /**
      * Store a newly created student in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,28 +47,30 @@ class StudentApiController extends Controller
         $student = Student::create($request->all());
 
         return response()->json($student, StatusCodes::CREATED);
+    }
 
-    }//end store()
-
+//end store()
 
     /**
      * Display the specified student.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         return response()->json(Student::findOrFail($id));
+    }
 
-    }//end show()
-
+//end show()
 
     /**
      * Update the specified student in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer                  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -93,14 +93,15 @@ class StudentApiController extends Controller
         $student = Student::findOrFail($id)->change($request->all());
 
         return response()->json($student);
+    }
 
-    }//end update()
-
+//end update()
 
     /**
      * Remove the specified student from storage.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -108,8 +109,7 @@ class StudentApiController extends Controller
         Student::destroy($id);
 
         return response()->json([], StatusCodes::NO_CONTENT);
+    }
 
-    }//end destroy()
-
-
+//end destroy()
 }//end class

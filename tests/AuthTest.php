@@ -1,15 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthTest extends TestCase
 {
-
     use DatabaseMigrations;
-
 
     /**
      * Test the registration functionality of the application by visiting the
@@ -40,9 +36,9 @@ class AuthTest extends TestCase
         //Create mock user
         $user = User::create(
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'John Doe',
+                'email'    => 'johndoe@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
 
@@ -63,15 +59,15 @@ class AuthTest extends TestCase
      * Test the User logging in to the application.
      * Do so by creating a new mock user, visiting the login page, filling out
      * the users information and pressing the login button. If we see the
-     * dashboard page we know we're in
+     * dashboard page we know we're in.
      */
     public function testLogin()
     {
         User::create(
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'John Doe',
+                'email'    => 'johndoe@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
 
@@ -81,5 +77,4 @@ class AuthTest extends TestCase
             ->press('Login')
             ->seePageIs('/dashboard');
     }
-
 }

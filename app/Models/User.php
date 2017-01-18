@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -30,18 +30,17 @@ class User extends Authenticatable
                          'remember_token',
                         ];
 
-
     /**
-     * Many to many elequent relation with competencies. (or collection if called without parentheces)
+     * Many to many elequent relation with competencies. (or collection if called without parentheces).
      *
      * @return Elequent Relation
      */
     public function competencies()
     {
         return $this->hasMany('App\Competency');
+    }
 
-    }//end competencies()
-
+//end competencies()
 
     /**
      * If assigned to a project as contact, will return that relation.
@@ -51,9 +50,9 @@ class User extends Authenticatable
     public function contactOfProject()
     {
         return $this->belongsTo('App\Models\Project', 'project_contact_id');
+    }
 
-    }//end contactOfProject()
-
+//end contactOfProject()
 
     /**
      * Optional link between a User and a Student.
@@ -63,8 +62,7 @@ class User extends Authenticatable
     public function student()
     {
         return $this->belongsTo('App\Models\Student');
+    }
 
-    }//end student()
-
-
+//end student()
 }//end class

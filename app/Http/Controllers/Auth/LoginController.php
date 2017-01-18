@@ -27,20 +27,19 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
-
     /**
      * Show the application's login form.
      * Mind, this is directly overriden from the used trait, why it was there in
-     * the first place, I don't know
+     * the first place, I don't know.
      *
      * @return \Illuminate\Http\Response
      */
     public function showLoginForm()
     {
         return view('auth.login');
+    }
 
-    }//end showLoginForm()
-
+//end showLoginForm()
 
     /**
      * Create a new controller instance.
@@ -50,8 +49,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
 
-    }//end __construct()
-
-
+//end __construct()
 }//end class

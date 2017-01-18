@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateLearningObjectiveTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateLearningObjectiveTable extends Migration
      */
     public function up()
     {
-        Schema::create('learning_objectives', function(Blueprint $table){
+        Schema::create('learning_objectives', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('competency_id')
                 ->unsigned()

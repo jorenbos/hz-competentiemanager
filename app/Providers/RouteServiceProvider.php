@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-
     /**
      * This namespace is applied to your controller routes.
      *
@@ -17,7 +16,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
-
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -26,9 +24,9 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+    }
 
-    }//end boot()
-
+//end boot()
 
     /**
      * Define the routes for the application.
@@ -40,9 +38,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+    }
 
-    }//end map()
-
+//end map()
 
     /**
      * Define the "web" routes for the application.
@@ -62,9 +60,9 @@ class RouteServiceProvider extends ServiceProvider
                 include base_path('routes/web.php');
             }
         );
+    }
 
-    }//end mapWebRoutes()
-
+//end mapWebRoutes()
 
     /**
      * Define the "api" routes for the application.
@@ -85,8 +83,7 @@ class RouteServiceProvider extends ServiceProvider
                 include base_path('routes/api.php');
             }
         );
+    }
 
-    }//end mapApiRoutes()
-
-
+//end mapApiRoutes()
 }//end class

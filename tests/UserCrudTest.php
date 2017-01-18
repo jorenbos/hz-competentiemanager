@@ -5,7 +5,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserCrudTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     /**
@@ -40,7 +39,7 @@ class UserCrudTest extends TestCase
     }
 
     /**
-     * FIXME The update method is broken by design as of now, this test will have to be rewritten
+     * FIXME The update method is broken by design as of now, this test will have to be rewritten.
      */
     public function testUpdate()
     {
@@ -82,9 +81,9 @@ class UserCrudTest extends TestCase
     {
         User::create(
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'John Doe',
+                'email'    => 'johndoe@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
 
@@ -100,23 +99,23 @@ class UserCrudTest extends TestCase
     {
         User::create(
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'John Doe',
+                'email'    => 'johndoe@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
         User::create(
             [
-                'name' => 'Jane Doe',
-                'email' => 'jane@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'Jane Doe',
+                'email'    => 'jane@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
         User::create(
             [
-                'name' => 'Jimmy Woo',
-                'email' => 'jimmy@example.com',
-                'password' => bcrypt('admin123')
+                'name'     => 'Jimmy Woo',
+                'email'    => 'jimmy@example.com',
+                'password' => bcrypt('admin123'),
             ]
         );
     }
