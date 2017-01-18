@@ -19,16 +19,19 @@ use Illuminate\Database\Eloquent\Model;
 interface RepositoryInterface
 {
 
+
     /**
      * @param $id
      * @return Model
      */
     public function getById($id);
 
+
     /**
      * @return Collection|Model[]
      */
     public function getAll();
+
 
     /**
      * @param array $attributes
@@ -36,16 +39,17 @@ interface RepositoryInterface
      */
     public function create(array $attributes);
 
+
     /**
      * @param $ids int|array
      * @return int count of deleted rows
      */
     public function delete($ids);
 
-    /**
-     * @param $ids The id of the user to update
-     * @return Model
-     */
-    //public function update($ids);
 
-}
+    /*
+        * @param $ids The id of the user to update
+        * @return Model
+        */
+    // public function update($ids);
+}//end interface
