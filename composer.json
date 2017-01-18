@@ -52,11 +52,7 @@
             "php artisan optimize"
         ],
         "test": [
-            "phpunit",
-            "sh code-beauty.sh"
-        ],
-        "fix": [
-            "vendor/bin/phpcbf ./app ./tests --tab-width=4 --standard=MySource"
+            "phpunit"
         ]
     },
     "config": {
