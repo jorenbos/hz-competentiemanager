@@ -4,9 +4,53 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Repositories\StudentRepository;
+
 class StudentTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function testRepositoryGetById()
+    {
+        $studentRepository = new StudentRepository();
+        $student = factory(App\Models\Student::class)->create();
+        $this->assertEquals($student->id, $studentRepository->getById($student->id)->id);
+    }
+
+    public function testRepositoryGetAll()
+    {
+        $studentRepository = new StudentRepository();
+        factory(App\Models\Student::class, 10)->create();
+        $this->assertEquals(10, count($studentRepository->getAll()));
+    }
+
+    public function testRepositoryCreate()
+    {
+        $studentRepository = new StudentRepository();
+        $student = $studentRepository->create(
+            [
+                'name' => 'Henk de Lange',
+                'student_code'=> '00047935',
+                'date_of_birth'=> '1975-09-02',
+                'starting_date'=> '2010-05-13',
+                'gender' => 'female'
+            ]
+        );
+        $this->assertEquals('Henk de Lange', $student->name);
+        $this->assertEquals('00047935', $student->student_code);
+        $this->assertEquals('1975-09-02', $student->date_of_birth);
+        $this->assertEquals('2010-05-13', $student->starting_date);
+        $this->assertEquals('female', $student->gender);
+    }
+
+    public function testRepositoryDelete()
+    {
+        $studentRepository = new StudentRepository();
+        $student = factory(App\Models\Student::class, 1)->create();
+        $this->assertEquals(1, count($studentRepository->getAll()));
+        $studentRepository->delete($student->id);
+        $this->assertEquals(0, count($studentRepository->getAll()));
+    }
 
     public function testRelationWithCompetencies()
     {
@@ -17,7 +61,7 @@ class StudentTest extends TestCase
 
         $student->competencies()->sync(
             [
-            $competencyA->id => ['status'=>1], 
+            $competencyA->id => ['status'=>1],
             $competencyC->id => ['status'=>0]
             ]
         );

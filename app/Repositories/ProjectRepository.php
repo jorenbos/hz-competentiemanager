@@ -14,6 +14,7 @@ use App\Util\RepositoryInterface;
 
 class ProjectRepository implements RepositoryInterface
 {
+    //TODO: add update functionality.
     /**
      * Returns project with given id from database
      *

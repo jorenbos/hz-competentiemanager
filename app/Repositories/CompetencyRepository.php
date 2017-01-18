@@ -67,7 +67,9 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function update($data, $id)
     {
-        return Competency::findOrFail($id)->update($data);
+        $result = Competency::findOrFail($id)->update($data);
+        Competency::findOrFail($id)->save();
+        return $result;
     }
 
 

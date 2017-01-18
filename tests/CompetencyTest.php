@@ -3,10 +3,76 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Repositories\CompetencyRepository;
 
 class CompetencyTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function testRepositoryGetById()
+    {
+        $competencyRepository = new CompetencyRepository();
+        $competency = factory(App\Models\Competency::class)->create();
+        $this->assertEquals($competency->id, $competencyRepository->getById($competency->id)->id);
+    }
+
+    public function testRepositoryGetAll()
+    {
+        $competencyRepository = new CompetencyRepository();
+        factory(App\Models\Competency::class, 10)->create();
+        $this->assertEquals(10, count($competencyRepository->getAll()));
+    }
+
+    public function testRepositoryCreate()
+    {
+        $competencyRepository = new CompetencyRepository();
+        $comp = $competencyRepository->create(
+            [
+            'name' => 'Memes Posten 1a',
+            'abbreviation' => 'MEME',
+            'description' => 'blablabla',
+            'ec_value' => 5.0,
+            'cu_code' => 'CU123456'
+            ]
+        );
+        $this->assertEquals('Memes Posten 1a', $comp->name);
+        $this->assertEquals('MEME', $comp->abbreviation);
+        $this->assertEquals('blablabla', $comp->description);
+        $this->assertEquals(5.0, $comp->ec_value);
+        $this->assertEquals('CU123456', $comp->cu_code);
+    }
+
+    public function testRepositoryDelete()
+    {
+        $competencyRepository = new CompetencyRepository();
+        $competency = factory(App\Models\Competency::class)->create();
+        $this->assertEquals(1, count($competencyRepository->getAll()));
+        $competencyRepository->delete($competency->id);
+        $this->assertEquals(0, count($competencyRepository->getAll()));
+
+    }
+
+    public function testRepositoryUpdate()
+    {
+        $competencyRepository = new competencyRepository();
+        $competency = $competencyRepository->create(
+            [
+            'name' => 'Memes Posten 1a',
+            'abbreviation' => 'MEME',
+            'description' => 'blablabla',
+            'ec_value' => 5.0,
+            'cu_code' => 'CU123456'
+            ]
+        );
+        $this->assertEquals('Memes Posten 1a', $competency->name);
+        $competencyRepository->update(['name' => 'Memes Posten 1b'], $competency->id);
+        $comp = $competencyRepository->getById($competency->id);
+        $this->assertEquals('Memes Posten 1b', $comp->name);
+        $this->assertEquals('MEME', $comp->abbreviation);
+        $this->assertEquals('blablabla', $comp->description);
+        $this->assertEquals(5.0, $comp->ec_value);
+        $this->assertEquals('CU123456', $comp->cu_code);
+    }
 
     public function testRelationWithProjects()
     {
@@ -17,7 +83,7 @@ class CompetencyTest extends TestCase
 
         $competency->projects()->sync(
             [
-            $projectA->id => ['amount'=>3], 
+            $projectA->id => ['amount'=>3],
             $projectC->id => ['amount'=>4]
             ]
         );
@@ -37,7 +103,7 @@ class CompetencyTest extends TestCase
 
         $competency->students()->sync(
             [
-            $studentA->id => ['status'=>0], 
+            $studentA->id => ['status'=>0],
             $studentC->id => ['status'=>0]
             ]
         );
