@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\ServiceProvider;
 
 class BroadcastServiceProvider extends ServiceProvider
 {
-
-
     /**
      * Bootstrap any application services.
      *
@@ -27,8 +25,7 @@ class BroadcastServiceProvider extends ServiceProvider
                 return (int) $user->id === (int) $userId;
             }
         );
+    }
 
-    }//end boot()
-
-
+//end boot()
 }//end class

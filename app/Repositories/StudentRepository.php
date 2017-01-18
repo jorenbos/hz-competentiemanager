@@ -3,11 +3,10 @@
  * Created by Roel van Endhoven.
  * User: Roel van Endhoven
  * Date: 12-1-17
- * Time: 11:11
+ * Time: 11:11.
  */
 
 namespace App\Repositories;
-
 
 use App\Models\Competency;
 use App\Models\Student;
@@ -17,18 +16,17 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository implements RepositoryInterface
 {
-
-
     /**
      * @param $id
+     *
      * @return Student
      */
     public function getById($id)
     {
         return Student::findOrFail($id);
+    }
 
-    }//end getById()
-
+//end getById()
 
     /**
      * @return Student[]|Collection
@@ -36,34 +34,37 @@ class StudentRepository implements RepositoryInterface
     public function getAll()
     {
         return Student::all();
+    }
 
-    }//end getAll()
-
+//end getAll()
 
     /**
      * @param array $attributes
+     *
      * @return mixed
      */
     public function create(array $attributes)
     {
         return Student::create($attributes);
+    }
 
-    }//end create()
-
+//end create()
 
     /**
-     * @param integer $ids
+     * @param int $ids
+     *
      * @return mixed
      */
     public function delete($ids)
     {
         return Student::destroy($ids);
+    }
 
-    }//end delete()
-
+//end delete()
 
     /**
      * @param $id
+     *
      * @return Competency[]
      */
     public function getCompletedCompetencies($id)
@@ -81,19 +82,20 @@ class StudentRepository implements RepositoryInterface
         }
 
         return [];
+    }
 
-    }//end getCompletedCompetencies()
-
+//end getCompletedCompetencies()
 
     /**
      * @param $id
+     *
      * @return Competency[]
      */
     public function getUncompletedCompetencies($id)
     {
         $student = $this->getById($id);
         if ($student != null) {
-            $allCompetencies    = Competency::all()->all();
+            $allCompetencies = Competency::all()->all();
             $returnCompetencies = [];
 
             foreach ($allCompetencies as $competency) {
@@ -111,8 +113,7 @@ class StudentRepository implements RepositoryInterface
         }
 
         return [];
+    }
 
-    }//end getUncompletedCompetencies()
-
-
+//end getUncompletedCompetencies()
 }//end class

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCompetencyTable extends Migration
 {
@@ -12,15 +12,15 @@ class CreateCompetencyTable extends Migration
      */
     public function up()
     {
-      Schema::create('competencies', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('name');
-          $table->string('abbreviation');
-          $table->text('description');
-          $table->float('ec-value');
-          $table->string('cu-code');
-          $table->timestamps();
-      });
+        Schema::create('competencies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('abbreviation');
+            $table->text('description');
+            $table->float('ec-value');
+            $table->string('cu-code');
+            $table->timestamps();
+        });
     }
 
     /**

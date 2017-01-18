@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Competency extends Model
 {
-
     /**
-     * Mass fillable fields
+     * Mass fillable fields.
      */
     protected $fillable = [
                            'name',
@@ -18,9 +17,8 @@ class Competency extends Model
                            'cu_code',
                           ];
 
-
     /**
-     * Many to many elequent relation with students. (or collection if called without parentheces)
+     * Many to many elequent relation with students. (or collection if called without parentheces).
      *
      * @return Elequent Relation
      */
@@ -32,44 +30,43 @@ class Competency extends Model
             'competency_id',
             'competency_prerequisite_id'
         );
+    }
 
-    }//end prerequisiteCompetencies()
-
+//end prerequisiteCompetencies()
 
     /**
-     * Many to many elequent relation with students. (or collection if called without parentheces)
+     * Many to many elequent relation with students. (or collection if called without parentheces).
      *
      * @return Elequent Relation
      */
     public function students()
     {
         return $this->belongsToMany('App\Models\Student', 'student_competency', 'competency_id', 'student_id');
+    }
 
-    }//end students()
-
+//end students()
 
     /**
-     * Many to many elequent relation with students. (or collection if called without parentheces)
+     * Many to many elequent relation with students. (or collection if called without parentheces).
      *
      * @return Elequent Relation
      */
     public function projects()
     {
         return $this->belongsToMany('App\Models\Project', 'project_competency', 'competency_id', 'project_id');
+    }
 
-    }//end projects()
-
+//end projects()
 
     /**
-     * Many to many elequent relation with slots. (or collection if called without parentheces)
+     * Many to many elequent relation with slots. (or collection if called without parentheces).
      *
      * @return Relation
      */
     public function slots()
     {
         $this->belongsToMany('App\Models\Slot', 'slots_competencies', 'competency_id', 'slot_id');
+    }
 
-    }//end slots()
-
-
+//end slots()
 }//end class

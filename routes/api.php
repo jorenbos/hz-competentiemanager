@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::resource('student','StudentApiController');
+Route::resource('student', 'StudentApiController');
 
 Route::get('/user', function (Request $request) {
     return $request->user();

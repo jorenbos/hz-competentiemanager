@@ -1,10 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Repositories\StudentRepository;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class StudentTest extends TestCase
 {
@@ -29,11 +26,11 @@ class StudentTest extends TestCase
         $studentRepository = new StudentRepository();
         $student = $studentRepository->create(
             [
-                'name' => 'Henk de Lange',
-                'student_code'=> '00047935',
+                'name'         => 'Henk de Lange',
+                'student_code' => '00047935',
                 'date_of_birth'=> '1975-09-02',
                 'starting_date'=> '2010-05-13',
-                'gender' => 'female'
+                'gender'       => 'female',
             ]
         );
         $this->assertEquals('Henk de Lange', $student->name);
@@ -62,14 +59,13 @@ class StudentTest extends TestCase
         $student->competencies()->sync(
             [
             $competencyA->id => ['status'=>1],
-            $competencyC->id => ['status'=>0]
+            $competencyC->id => ['status'=>0],
             ]
         );
 
         $this->assertEquals($student->competencies->find($competencyA->id)->cu_code, $competencyA->cu_code);
         $this->assertEquals($student->competencies->find($competencyB->id), null);
         $this->assertEquals($student->competencies->find($competencyC->id)->cu_code, $competencyC->cu_code);
-
     }
 
     public function testRelationWithProjects()

@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Validator;
 use View;
-use Illuminate\Http\Request;
-use App\Models\User;
 
 class UserController extends Controller
 {
-
     /**
      * @var UserRepository
      */
     private $users;
 
-
     public function __construct(UserRepository $userRepository)
     {
         $this->users = $userRepository;
+    }
 
-    }//end __construct()
-
+//end __construct()
 
     /**
      * Display a listing of the user.
@@ -38,9 +35,9 @@ class UserController extends Controller
              'users' => $this->users->getAll(),
             ]
         );
+    }
 
-    }//end index()
-
+//end index()
 
     /**
      * Show the form for creating a new user.
@@ -50,14 +47,15 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create');
+    }
 
-    }//end create()
-
+//end create()
 
     /**
      * Store a newly created user in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -69,15 +67,17 @@ class UserController extends Controller
         }
 
         $this->users->create($request->all());
+
         return redirect('/user/create')->with(['status' => 'Gebruiker Aangemaakt']);
+    }
 
-    }//end store()
-
+//end store()
 
     /**
      * Display the specified user.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -88,14 +88,15 @@ class UserController extends Controller
              'user' => $this->users->getById($id),
             ]
         );
+    }
 
-    }//end show()
-
+//end show()
 
     /**
      * Show the form for editing the specified user.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -106,16 +107,17 @@ class UserController extends Controller
              'user' => $this->users->getById($id),
             ]
         );
+    }
 
-    }//end edit()
-
+//end edit()
 
     /**
      * Update the specified user in storage.
-     * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing
+     * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  integer                  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -130,38 +132,41 @@ class UserController extends Controller
                   ]
               );
 
-              $user        = $this->users->getById($id);
-              $user->name  = $request['name'];
-              $user->email = $request['email'];
+        $user = $this->users->getById($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
 
               // Save the changes in the database
               $user->save();
 
               // Redirect to the user.index page with a success message.
               return redirect("/user/$id/edit")->with(['status' => 'Gebruiker aangepast']);
+    }
 
-    }//end update()
-
+//end update()
 
     /**
      * Remove the specified user from storage.
      *
-     * @param  integer $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $user = $this->users->getById($id);
         $user->delete();
+
         return redirect('/user');
+    }
 
-    }//end destroy()
-
+//end destroy()
 
     /**
      * Validator for form data when a update call is made.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Validator
      */
     protected function updateValidator(array $data)
@@ -174,16 +179,17 @@ class UserController extends Controller
              'password' => 'sometimes|min:6',
             ]
         );
+    }
 
-    }//end updateValidator()
+//end updateValidator()
 
-
-     /**
-      * Validator for form data when a generic call is made.
-      *
-      * @param  array $data
-      * @return \Validator
-      */
+    /**
+     * Validator for form data when a generic call is made.
+     *
+     * @param array $data
+     *
+     * @return \Validator
+     */
     protected function validator(array $data)
     {
         return Validator::make(
@@ -194,8 +200,7 @@ class UserController extends Controller
              'password' => 'required|min:6',
             ]
         );
+    }
 
-    }//end validator()
-
-
+//end validator()
 }//end class

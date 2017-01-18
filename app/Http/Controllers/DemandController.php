@@ -7,7 +7,6 @@ use App\Repositories\StudentRepository;
 
 class DemandController extends Controller
 {
-
     /**
      * @var StudentRepository
      */
@@ -18,9 +17,8 @@ class DemandController extends Controller
      */
     protected $competencies;
 
-
     /**
-     * Inject UserRepository and CompetencyRepository dependencies
+     * Inject UserRepository and CompetencyRepository dependencies.
      *
      * @param StudentRepository    $studentRepository
      * @param CompetencyRepository $competencyRepository
@@ -29,16 +27,16 @@ class DemandController extends Controller
     {
         $this->setStudents($studentRepository);
         $this->setCompetencies($competencyRepository);
+    }
 
-    }//end __construct()
-
+//end __construct()
 
     public function index()
     {
         return view('demand.index', ['competencies' => $this->calculate()]);
+    }
 
-    }//end index()
-
+//end index()
 
     public function calculate()
     {
@@ -58,16 +56,16 @@ class DemandController extends Controller
                 }
 
                 $competencyCount[$competency->id]['count'] += 1;
-                $competenciesPerStudentPerblock             = 2;
+                $competenciesPerStudentPerblock = 2;
                 $competenciesTodo = count($this->students->getUncompletedCompetencies($student->id));
                 $competencyCount[$competency->id]['mean_demand'] += ($competenciesPerStudentPerblock / $competenciesTodo);
             }
         }
 
         return $competencyCount;
+    }
 
-    }//end calculate()
-
+//end calculate()
 
     /*
         UNUSED CODE
@@ -91,28 +89,29 @@ class DemandController extends Controller
 
     }//end competency_demand_algorithm()*/
 
-
     /**
      * @return StudentRepository
      */
     public function getStudents()
     {
         return $this->students;
+    }
 
-    }//end getStudents()
-
+//end getStudents()
 
     /**
      * @param StudentRepository $students
+     *
      * @return DemandController
      */
     public function setStudents($students)
     {
         $this->students = $students;
+
         return $this;
+    }
 
-    }//end setStudents()
-
+//end setStudents()
 
     /**
      * @return CompetencyRepository
@@ -120,20 +119,21 @@ class DemandController extends Controller
     public function getCompetencies()
     {
         return $this->competencies;
+    }
 
-    }//end getCompetencies()
-
+//end getCompetencies()
 
     /**
      * @param CompetencyRepository $competencies
+     *
      * @return DemandController
      */
     public function setCompetencies($competencies)
     {
         $this->competencies = $competencies;
+
         return $this;
+    }
 
-    }//end setCompetencies()
-
-
+//end setCompetencies()
 }//end class

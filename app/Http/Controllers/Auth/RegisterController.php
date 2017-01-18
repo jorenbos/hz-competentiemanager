@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -29,7 +29,6 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
-
     /**
      * Create a new controller instance.
      *
@@ -38,14 +37,15 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
 
-    }//end __construct()
-
+//end __construct()
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -58,14 +58,15 @@ class RegisterController extends Controller
              'password' => 'required|min:6|confirmed',
             ]
         );
+    }
 
-    }//end validator()
-
+//end validator()
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return User
      */
     protected function create(array $data)
@@ -77,8 +78,7 @@ class RegisterController extends Controller
              'password' => bcrypt($data['password']),
             ]
         );
+    }
 
-    }//end create()
-
-
+//end create()
 }//end class

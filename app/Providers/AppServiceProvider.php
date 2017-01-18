@@ -6,8 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-
     /**
      * Bootstrap any application services.
      *
@@ -15,9 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+    }
 
-    }//end boot()
-
+//end boot()
 
     /**
      * Register any application services.
@@ -29,8 +27,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+    }
 
-    }//end register()
-
-
+//end register()
 }//end class

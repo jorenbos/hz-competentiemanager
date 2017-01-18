@@ -1,12 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StudentApiTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     protected function setUp()
@@ -15,8 +12,8 @@ class StudentApiTest extends TestCase
 
         \App\Models\Student::create(
             [
-            'name' => 'John Doe',
-            'student_code' => '00038574'
+            'name'         => 'John Doe',
+            'student_code' => '00038574',
             ]
         );
     }
@@ -42,22 +39,22 @@ class StudentApiTest extends TestCase
     {
         $this->json(
             'POST', 'api/student', [
-            'name' => 'Co de Klopper',
-            'student_code' => '00055976',
-            'gender' => 'man',
+            'name'          => 'Co de Klopper',
+            'student_code'  => '00055976',
+            'gender'        => 'man',
             'date_of_birth' => '1996-11-11',
-            'starting_date' => '2011-09-01'
+            'starting_date' => '2011-09-01',
             ]
         )->seeJson(['name' => 'Co de Klopper']);
 
         // If we do this again it should fail because of duplicate student_code
         $this->json(
             'POST', 'api/student', [
-            'name' => 'Co de Klopper',
-            'student_code' => '00055976',
-            'gender' => 'man',
+            'name'          => 'Co de Klopper',
+            'student_code'  => '00055976',
+            'gender'        => 'man',
             'date_of_birth' => '1996-11-11',
-            'starting_date' => '2011-09-01'
+            'starting_date' => '2011-09-01',
             ]
         )->seeJson(['student_code' => ['The student code has already been taken.']]);
     }

@@ -3,7 +3,7 @@
  * Created Roel van Endhoven
  * User: Roel van Endhoven
  * Date: 8-12-16
- * Time: 11:52
+ * Time: 11:52.
  */
 
 namespace App\Repositories;
@@ -17,9 +17,10 @@ class UserRepository implements RepositoryInterface
     //TODO: add update functionality.
 
     /**
-     * Returns User with given id from database
+     * Returns User with given id from database.
      *
      * @param  $id
+     *
      * @return User
      */
     public function getById($id)
@@ -28,7 +29,7 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
-     * Returns all instances of User in the database
+     * Returns all instances of User in the database.
      *
      * @return Collection|User[]
      */
@@ -38,7 +39,7 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
-     * Returns instance of coupled student if possible
+     * Returns instance of coupled student if possible.
      *
      * @return Collection|Student[]
      */
@@ -47,11 +48,11 @@ class UserRepository implements RepositoryInterface
         return User::find($id)->student;
     }
 
-
     /**
-     * Creates a new competency and stores it in the database
+     * Creates a new competency and stores it in the database.
      *
-     * @param  array $attributes
+     * @param array $attributes
+     *
      * @return Competency
      */
     public function create(array $attributes)
@@ -60,14 +61,14 @@ class UserRepository implements RepositoryInterface
     }
 
     /**
-     * Removes users with given ids from the database
+     * Removes users with given ids from the database.
      *
-     * @param  array|int $ids
+     * @param array|int $ids
+     *
      * @return mixed
      */
     public function delete($id)
     {
         return User::destroy($id);
     }
-
 }

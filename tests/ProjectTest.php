@@ -1,10 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Repositories\ProjectRepository;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProjectTest extends TestCase
 {
@@ -29,9 +26,9 @@ class ProjectTest extends TestCase
         $projectRepository = new ProjectRepository();
         $project = $projectRepository->create(
             [
-                'name' => 'Cool Project',
+                'name'          => 'Cool Project',
                 'projectnumber' => 7,
-                'description' => 'Project for all the cool people.'
+                'description'   => 'Project for all the cool people.',
             ]
         );
         $this->assertEquals('Cool Project', $project->name);
@@ -46,7 +43,6 @@ class ProjectTest extends TestCase
         $this->assertEquals(1, count($projectRepository->getAll()));
         $projectRepository->delete($project->id);
         $this->assertEquals(0, count($projectRepository->getAll()));
-
     }
 
     public function testRelationWithCompetencies()
@@ -59,14 +55,13 @@ class ProjectTest extends TestCase
         $project->competencies()->sync(
             [
             $competencyA->id => ['amount'=>3],
-            $competencyC->id => ['amount'=>4]
+            $competencyC->id => ['amount'=>4],
             ]
         );
 
         $this->assertEquals($project->competencies->find($competencyA->id)->cu_code, $competencyA->cu_code);
         $this->assertEquals($project->competencies->find($competencyB->id), null);
         $this->assertEquals($project->competencies->find($competencyC->id)->cu_code, $competencyC->cu_code);
-
     }
 
     public function testRelationWithStudents()
