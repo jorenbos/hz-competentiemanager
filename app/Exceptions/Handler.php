@@ -8,19 +8,21 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that should not be reported.
      *
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
-    ];
+                             \Illuminate\Auth\AuthenticationException::class,
+                             \Illuminate\Auth\Access\AuthorizationException::class,
+                             \Symfony\Component\HttpKernel\Exception\HttpException::class,
+                             \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+                             \Illuminate\Session\TokenMismatchException::class,
+                             \Illuminate\Validation\ValidationException::class,
+                            ];
+
 
     /**
      * Report or log an exception.
@@ -33,7 +35,9 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
         parent::report($exception);
-    }
+
+    }//end report()
+
 
     /**
      * Render an exception into an HTTP response.
@@ -45,7 +49,9 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
-    }
+
+    }//end render()
+
 
     /**
      * Convert an authentication exception into an unauthenticated response.
@@ -61,5 +67,8 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest('login');
-    }
-}
+
+    }//end unauthenticated()
+
+
+}//end class

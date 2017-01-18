@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 class StudentRepository implements RepositoryInterface
 {
 
+
     /**
      * @param $id
      * @return Student
@@ -25,7 +26,9 @@ class StudentRepository implements RepositoryInterface
     public function getById($id)
     {
         return Student::findOrFail($id);
-    }
+
+    }//end getById()
+
 
     /**
      * @return Student[]|Collection
@@ -33,7 +36,9 @@ class StudentRepository implements RepositoryInterface
     public function getAll()
     {
         return Student::all();
-    }
+
+    }//end getAll()
+
 
     /**
      * @param array $attributes
@@ -42,16 +47,20 @@ class StudentRepository implements RepositoryInterface
     public function create(array $attributes)
     {
         return Student::create($attributes);
-    }
+
+    }//end create()
+
 
     /**
-     * @param array|int $ids
+     * @param integer $ids
      * @return mixed
      */
     public function delete($ids)
     {
         return Student::destroy($ids);
-    }
+
+    }//end delete()
+
 
     /**
      * @param $id
@@ -67,10 +76,14 @@ class StudentRepository implements RepositoryInterface
                     $competencies[] = $competency;
                 }
             }
+
             return $competencies;
         }
+
         return [];
-    }
+
+    }//end getCompletedCompetencies()
+
 
     /**
      * @param $id
@@ -80,24 +93,26 @@ class StudentRepository implements RepositoryInterface
     {
         $student = $this->getById($id);
         if ($student != null) {
-            $allCompetencies = Competency::all()->all();
+            $allCompetencies    = Competency::all()->all();
             $returnCompetencies = [];
 
             foreach ($allCompetencies as $competency) {
                 $matching_comp = $student->competencies()->find($competency->id);
-                if($matching_comp != null) {
-                    if($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
+                if ($matching_comp != null) {
+                    if ($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
                         $returnCompetencies[] = $matching_comp;
                     }
-                }
-                else {
+                } else {
                     $returnCompetencies[] = $competency;
                 }
             }
+
             return $returnCompetencies;
         }
+
         return [];
-    }
+
+    }//end getUncompletedCompetencies()
 
 
-}
+}//end class

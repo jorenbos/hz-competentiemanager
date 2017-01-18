@@ -15,8 +15,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-    ];
+                           'name',
+                           'email',
+                           'password',
+                          ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -24,8 +26,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
-    ];
+                         'password',
+                         'remember_token',
+                        ];
+
 
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces)
@@ -35,7 +39,9 @@ class User extends Authenticatable
     public function competencies()
     {
         return $this->hasMany('App\Competency');
-    }
+
+    }//end competencies()
+
 
     /**
      * If assigned to a project as contact, will return that relation.
@@ -45,7 +51,9 @@ class User extends Authenticatable
     public function contactOfProject()
     {
         return $this->belongsTo('App\Models\Project', 'project_contact_id');
-    }
+
+    }//end contactOfProject()
+
 
     /**
      * Optional link between a User and a Student.
@@ -55,5 +63,8 @@ class User extends Authenticatable
     public function student()
     {
         return $this->belongsTo('App\Models\Student');
-    }
-}
+
+    }//end student()
+
+
+}//end class

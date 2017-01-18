@@ -20,7 +20,7 @@ before_script:
 script:
 - vendor/bin/phpunit
 - php coverage-checker.php clover.xml 70
-- vendor/bin/phpcbf ./app ./tests
+- sh code-beauty.sh
 
 after_success:
   - if  [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ]; then sh generate-api-docs.sh; fi
