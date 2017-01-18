@@ -19,7 +19,7 @@ before_script:
 
 script:
 - vendor/bin/phpunit
-- php coverage-checker.php clover.xml 70
+- php coverage-checker.php clover.xml 75
 - sh code-beauty.sh
 
 after_success:
