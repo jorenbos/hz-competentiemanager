@@ -27,3 +27,5 @@ then
 else
 	echo "\n${green}${bold}Mess Detector says :)${normal}\n"
 fi
+
+echo "\n\n${red}${bold} STYLECHECKS NOW GET EXECUTED BY STYLECI, PLEASE DO NOT USE THIS SCRIPT ${normal}\n\n"
