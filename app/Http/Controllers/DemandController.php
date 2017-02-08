@@ -88,7 +88,7 @@ class DemandController extends Controller
                     if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
                         || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
                         $slotValue = 2.5;
-                     }
+                    }
                 } else {
                     $slotValue = $competency->ec_value;
                 }
@@ -102,13 +102,14 @@ class DemandController extends Controller
                     if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
                         || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
                         $slotValue = 2.5;
-                     }
+                    }
                 } else {
                     $slotValue = $competency->ec_value;
                 }
                 $competencyDemand[$competency->id]['mean_demand'] += 2.5 * ($slotValue / $ecLeft);
             }
         }
+
         return $competencyDemand;
     }
 
