@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
+use App\Util\Constants;
 
 class DemandController extends Controller
 {
@@ -33,7 +34,7 @@ class DemandController extends Controller
 
     public function index()
     {
-        return view('demand.index', ['competencies' => $this->calculate()]);
+        return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
 //end index()
@@ -67,27 +68,51 @@ class DemandController extends Controller
 
 //end calculate()
 
-    /*
-        UNUSED CODE
-        private function competency_demand_algorithm()
-        {
-        $calculated_competencies = [];
+    private function calculateDemand()
+    {
+        $competencyDemand = [];
 
-        foreach ($competencies as $competency) {
-            $calculated_competencies[$competency->id] = 0;
+        foreach ($this->getCompetencies()->getAll() as $competency) {
+            $competencyDemand[$competency->id]['competency'] = $competency;
+            $competencyDemand[$competency->id]['count'] = 0;
+            $competencyDemand[$competency->id]['mean_demand'] = 0;
         }
 
-        foreach ($students as $student) {
-            foreach ($student->todo_slots as $slot) {
-                foreach ($slot->competencies as $competency) {
-                    $calculated_competencies[$competency->id] += (1 / $slot->competencies->length / $student->todo_slots->length);
+        foreach ($this->getStudents()->getStudentsForAlgorithm() as $student) {
+            $ecLeft = 0;
+
+            foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
+                $slotValue = 0;
+                $matching_comp = $student->competencies()->find($competency->id);
+                if ($matching_comp != null) {
+                    if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
+                        || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                        $slotValue = 2.5;
+                     }
+                } else {
+                    $slotValue = $competency->ec_value;
                 }
+                $ecLeft += $slotValue;
+            }
+
+            foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
+                $slotValue = 0;
+                $matching_comp = $student->competencies()->find($competency->id);
+                if ($matching_comp != null) {
+                    if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
+                        || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                        $slotValue = 2.5;
+                     }
+                } else {
+                    $slotValue = $competency->ec_value;
+                }
+                $competencyDemand[$competency->id]['mean_demand'] += 2.5 * ($slotValue / $ecLeft);
             }
         }
+        return $competencyDemand;
+    }
 
-        return $calculated_competencies;
-
-    }//end competency_demand_algorithm()*/
+//end calculateDemand()
 
     /**
      * @return StudentRepository

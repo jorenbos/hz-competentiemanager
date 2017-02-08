@@ -63,6 +63,17 @@ class StudentRepository implements RepositoryInterface
 //end delete()
 
     /**
+     * @return Student[]|Collection not on minor or internship
+     */
+    public function getStudentsForAlgorithm()
+    {
+        //TODO Filtering moet nog toegepast worden
+        return Student::All();
+    }
+
+//end getStudentsForAlgorithm()
+
+    /**
      * @param $id
      *
      * @return Competency[]

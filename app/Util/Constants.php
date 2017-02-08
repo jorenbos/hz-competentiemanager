@@ -18,4 +18,6 @@ class Constants
     const COMPETENCY_STATUS_TODO = 0;
     const COMPETENCY_STATUS_DOING = 1;
     const COMPETENCY_STATUS_DONE = 2;
+    const COMPETENCY_STATUS_HALF_DOING = 3;
+    const COMPETENCY_STATUS_HALF_DONE = 4;
 }//end class
