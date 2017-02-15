@@ -125,6 +125,7 @@ class StudentRepository implements RepositoryInterface
 
         return [];
     }
+
     //end getUncompletedCompetencies()
 
     /**
@@ -151,5 +152,4 @@ class StudentRepository implements RepositoryInterface
 
         return $toDoCredits;
     }
-
 }//end class

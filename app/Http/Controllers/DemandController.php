@@ -6,7 +6,6 @@ use App\Repositories\CompetencyRepository;
 use App\Repositories\SlotRepository;
 use App\Repositories\StudentRepository;
 use App\Util\Constants;
-use Illuminate\Database\Eloquent\Model;
 
 class DemandController extends Controller
 {
@@ -140,7 +139,6 @@ public function getSlots()
 {
     return $this->slots;
 }
-
 
 /**
  * @param SlotRepository $slots

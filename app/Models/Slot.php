@@ -13,7 +13,7 @@ class Slot extends Model
      */
     protected $fillable = [
         'id',
-        'phase'
+        'phase',
     ];
 
     /**
@@ -25,5 +25,4 @@ class Slot extends Model
     {
         return $this->belongsToMany(Competency::class, 'slots_competencies', 'slot_id', 'competency_id');
     }
-
 }//end class
