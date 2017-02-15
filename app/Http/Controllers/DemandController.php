@@ -87,7 +87,7 @@ class DemandController extends Controller
         }
 
         foreach ($this->getStudents()->getStudentsForAlgorithm() as $student) {
-            $ecLeft = 0;
+            $toDoCredits = $this->students->getToDoCredits($student->id);
 
             foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
                 $slotValue = 0;
@@ -100,21 +100,7 @@ class DemandController extends Controller
                 } else {
                     $slotValue = $competency->ec_value;
                 }
-                $ecLeft += $slotValue;
-            }
-
-            foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
-                $slotValue = 0;
-                $matching_comp = $student->competencies()->find($competency->id);
-                if ($matching_comp != null) {
-                    if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
-                        || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
-                        $slotValue = 2.5;
-                    }
-                } else {
-                    $slotValue = $competency->ec_value;
-                }
-                $competencyDemand[$competency->id]['mean_demand'] += 2.5 * ($slotValue / $ecLeft);
+                $competencyDemand[$competency->id]['mean_demand'] += 2.5 * ($slotValue / $toDoCredits);
             }
         }
 

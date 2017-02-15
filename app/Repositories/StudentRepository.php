@@ -125,6 +125,31 @@ class StudentRepository implements RepositoryInterface
 
         return [];
     }
+    //end getUncompletedCompetencies()
 
-//end getUncompletedCompetencies()
+    /**
+     * @param $id
+     *
+     * @return int
+     */
+    public function getToDoCredits($id)
+    {
+        $toDoCredits = 0;
+        foreach ($this->getUncompletedCompetencies($id) as $competency) {
+            $slotValue = 0;
+            $matching_comp = $this->getById($id)->competencies()->find($competency->id);
+            if ($matching_comp != null) {
+                if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
+                    || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                    $slotValue = 2.5;
+                }
+            } else {
+                $slotValue = $competency->ec_value;
+            }
+            $toDoCredits += $slotValue;
+        }
+
+        return $toDoCredits;
+    }
+
 }//end class
