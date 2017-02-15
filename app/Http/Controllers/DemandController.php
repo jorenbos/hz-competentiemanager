@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CompetencyRepository;
+use App\Repositories\SlotRepository;
 use App\Repositories\StudentRepository;
 use App\Util\Constants;
+use Illuminate\Database\Eloquent\Model;
 
 class DemandController extends Controller
 {
@@ -12,6 +14,11 @@ class DemandController extends Controller
      * @var StudentRepository
      */
     protected $students;
+
+    /**
+     * @var SlotRepository
+     */
+    protected $slots;
 
     /**
      * @var CompetencyRepository
@@ -24,9 +31,10 @@ class DemandController extends Controller
      * @param StudentRepository    $studentRepository
      * @param CompetencyRepository $competencyRepository
      */
-    public function __construct(StudentRepository $studentRepository, CompetencyRepository $competencyRepository)
+    public function __construct(StudentRepository $studentRepository, SlotRepository $slotRepository, CompetencyRepository $competencyRepository)
     {
         $this->setStudents($studentRepository);
+        $this->setSlots($slotRepository);
         $this->setCompetencies($competencyRepository);
     }
 
@@ -137,6 +145,27 @@ class DemandController extends Controller
     }
 
 //end setStudents()
+
+/**
+ * @return SlotRepository
+ */
+public function getSlots()
+{
+    return $this->slots;
+}
+
+
+/**
+ * @param SlotRepository $slots
+ *
+ * @return DemandController
+ */
+public function setSlots($slots)
+{
+    $this->slots = $slots;
+
+    return $this;
+}
 
     /**
      * @return CompetencyRepository

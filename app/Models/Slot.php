@@ -11,12 +11,19 @@ class Slot extends Model
      *
      * @var array
      */
-    protected $fillable = ['phase'];
+    protected $fillable = [
+        'id',
+        'phase'
+    ];
 
     /**
-     * Hidden fields (we have noting to hide).
+     * Many to many elequent relation with slots. (or collection if called without parentheces).
      *
-     * @var array
+     * @return Relation
      */
-    protected $hidden = [];
+    public function competencies()
+    {
+        return $this->belongsToMany(Competency::class, 'slots_competencies', 'slot_id', 'competency_id');
+    }
+
 }//end class
