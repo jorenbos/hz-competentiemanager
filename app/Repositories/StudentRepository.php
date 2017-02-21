@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 use App\Models\Competency;
+use App\Models\Slot;
 use App\Models\Student;
 use App\Util\Constants;
 use App\Util\RepositoryInterface;
@@ -151,5 +152,29 @@ class StudentRepository implements RepositoryInterface
         }
 
         return $toDoCredits;
+    }
+
+    /**
+     * @param $id of Student
+     *
+     * @return Slot[] left to do by Student
+     */
+    public function getToDoSlots($id)
+    {
+        $toDoSlots = Slot::all()->all();
+        $doneSlots = [];
+        foreach ($this->getById($id)->competencies as $competency) {
+            if ($competency->pivot->status == Constants::COMPETENCY_STATUS_DOING || $competency->pivot->status == Constants::COMPETENCY_STATUS_DONE) {
+                array_push($doneSlots, array_search($competency->pivot->slot_id, array_column($toDoSlots, 'id')));
+                array_multisort($doneSlots, SORT_DESC);
+            }
+        }
+
+        foreach ($doneSlots as $doneSlot) {
+            unset($toDoSlots[array_search($doneSlot, array_column($toDoSlots, 'id'))]);
+        }
+
+        dd($toDoSlots);
+        return $toDoSlots;
     }
 }//end class
