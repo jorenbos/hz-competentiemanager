@@ -137,12 +137,16 @@ class StudentRepository implements RepositoryInterface
     public function getToDoCredits($id)
     {
         $toDoCredits = 0;
+        foreach ($this->getToDoSlots($id) as $slot) {
+
+        }
+
         foreach ($this->getUncompletedCompetencies($id) as $competency) {
             $slotValue = 0;
             $matching_comp = $this->getById($id)->competencies()->find($competency->id);
             if ($matching_comp != null) {
-                if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
-                    || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING ||
+                    $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
                     $slotValue = 2.5;
                 }
             } else {
@@ -163,18 +167,29 @@ class StudentRepository implements RepositoryInterface
     {
         $toDoSlots = Slot::all()->all();
         $doneSlots = [];
-        foreach ($this->getById($id)->competencies as $competency) {
-            if ($competency->pivot->status == Constants::COMPETENCY_STATUS_DOING || $competency->pivot->status == Constants::COMPETENCY_STATUS_DONE) {
-                array_push($doneSlots, array_search($competency->pivot->slot_id, array_column($toDoSlots, 'id')));
+        foreach ($this->getById($id)->competencies as $studentCompetency) {
+            if ($studentCompetency->pivot->status == Constants::COMPETENCY_STATUS_DOING ||
+                $studentCompetency->pivot->status == Constants::COMPETENCY_STATUS_DONE) {
+                array_push($doneSlots, array_search($studentCompetency->pivot->slot_id,
+                           array_column($toDoSlots, 'id')));
                 array_multisort($doneSlots, SORT_DESC);
+            } else if ($studentCompetency->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING ||
+                       $studentCompetency->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                foreach ($toDoSlots[array_search($studentCompetency->pivot->slot_id,
+                         array_column($toDoSlots, 'id'))]->competencies as $key => $fillingCompetency) {
+                    if ($fillingCompetency['attributes']['id'] != $studentCompetency['attributes']['id']) {
+                        //Not working yet...
+                        $toDoSlots[array_search($studentCompetency->pivot->slot_id, array_column($toDoSlots, 'id'))]['relations']['competencies'][$key] = $fillingCompetency;
+                        // dd($test=[$fillingCompetency,$studentCompetency]);
+                    }
+                }
+                dd($toDoSlots[array_search($studentCompetency->pivot->slot_id, array_column($toDoSlots, 'id'))]);
             }
         }
-
         foreach ($doneSlots as $doneSlot) {
-            unset($toDoSlots[array_search($doneSlot, array_column($toDoSlots, 'id'))]);
+            unset($toDoSlots[$doneSlot]);
         }
 
-        dd($toDoSlots);
         return $toDoSlots;
     }
 }//end class
