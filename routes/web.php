@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/competency', function () {
+    return view('competency');
+});
+
+Route::get('/project', function () {
+    return view('project');
+});
+
 Route::auth();
 
 Route::get('/dashboard', 'HomeController@index');
