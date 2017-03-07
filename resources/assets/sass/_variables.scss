@@ -37,7 +37,7 @@ $brand-primary:         darken($blue-dark, 10%) !default; // #337ab7
 $brand-success:         $green !default;
 $brand-info:            $blue-dark !default;
 $brand-warning:         $yellow !default;
-$brand-danger:          lighten($red, 50%) !default;
+$brand-danger:          $red-dark !default;
 
 // Scaffolding
 //** Background color for `<body>`.
@@ -56,6 +56,13 @@ $link-hover-decoration: underline !default;
 // Typography
 $font-family-sans-serif: "Roboto", sans-serif;
 $headings-font-weight:    300 !default;
+
+
+//Breadcrumbs
+$breadcrumb-bg:                 transparent !default;
+$breadcrumb-color:              lighten($blue, 30%) !default;
+$breadcrumb-active-color:       lighten($blue, 30%) !default;
+$breadcrumb-padding-horizontal: 0 !default;
 
 // Buttons
 $btn-primary-bg:                 $brand-primary !default;
@@ -93,20 +100,27 @@ $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !
 
 // Navbar
 $navbar-height: 80px;
-$navbar-default-color:             $white !default;
-$navbar-default-bg:                darken($blue-dark, 10%) !default;
-$navbar-default-border:            $navbar-default-bg !default;
+$navbar-default-color:                      $white !default;
+$navbar-default-bg:                         darken($blue-dark, 10%) !default;
+$navbar-default-border:                     $navbar-default-bg !default;
 
 // Navbar links
-$navbar-default-link-color:                $white !default;
-$navbar-default-link-hover-color:          darken($navbar-default-link-color, 5%) !default;
-$navbar-default-link-hover-bg:             darken($navbar-default-bg, 5%) !default;
-$navbar-default-link-active-color:         $white !default;
+$navbar-default-link-color:                 $white !default;
+$navbar-default-link-hover-color:           darken($navbar-default-link-color, 5%) !default;
+$navbar-default-link-hover-bg:              darken($navbar-default-bg, 5%) !default;
+$navbar-default-link-active-color:          $white !default;
 
 // Navbar brand label
-$navbar-default-brand-color:               $navbar-default-link-color !default;
-$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 5%) !default;
+$navbar-default-brand-color:                $navbar-default-link-color !default;
+$navbar-default-brand-hover-color:          darken($navbar-default-brand-color, 5%) !default;
 
+
+// Dropdown
+$dropdown-bg:                   $navbar-default-bg;
+$dropdown-divider-bg:           darken($dropdown-bg, 10%);
+$dropdown-link-color:           $white;
+$dropdown-link-hover-color:     $white !default;
+$dropdown-link-hover-bg:        $dropdown-divider-bg;
 
 // Panels
 $panel-bg:                    transparent !default;

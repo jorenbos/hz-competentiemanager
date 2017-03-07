@@ -28,7 +28,7 @@ class ProjectController extends Controller
     public function index()
     {
         return view(
-            'project.index',
+            'projects.index',
             [
              'projects' => $this->projects->getAll(),
             ]
@@ -42,7 +42,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('projects.create');
     }
 
     /**
@@ -57,12 +57,12 @@ class ProjectController extends Controller
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
-            return redirect('/project/create')->withErrors($validator)->withInput();
+            return redirect('/projects/create')->withErrors($validator)->withInput();
         }
 
         $this->projects->create($request->all());
 
-        return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
+        return redirect('/projects/create')->with(['status' => 'Project Aangemaakt']);
     }
 
     /**
@@ -75,7 +75,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         return view(
-            'project.show',
+            'projects.show',
             [
              'project' => $this->projects->getById($id),
             ]
@@ -92,7 +92,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         return view(
-            'project.edit',
+            'projects.edit',
             [
              'project' => $this->projects->getById($id),
             ]
@@ -126,7 +126,8 @@ class ProjectController extends Controller
         // Save the changes in the database
         $project->save();
         // Redirect to the project.index page with a success message.
-        return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
+        return redirect('projects')->with(['status' => "$project->name is bijgewerkt"]);
+
     }
 
     /**
@@ -141,7 +142,7 @@ class ProjectController extends Controller
         $project = $this->projects->getById($id);
         $project->delete();
 
-        return redirect('project')->with(['status' => "$project->name is verwijderd"]);
+        return redirect('projects')->with(['status' => "$project->name is verwijderd"]);
     }
 
     protected function validator(array $data)
