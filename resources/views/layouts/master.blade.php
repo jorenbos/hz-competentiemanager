@@ -20,6 +20,8 @@
         </div>
 
         @include('layouts.partials_master.footer')
+
+        <script type="text/javascript" src="{{ elixir('js/app.js') }}"></script>
     </body>
 
 </html>
