@@ -1,37 +1,140 @@
+  // --------------------- //
+ //  BOOTSTRAP OVERRIDES  // 
+// --------------------- //
+// node_modules/bootstrap-sass/assets/stylesheets/scss/_variables.scss
 
-// Body
-$body-bg: #f5f8fa;
+// Configuration
+$border-radius-base: 0;
 
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
+// Colors
+$white:  #fff !default;
+$black:  #000 !default;
+$red: #e74c3c;
+$red-dark: #e74c3c;
+$orange: #e67e22;
+$orange-dark: #d35400;
+$yellow: #f1c40f;
+$yellow-dark: #f39c12;
+$green: #2ecc71;
+$green-dark: #27ae60;
+$blue: #3498db;
+$blue-dark: #2980b9;
+$teal: #1abc9c;
+$teal-dark: #16a085;
+$purple: #9b59b6;
+$purple-dark: #8e44ad;
+$blue-gray: #34495e;
+$blue-gray-dark: #2c3e50;
 
-// Brands
-$brand-primary: #3097d1;
-$brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
-$brand-danger:  #bf5329;
+$gray-base:              #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 20%) !default;   // #333
+$gray:                   lighten($gray-base, 33.5%) !default; // #555
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
+
+$brand-primary:         darken($blue-dark, 10%) !default; // #337ab7
+$brand-success:         $green !default;
+$brand-info:            $blue-dark !default;
+$brand-warning:         $yellow !default;
+$brand-danger:          lighten($red, 50%) !default;
+
+// Scaffolding
+//** Background color for `<body>`.
+$body-bg:               $blue !default;
+//** Global text color on `<body>`.
+$text-color:            $white !default;
+
+//** Global textual link color.
+$link-color:            darken($blue-dark, 15%) !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($blue-dark, 25%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
 
 // Typography
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
-$line-height-base: 1.6;
-$text-color: #636b6f;
-
-// Navbar
-$navbar-default-bg: #fff;
+$font-family-sans-serif: "Roboto", sans-serif;
+$headings-font-weight:    300 !default;
 
 // Buttons
-$btn-default-color: $text-color;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 2%) !default;
 
-// Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
+$btn-success-bg:                 $brand-success !default;
+$btn-success-border:             darken($btn-success-bg, 2%) !default;
+
+$btn-info-bg:                    $brand-info !default;
+$btn-info-border:                darken($btn-info-bg, 2%) !default;
+
+$btn-warning-bg:                 $brand-warning !default;
+$btn-warning-border:             darken($btn-warning-bg, 2%) !default;
+
+$btn-danger-bg:                  $brand-danger !default;
+$btn-danger-border:              darken($btn-danger-bg, 2%) !default;
+
+// Form State Text
+$state-success-text:             lighten($green, 50%) !default;
+$state-success-bg:               $green-dark !default;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+
+$state-info-text:                lighten($blue, 50%) !default;
+$state-info-bg:                  $blue-dark !default;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+
+$state-warning-text:             lighten($yellow, 50%) !default;
+$state-warning-bg:               $yellow-dark !default;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+
+$state-danger-text:              lighten($red, 50%) !default;
+$state-danger-bg:                $red-dark !default;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
+
+// Navbar
+$navbar-height: 80px;
+$navbar-default-color:             $white !default;
+$navbar-default-bg:                darken($blue-dark, 10%) !default;
+$navbar-default-border:            $navbar-default-bg !default;
+
+// Navbar links
+$navbar-default-link-color:                $white !default;
+$navbar-default-link-hover-color:          darken($navbar-default-link-color, 5%) !default;
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 5%) !default;
+$navbar-default-link-active-color:         $white !default;
+
+// Navbar brand label
+$navbar-default-brand-color:               $navbar-default-link-color !default;
+$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 5%) !default;
+
 
 // Panels
-$panel-default-heading-bg: #fff;
+$panel-bg:                    transparent !default;
+$panel-body-padding:          15px !default;
+$panel-heading-padding:       20px 15px !default;
+$panel-footer-padding:        $panel-heading-padding !default;
+$panel-border-radius:         $border-radius-base !default;
+
+//** Border color for elements within panels
+$panel-inner-border:          transparent !default;
+$panel-footer-bg:             transparent !default;
+
+$panel-default-text:          $gray-dark !default;
+$panel-default-border:        transparent !default;
+$panel-default-heading-bg:    transparent !default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

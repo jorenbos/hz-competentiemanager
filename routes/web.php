@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@home');
 
 Route::get('/competency', function () {
     return view('competency');
@@ -25,7 +23,6 @@ Route::get('/project', function () {
 
 Route::auth();
 
-Route::get('/dashboard', 'HomeController@index');
 Route::get('/demand', 'DemandController@index');
 
 Route::resource('competency', 'CompetencyController');
