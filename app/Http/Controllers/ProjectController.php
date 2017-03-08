@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Validator;
 use View;
@@ -15,9 +16,15 @@ class ProjectController extends Controller
      */
     private $projects;
 
-    public function __construct(ProjectRepository $projectRepository)
+    /**
+     * @var UserRepository
+     */
+    private $users;
+
+    public function __construct(ProjectRepository $projectRepository, UserRepository $userRepository)
     {
         $this->projects = $projectRepository;
+        $this->users = $userRepository;
     }
 
     /**
@@ -42,7 +49,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        return view('projects.create', [
+            'users' => $this->users->getAll()
+        ]);
     }
 
     /**
@@ -62,7 +71,7 @@ class ProjectController extends Controller
 
         $this->projects->create($request->all());
 
-        return redirect('/projects/create')->with(['status' => 'Project Aangemaakt']);
+        return redirect('/projects')->with(['status' => 'Project Aangemaakt']);
     }
 
     /**
@@ -141,7 +150,6 @@ class ProjectController extends Controller
     {
         $project = $this->projects->getById($id);
         $project->delete();
-
         return redirect('projects')->with(['status' => "$project->name is verwijderd"]);
     }
 

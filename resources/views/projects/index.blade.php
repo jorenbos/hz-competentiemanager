@@ -1,7 +1,5 @@
 @extends('layouts.master')
-
 @section('title', 'Projecten')
-
 @section('content')
 
     {{-- BreadCrumbs --}}
@@ -12,6 +10,9 @@
 
     {{-- Page Title --}}
     <h1>Projecten</h1>
+
+    {{-- Create Button --}}
+    <a href="/projects/create" class="btn btn-primary pull-right">Project Toevoegen</a>
 
     {{-- Content --}}
     <table class="table">
@@ -29,17 +30,11 @@
                 <tr>
                     <td>{{$project->name}}</td>
                     <td>{{$project->projectnumber}}</td>
-                    <td>-</td>
+                    <td>{{$project->contact->name}}</td>
                     <td>
-                        <a href="{{ url('/projects') }}"
-                           class="btn btn-danger pull-right" 
-                           onclick="event.preventDefault();
-                                    document.getElementById('delete-form-{{$project->id}}').submit();">
-                            Verwijderen
-                        </a>
-                        <form id="delete-form-{{$project->id}}" action="{{ url("/projects/$project->id") }}" method="DELETE" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
+                        {!! Form::open(['route' => ['projects.destroy', $project->id], 'method'=>'DELETE']) !!}
+                        {!! Form::submit('Verwijderen', array('class'=>'btn btn-danger pull-right')) !!}
+                        {!! Form::close() !!}
 
                         <a href="/projects/{{$project->id}}/edit" class="btn btn-primary pull-right">Bewerken</a>
                     </td>
