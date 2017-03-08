@@ -24,7 +24,7 @@ class Project extends Model
      */
     public function contact()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'project_contact_id');
     }
 
 //end contact()
