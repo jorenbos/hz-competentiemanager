@@ -54,7 +54,7 @@ class ProjectController extends Controller
     public function create()
     {
         return view('projects.create', [
-            'users' => $this->users->getAll()
+            'users' => $this->users->getAll(),
         ]);
     }
 
@@ -165,6 +165,7 @@ class ProjectController extends Controller
     {
         $project = $this->projects->getById($id);
         $project->delete();
+
         return redirect('projects')->with(['status' => "$project->name is verwijderd"]);
     }
 
