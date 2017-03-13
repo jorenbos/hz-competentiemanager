@@ -78,8 +78,8 @@ class StudentApiController extends Controller
         $validator = \Validator::make(
             $request->all(),
             [
-             'name'          => 'required|max:255',
-             'student_code'  => 'required|max:8|unique:students',
+             'name'          => 'sometimes|max:255',
+             'student_code'  => 'sometimes|max:8|unique:students',
              'date_of_birth' => 'sometimes|date',
              'starting_date' => 'sometimes|date',
              'gender'        => 'sometimes|max:10',
@@ -90,7 +90,24 @@ class StudentApiController extends Controller
             return response()->json($validator->messages(), StatusCodes::UNPROCESSABLE_ENTITY);
         }
 
-        $student = Student::findOrFail($id)->change($request->all());
+        $student = Student::findOrFail($id);
+
+        if ($request->name != null) {
+            $student->name = $request->name;
+        }
+        if ($request->student_code != null) {
+            $student->student_code = $request->student_code;
+        }
+        if ($request->date_of_birth != null) {
+            $student->date_of_birth = $request->date_of_birth;
+        }
+        if ($request->starting_date != null) {
+            $student->starting_date = $request->starting_date;
+        }
+        if ($request->gender != null) {
+            $student->gender = $request->gender;
+        }
+        $student->save();
 
         return response()->json($student);
     }
