@@ -92,19 +92,19 @@ class StudentApiController extends Controller
 
         $student = Student::findOrFail($id);
 
-        if($request->name != null){
+        if ($request->name != null) {
             $student->name = $request->name;
         }
-        if($request->student_code != null){
+        if ($request->student_code != null) {
             $student->student_code = $request->student_code;
         }
-        if($request->date_of_birth != null){
+        if ($request->date_of_birth != null) {
             $student->date_of_birth = $request->date_of_birth;
         }
-        if($request->starting_date != null){
+        if ($request->starting_date != null) {
             $student->starting_date = $request->starting_date;
         }
-        if($request->gender != null){
+        if ($request->gender != null) {
             $student->gender = $request->gender;
         }
         $student->save();
