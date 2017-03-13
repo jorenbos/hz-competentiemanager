@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class App\Repositories\UserRepository</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
+
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">Overview</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-App.Repositories.html" title="Summary of App\Repositories"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-App.html">
+							App<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-App.Console.html">
+							Console						</a>
+							</li>
+					<li>
+						<a href="namespace-App.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
+						<a href="namespace-App.Http.html">
+							Http<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-App.Http.Controllers.html">
+							Controllers<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-App.Http.Controllers.Auth.html">
+							Auth						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-App.Http.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-App.Models.html">
+							Models						</a>
+							</li>
+					<li>
+						<a href="namespace-App.Providers.html">
+							Providers						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-App.Repositories.html">
+							Repositories						</a>
+							</li>
+					<li>
+						<a href="namespace-App.Util.html">
+							Util						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-App.Repositories.CompetencyRepository.html">CompetencyRepository</a></li>
+				<li><a href="class-App.Repositories.ProjectRepository.html">ProjectRepository</a></li>
+				<li><a href="class-App.Repositories.StudentRepository.html">StudentRepository</a></li>
+				<li class="active"><a href="class-App.Repositories.UserRepository.html">UserRepository</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class UserRepository</h1>
+
+
+	<div class="description">
+	<p>Interface RepositoryInterface
+Repositories must define the following methods to alter models.</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>App\Repositories\UserRepository</span></b>			
+			 implements 
+				<a href="class-App.Util.RepositoryInterface.html"><span>App\Util\RepositoryInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-App.html">App</a>\<a href="namespace-App.Repositories.html">Repositories</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-App.Repositories.UserRepository.html#15-74" title="Go to source code">Repositories/UserRepository.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="getById" id="_getById">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-App.Models.User.html">App\Models\User</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getById">#</a>
+			<code><a href="source-class-App.Repositories.UserRepository.html#19-29" title="Go to source code">getById</a>( <span> <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns User with given id from database.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns User with given id from database.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-App.Models.User.html">App\Models\User</a></code>
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-App.Util.RepositoryInterface.html#_getById">App\Util\RepositoryInterface::getById()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getAll" id="_getAll">
+
+			<td class="attributes"><code>
+				 public 
+				Collection|<code><a href="class-App.Models.User.html">App\Models\User</a>[]</code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getAll">#</a>
+			<code><a href="source-class-App.Repositories.UserRepository.html#31-39" title="Go to source code">getAll</a>( )</code>
+
+			<div class="description short">
+				<p>Returns all instances of User in the database.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns all instances of User in the database.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Collection|<code><a href="class-App.Models.User.html">App\Models\User</a>[]</code>
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-App.Util.RepositoryInterface.html#_getAll">App\Util\RepositoryInterface::getAll()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getStudent" id="_getStudent">
+
+			<td class="attributes"><code>
+				 public 
+				Collection|<code><a href="class-App.Models.Student.html">App\Models\Student</a>[]</code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getStudent">#</a>
+			<code><a href="source-class-App.Repositories.UserRepository.html#41-49" title="Go to source code">getStudent</a>( <span> <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns instance of coupled student if possible.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns instance of coupled student if possible.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						Collection|<code><a href="class-App.Models.Student.html">App\Models\Student</a>[]</code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="create" id="_create">
+
+			<td class="attributes"><code>
+				 public 
+				Competency
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_create">#</a>
+			<code><a href="source-class-App.Repositories.UserRepository.html#51-61" title="Go to source code">create</a>( <span>array <var>$attributes</var></span> )</code>
+
+			<div class="description short">
+				<p>Creates a new competency and stores it in the database.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a new competency and stores it in the database.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attributes</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						Competency
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-App.Util.RepositoryInterface.html#_create">App\Util\RepositoryInterface::create()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="delete" id="_delete">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_delete">#</a>
+			<code><a href="source-class-App.Repositories.UserRepository.html#63-73" title="Go to source code">delete</a>( <span>array|integer <var>$id</var></span> )</code>
+
+			<div class="description short">
+				<p>Removes users with given ids from the database.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Removes users with given ids from the database.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd>$ids</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-App.Util.RepositoryInterface.html#_delete">App\Util\RepositoryInterface::delete()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
