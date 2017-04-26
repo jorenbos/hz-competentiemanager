@@ -49,24 +49,24 @@ class StudentTest extends TestCase
         $this->assertEquals(0, count($studentRepository->getAll()));
     }
 
-    public function testRelationWithCompetencies()
-    {
-        $student = factory(App\Models\Student::class)->create();
-        $competencyA = factory(App\Models\Competency::class)->create();
-        $competencyB = factory(App\Models\Competency::class)->create();
-        $competencyC = factory(App\Models\Competency::class)->create();
-
-        $student->competencies()->sync(
-            [
-            $competencyA->id => ['status'=>1],
-            $competencyC->id => ['status'=>0],
-            ]
-        );
-
-        $this->assertEquals($student->competencies->find($competencyA->id)->cu_code, $competencyA->cu_code);
-        $this->assertEquals($student->competencies->find($competencyB->id), null);
-        $this->assertEquals($student->competencies->find($competencyC->id)->cu_code, $competencyC->cu_code);
-    }
+    // public function testRelationWithCompetencies()
+    // {
+    //     $student = factory(App\Models\Student::class)->create();
+    //     $competencyA = factory(App\Models\Competency::class)->create();
+    //     $competencyB = factory(App\Models\Competency::class)->create();
+    //     $competencyC = factory(App\Models\Competency::class)->create();
+    //
+    //     $student->competencies()->sync(
+    //         [
+    //         $competencyA->id => ['status'=>1],
+    //         $competencyC->id => ['status'=>0],
+    //         ]
+    //     );
+    //
+    //     $this->assertEquals($student->competencies->find($competencyA->id)->cu_code, $competencyA->cu_code);
+    //     $this->assertEquals($student->competencies->find($competencyB->id), null);
+    //     $this->assertEquals($student->competencies->find($competencyC->id)->cu_code, $competencyC->cu_code);
+    // }
 
     public function testRelationWithProjects()
     {

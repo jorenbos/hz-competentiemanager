@@ -11,6 +11,8 @@ namespace App\Util;
 
 class Constants
 {
+    const TIMEFRAME_EC_TOTAL = 27.5;
+
     const USER_ROLE_STUDENT = 0;
     const USER_ROLE_TEACHER = 1;
     const USER_ROLE_ADMIN = 2;

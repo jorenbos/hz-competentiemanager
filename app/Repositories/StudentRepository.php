@@ -102,9 +102,8 @@ class StudentRepository implements RepositoryInterface
      *
      * @return Competency[]
      */
-    public function getUncompletedCompetencies($id)
+    public function getUncompletedCompetencies($student)
     {
-        $student = $this->getById($id);
         if ($student != null) {
             $allCompetencies = Competency::all()->all();
             $returnCompetencies = [];
@@ -133,27 +132,15 @@ class StudentRepository implements RepositoryInterface
      *
      * @return int
      */
-    public function getToDoCredits($student)
+    public function getToDoCredits($student, $toDoSlots)
     {
         $toDoCredits = 0;
-        // foreach ($this->getToDoSlots($id) as $slot) {
-        //
-        // }
 
-        foreach ($this->getUncompletedCompetencies($student) as $competency) {
-            $slotValue = 0;
-            $matching_comp = $this->getById($id)->competencies()->find($competency->id);
-            if ($matching_comp != null) {
-                if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING ||
-                    $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
-                    $slotValue = 2.5;
-                }
-            } else {
-                $slotValue = $competency->ec_value;
-            }
-            $toDoCredits += $slotValue;
+        foreach ($toDoSlots as $slot) {
+            $keysStudentSlotCompetencies = array_keys($slot->competencies->toArray());
+            $toDoCredits += $slot->competencies[$keysStudentSlotCompetencies[0]]->ec_value;
         }
-        
+
         return $toDoCredits;
     }
 
@@ -162,31 +149,43 @@ class StudentRepository implements RepositoryInterface
      *
      * @return Slot[] left to do by Student
      */
-    public function getToDoSlots($id)
+    public function getToDoSlots($student)
     {
         $toDoSlots = Slot::all()->all();
         $doneSlots = [];
-        foreach ($this->getById($id)->competencies as $studentCompetency) {
+        //Create array with slotId's of competencies with status done or doing
+        foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
-                $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE) {
+                $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
+            ) {
                 array_push($doneSlots, array_search($studentCompetency->pivot->slot_id,
                            array_column($toDoSlots, 'id')));
-                array_multisort($doneSlots, SORT_DESC);
-            } else if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_HALF_DOING ||
-                       $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_HALF_DONE) {
-                foreach ($toDoSlots[array_search($studentCompetency->pivot->slot_id,
-                         array_column($toDoSlots, 'id'))]->competencies as $key => $fillingCompetency) {
-                    if ($fillingCompetency['attributes']['id'] != $studentCompetency['attributes']['id']) {
-                        //Not working yet...
-                        $toDoSlots[array_search($studentCompetency->pivot->slot_id, array_column($toDoSlots, 'id'))]['relations']['competencies'][$key] = $fillingCompetency;
-                        //dd($test=[$fillingCompetency,$studentCompetency]);
-                    }
-                }
-                //dd($toDoSlots[array_search($studentCompetency->pivot->slot_id, array_column($toDoSlots, 'id'))]);
             }
         }
+
+        array_multisort($doneSlots, SORT_DESC);
         foreach ($doneSlots as $doneSlot) {
             unset($toDoSlots[$doneSlot]);
+        }
+
+        $toDoSlots = $this->filterToDoSlots($toDoSlots, $student);
+
+        return $toDoSlots;
+    }
+
+    private function filterToDoSlots($toDoSlots, $student)
+    {
+        $keysToDoSlots = array_keys($toDoSlots);
+        $completedCompetencies = $student->competencies;
+        $keysCompletedCompetencies = array_keys($completedCompetencies->toArray());
+
+        //Remove completed competencies from toDoSlots.
+        for ($i = 0; $i < count($keysToDoSlots); $i++) {
+            for($j = 0; $j < count($keysCompletedCompetencies); $j++) {
+                if($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
+                    unset($toDoSlots[$keysToDoSlots[$i]]->competencies[$toDoSlots[$keysToDoSlots[$i]]->competencies->search($completedCompetencies[$keysCompletedCompetencies[$j]])]);
+                }
+            }
         }
 
         return $toDoSlots;
