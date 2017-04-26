@@ -41,6 +41,7 @@ class DemandController extends Controller
 
     public function index()
     {
+        // $this->getStudents()->getToDoSlots(1);
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
@@ -53,7 +54,7 @@ class DemandController extends Controller
         $students = $this->getStudents()->getAll();
 
         foreach ($students as $student) {
-            foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
+            foreach ($this->students->getUncompletedCompetencies($student) as $competency) {
                 $competencyCount[$competency->id]['competency'] = $competency;
                 if (!array_key_exists('count', $competencyCount[$competency->id])) {
                     $competencyCount[$competency->id]['count'] = 0;
@@ -65,7 +66,7 @@ class DemandController extends Controller
 
                 $competencyCount[$competency->id]['count'] += 1;
                 $competenciesPerStudentPerblock = 2;
-                $competenciesTodo = count($this->students->getUncompletedCompetencies($student->id));
+                $competenciesTodo = count($this->students->getUncompletedCompetencies($student));
                 $competencyCount[$competency->id]['mean_demand'] += ($competenciesPerStudentPerblock / $competenciesTodo);
             }
         }
@@ -88,17 +89,18 @@ class DemandController extends Controller
         foreach ($this->getStudents()->getStudentsForAlgorithm() as $student) {
             $toDoCredits = $this->students->getToDoCredits($student->id);
 
-            foreach ($this->students->getUncompletedCompetencies($student->id) as $competency) {
+            foreach ($this->students->getUncompletedCompetencies($student) as $competency) {
                 $slotValue = 0;
                 $matching_comp = $student->competencies()->find($competency->id);
                 if ($matching_comp != null) {
-                    if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING
-                        || $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
-                        $slotValue = 2.5;
+                    if ($matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DOING ||
+                        $matching_comp->pivot->status == Constants::COMPETENCY_STATUS_HALF_DONE) {
+                        $slotValue = $competency->ec_value/2;
                     }
                 } else {
                     $slotValue = $competency->ec_value;
                 }
+                //TODO: 2.5 veranderen in configuratie variable.
                 $competencyDemand[$competency->id]['mean_demand'] += 2.5 * ($slotValue / $toDoCredits);
             }
         }
