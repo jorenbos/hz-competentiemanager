@@ -181,8 +181,8 @@ class StudentRepository implements RepositoryInterface
 
         //Remove completed competencies from toDoSlots.
         for ($i = 0; $i < count($keysToDoSlots); $i++) {
-            for($j = 0; $j < count($keysCompletedCompetencies); $j++) {
-                if($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
+            for ($j = 0; $j < count($keysCompletedCompetencies); $j++) {
+                if ($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
                     unset($toDoSlots[$keysToDoSlots[$i]]->competencies[$toDoSlots[$keysToDoSlots[$i]]->competencies->search($completedCompetencies[$keysCompletedCompetencies[$j]])]);
                 }
             }
