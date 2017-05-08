@@ -17,6 +17,22 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository implements RepositoryInterface
 {
+
+    /**
+     * @var Student
+     */
+     private $students;
+
+     /**
+      * @var Slot
+      */
+      private $slots;
+
+     public function __construct(Student $students, Slot $slots)
+     {
+         $this->students = $students;
+         $this->slots = $slots;
+     }
     /**
      * @param $id
      *
@@ -24,7 +40,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return Student::findOrFail($id);
+        return $this->students->findOrFail($id);
     }
 
 //end getById()
@@ -34,7 +50,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return Student::all();
+        return $this->students->all();
     }
 
 //end getAll()
@@ -46,7 +62,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return Student::create($attributes);
+        return $this->students->create($attributes);
     }
 
 //end create()
@@ -58,7 +74,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function delete($ids)
     {
-        return Student::destroy($ids);
+        return $this->students->destroy($ids);
     }
 
 //end delete()
@@ -69,7 +85,7 @@ class StudentRepository implements RepositoryInterface
     public function getStudentsForAlgorithm()
     {
         //TODO Filtering moet nog toegepast worden
-        return Student::all();
+        return $this->students->all();
     }
 
 //end getStudentsForAlgorithm()
@@ -151,7 +167,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $toDoSlots = Slot::all()->all();
+        $toDoSlots = $this->slots->all()->all();
         $doneSlots = [];
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
