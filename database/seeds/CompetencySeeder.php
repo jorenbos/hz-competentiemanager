@@ -6,6 +6,7 @@ class CompetencySeeder extends CsvSeeder
 {
     public function __construct()
     {
+        //TODO: add new competencies
         $this->table = 'competencies';
         $this->filename = base_path() . '/database/seeds/csv/competency.csv';
     }
