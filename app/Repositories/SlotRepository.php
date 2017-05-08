@@ -8,6 +8,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SlotRepository implements RepositoryInterface
 {
+
+    /**
+     * @var Slot
+     */
+     private $slots;
+
+     public function __construct(Slot $slots)
+     {
+         $this->slots = $slots;
+     }
     /**
      * @param $id
      *
@@ -15,7 +25,7 @@ class SlotRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return Slot::findOrFail($id);
+        return $this->slots->findOrFail($id);
     }
 
     /**
@@ -23,7 +33,7 @@ class SlotRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return Slot::all();
+        return $this->slots->all();
     }
 
     /**
@@ -33,7 +43,7 @@ class SlotRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return Slot::create($attributes);
+        return $this->slots->create($attributes);
     }
 
     /**
@@ -43,7 +53,7 @@ class SlotRepository implements RepositoryInterface
      */
     public function delete($ids)
     {
-        return Slot::destroy($ids);
+        return $this->slots->destroy($ids);
     }
 
     /**
