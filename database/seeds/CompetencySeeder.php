@@ -8,16 +8,16 @@ class CompetencySeeder extends CsvSeeder
     {
         //TODO: add new competencies
         $this->table = 'competencies';
-        $this->filename = base_path() . '/database/seeds/csv/competency.csv';
+        $this->filename = base_path().'/database/seeds/csv/competency.csv';
     }
 
     public function run()
-	{
-		DB::disableQueryLog();
+    {
+        DB::disableQueryLog();
 
-		// Uncomment the below to wipe the table clean before populating
-		// DB::table($this->table)->truncate();
+        // Uncomment the below to wipe the table clean before populating
+        // DB::table($this->table)->truncate();
 
-		parent::run();
-	}
+        parent::run();
+    }
 }
