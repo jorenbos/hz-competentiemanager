@@ -7,24 +7,32 @@ class ProjectTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * @var ProjectRepository
+     */
+    private $projectRepository;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->projectRepository = $this->app->make('App\Repositories\ProjectRepository');
+    }
+
     public function testRepositoryGetById()
     {
-        $projectRepository = new ProjectRepository();
         $project = factory(App\Models\Project::class)->create();
-        $this->assertEquals($project->id, $projectRepository->getById($project->id)->id);
+        $this->assertEquals($project->id, $this->projectRepository->getById($project->id)->id);
     }
 
     public function testRepositoryGetAll()
     {
-        $projectRepository = new ProjectRepository();
         factory(App\Models\Project::class, 10)->create();
-        $this->assertEquals(10, count($projectRepository->getAll()));
+        $this->assertEquals(10, count($this->projectRepository->getAll()));
     }
 
     public function testRepositoryCreate()
     {
-        $projectRepository = new ProjectRepository();
-        $project = $projectRepository->create(
+        $project = $this->projectRepository->create(
             [
                 'name'          => 'Cool Project',
                 'projectnumber' => 7,
@@ -38,11 +46,10 @@ class ProjectTest extends TestCase
 
     public function testRepositoryDelete()
     {
-        $projectRepository = new ProjectRepository();
         $project = factory(App\Models\Project::class)->create();
-        $this->assertEquals(1, count($projectRepository->getAll()));
-        $projectRepository->delete($project->id);
-        $this->assertEquals(0, count($projectRepository->getAll()));
+        $this->assertEquals(1, count($this->projectRepository->getAll()));
+        $this->projectRepository->delete($project->id);
+        $this->assertEquals(0, count($this->projectRepository->getAll()));
     }
 
     public function testRelationWithCompetencies()
