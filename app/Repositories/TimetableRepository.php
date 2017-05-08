@@ -53,4 +53,28 @@ class TimetableRepository implements RepositoryInterface
       {
           return $this->timetable->destroy($ids);
       }
+
+      /**
+       * @return Timetable[]|Collection
+       */
+      public function getCurrent()
+      {
+          $currentDate = Carbon::now();
+          return $this->timetable->where([
+              [$currentDate, '>=', 'starting_date'],
+              [$currentDate, '<=', 'end_date'],
+          ]);
+      }
+
+      /**
+       * @return Timetable
+       */
+      public function getNext()
+      {
+          $currentDate = Carbon::now();
+          $futureTimetables = $this->timetable->where($currentDate, '<=', 'starting_date');
+          $futureTimetables = $futureTimetables->sortBy('starting_date');
+          $keysFutureTimetables = $futureTimetables->keys();
+          return futureTimetables[$keysFutureTimetables[0]];
+      }
 }
