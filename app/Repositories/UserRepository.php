@@ -14,6 +14,15 @@ use App\Util\RepositoryInterface;
 
 class UserRepository implements RepositoryInterface
 {
+    /**
+     * @var User
+     */
+    private $users;
+
+    public function __construct(User $users)
+    {
+        $this->users = $users;
+    }
     //TODO: add update functionality.
 
     /**
@@ -25,7 +34,7 @@ class UserRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return User::findOrFail($id);
+        return $this->users->findOrFail($id);
     }
 
     /**
@@ -35,7 +44,7 @@ class UserRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return User::orderBy('name', 'asc')->get();
+        return $this->users->orderBy('name', 'asc')->get();
     }
 
     /**
@@ -45,7 +54,7 @@ class UserRepository implements RepositoryInterface
      */
     public function getStudent($id)
     {
-        return User::find($id)->student;
+        return $this->users->find($id)->student;
     }
 
     /**
@@ -57,7 +66,7 @@ class UserRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return User::create($attributes);
+        return $this->users->create($attributes);
     }
 
     /**
@@ -69,6 +78,6 @@ class UserRepository implements RepositoryInterface
      */
     public function delete($id)
     {
-        return User::destroy($id);
+        return $this->users->destroy($id);
     }
 }
