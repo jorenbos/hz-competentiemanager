@@ -69,7 +69,7 @@ class StudentRepository implements RepositoryInterface
     public function getStudentsForAlgorithm()
     {
         //TODO Filtering moet nog toegepast worden
-        return Student::All();
+        return Student::all();
     }
 
 //end getStudentsForAlgorithm()
