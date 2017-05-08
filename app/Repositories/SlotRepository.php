@@ -71,4 +71,12 @@ class SlotRepository implements RepositoryInterface
 
         return $slots;
     }
+
+    /**
+     * @return Slot[]|Collection
+     */
+    public function getAllPropedeuse()
+    {
+        return $this->slots->where('phase', '=', 0)->get();
+    }
 }

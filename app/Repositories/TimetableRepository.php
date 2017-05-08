@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Timetable;
 use App\Util\RepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class TimetableRepository implements RepositoryInterface
@@ -62,9 +63,9 @@ class TimetableRepository implements RepositoryInterface
           $currentDate = Carbon::now();
 
           return $this->timetable->where([
-              [$currentDate, '>=', 'starting_date'],
-              [$currentDate, '<=', 'end_date'],
-          ]);
+              ['starting_date', '>=', $currentDate],
+              ['end_date', '<=', $currentDate],
+          ])->get();
       }
 
       /**
@@ -73,10 +74,10 @@ class TimetableRepository implements RepositoryInterface
       public function getNext()
       {
           $currentDate = Carbon::now();
-          $futureTimetables = $this->timetable->where($currentDate, '<=', 'starting_date');
+          $futureTimetables = $this->timetable->where('starting_date', '>=', $currentDate)->get();
           $futureTimetables = $futureTimetables->sortBy('starting_date');
           $keysFutureTimetables = $futureTimetables->keys();
 
-          return futureTimetables[$keysFutureTimetables[0]];
+          return $futureTimetables[$keysFutureTimetables[0]];
       }
 }
