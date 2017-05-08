@@ -26,19 +26,19 @@ class TimetableRepository implements RepositoryInterface
         return $this->timetable->findOrFail($if);
     }
 
-    /**
-     * @return Timetable[]|Collection
-     */
+     /**
+      * @return Timetable[]|Collection
+      */
      public function getAll()
      {
          return $this->timetable->all();
      }
 
-     /**
-      * @param array $attributes
-      *
-      * @return mixed
-      */
+      /**
+       * @param array $attributes
+       *
+       * @return mixed
+       */
       public function create(array $attributes)
       {
           return $this->timetable->create($attributes);
@@ -60,6 +60,7 @@ class TimetableRepository implements RepositoryInterface
       public function getCurrent()
       {
           $currentDate = Carbon::now();
+
           return $this->timetable->where([
               [$currentDate, '>=', 'starting_date'],
               [$currentDate, '<=', 'end_date'],
@@ -75,6 +76,7 @@ class TimetableRepository implements RepositoryInterface
           $futureTimetables = $this->timetable->where($currentDate, '<=', 'starting_date');
           $futureTimetables = $futureTimetables->sortBy('starting_date');
           $keysFutureTimetables = $futureTimetables->keys();
+
           return futureTimetables[$keysFutureTimetables[0]];
       }
 }
