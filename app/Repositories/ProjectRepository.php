@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Roel van Endhoven.
- * User: Roel van Endhoven
- * Date: 8-12-16
- * Time: 12:22.
- */
 
 namespace App\Repositories;
 
@@ -13,6 +7,15 @@ use App\Util\RepositoryInterface;
 
 class ProjectRepository implements RepositoryInterface
 {
+    /**
+     * @var Project
+     */
+    private $projects;
+
+    public function __construct(Project $projects)
+    {
+        $this->projects = $projects;
+    }
     //TODO: add update functionality.
 
     /**
@@ -24,7 +27,7 @@ class ProjectRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return Project::findOrFail($id);
+        return $this->projects->findOrFail($id);
     }
 
     /**
@@ -34,7 +37,7 @@ class ProjectRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return Project::get();
+        return $this->projects->get();
     }
 
     /**
@@ -46,7 +49,7 @@ class ProjectRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return Project::create($attributes);
+        return $this->projects->create($attributes);
     }
 
     /**
@@ -58,6 +61,6 @@ class ProjectRepository implements RepositoryInterface
      */
     public function delete($ids)
     {
-        return Project::destroy($ids);
+        return $this->projects->destroy($ids);
     }
 }
