@@ -9,7 +9,7 @@
 namespace App\Repositories;
 
 use App\Models\Competency;
-use App\Models\Slot;
+
 use App\Models\Student;
 use App\Util\Constants;
 use App\Util\RepositoryInterface;
@@ -24,11 +24,11 @@ class StudentRepository implements RepositoryInterface
      private $students;
 
      /**
-      * @var Slot
+      * @var SlotRepository
       */
-      private $slots;
+      private $slotRepository;
 
-     public function __construct(Student $students, Slot $slots)
+     public function __construct(Student $students, SlotRepository $slots)
      {
          $this->students = $students;
          $this->slots = $slots;
@@ -167,7 +167,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $toDoSlots = $this->slots->all()->all();
+        $toDoSlots = $this->SlotRepository->getAll();
         $doneSlots = [];
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
