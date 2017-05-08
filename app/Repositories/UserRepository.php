@@ -1,10 +1,4 @@
 <?php
-/**
- * Created Roel van Endhoven
- * User: Roel van Endhoven
- * Date: 8-12-16
- * Time: 11:52.
- */
 
 namespace App\Repositories;
 
