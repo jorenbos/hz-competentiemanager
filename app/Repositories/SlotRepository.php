@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SlotRepository implements RepositoryInterface
 {
-
     /**
-     * @var Slot
-     */
+      * @var Slot
+      */
      private $slots;
 
-     public function __construct(Slot $slots)
-     {
-         $this->slots = $slots;
-     }
+    public function __construct(Slot $slots)
+    {
+        $this->slots = $slots;
+    }
+
     /**
      * @param $id
      *

@@ -3,7 +3,6 @@
 use App\Repositories\CompetencyRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-
 class CompetencyTest extends TestCase
 {
     use DatabaseMigrations;
@@ -13,8 +12,6 @@ class CompetencyTest extends TestCase
      */
     private $competencyRepository;
 
-
-
     public function setUp()
     {
         parent::setUp();
@@ -23,7 +20,6 @@ class CompetencyTest extends TestCase
 
     public function testRepositoryGetById()
     {
-
         $competency = factory(App\Models\Competency::class)->create();
         $this->assertEquals($competency->id, $this->competencyRepository->getById($competency->id)->id);
     }
