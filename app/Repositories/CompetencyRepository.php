@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Roel van Endhoven.
- * User: Roel van Endhoven
- * Date: 8-12-16
- * Time: 12:23.
- */
 
 namespace App\Repositories;
 
@@ -15,6 +9,19 @@ use Illuminate\Database\Eloquent\Collection;
 class CompetencyRepository implements RepositoryInterface
 {
     /**
+     * @var Competency
+     */
+    private $competencies;
+
+    /**
+     * Constrcutor.
+     */
+    public function __construct(Competency $competencies)
+    {
+        $this->competencies = $competencies;
+    }
+
+    /**
      * Returns competency with given id from database.
      *
      * @param  $id
@@ -23,7 +30,7 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return Competency::findOrFail($id);
+        return $this->competencies->findOrFail($id);
     }
 
 //end getById()
@@ -35,7 +42,7 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return Competency::get();
+        return $this->competencies->get();
     }
 
 //end getAll()
@@ -49,7 +56,7 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return Competency::create($attributes);
+        return $this->competencies->create($attributes);
     }
 
 //end create()
@@ -63,7 +70,7 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function delete($ids)
     {
-        return Competency::destroy($ids);
+        return $this->competencies->destroy($ids);
     }
 
 //end delete()
@@ -78,8 +85,8 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function update($data, $id)
     {
-        $result = Competency::findOrFail($id)->update($data);
-        Competency::findOrFail($id)->save();
+        $result = $this->competencies->findOrFail($id)->update($data);
+        $this->competencies->findOrFail($id)->save();
 
         return $result;
     }
