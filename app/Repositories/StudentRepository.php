@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Roel van Endhoven.
- * User: Roel van Endhoven
- * Date: 12-1-17
- * Time: 11:11.
- */
 
 namespace App\Repositories;
 
@@ -166,7 +160,7 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $toDoSlots = $this->SlotRepository->getAll();
+        $toDoSlots = $this->slotRepository->getAll();
         $doneSlots = [];
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
