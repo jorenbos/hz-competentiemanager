@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Model\Timetable;
+use App\Models\Timetable;
 use App\Util\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 

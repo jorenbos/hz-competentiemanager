@@ -17,7 +17,7 @@ class CreateUserCredentialTable extends Migration
             $table->string('name');
             $table->string('student_code')->unique();
             $table->string('gender')->nullable();
-            $table->date('starting_date')->nullable();
+            $table->date('starting_date');
             $table->date('date_of_birth')->nullable();
             $table->timestamps();
         });

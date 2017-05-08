@@ -20,10 +20,16 @@ class StudentRepository implements RepositoryInterface
        */
       private $slotRepository;
 
-    public function __construct(Student $students, SlotRepository $slots)
+      /**
+       * @var TimetableRepository
+       */
+      private $timetableRepository;
+
+    public function __construct(Student $students, SlotRepository $slots, TimetableRepository $timetable)
     {
         $this->students = $students;
-        $this->slots = $slots;
+        $this->slotRepository = $slots;
+        $this->timetableRepository = $timetable;
     }
 
     /**
@@ -160,8 +166,17 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $toDoSlots = $this->slotRepository->getAll();
         $doneSlots = [];
+        $toDoSlots = [];
+
+        //Collect slots depending on student phase
+        $studentHoofdfaseDate = $student->starting_date->modify('+1 year');
+        if ($studentHoofdfaseDate <= $this->timetableRepository->getNext()['starting_date']) {
+            $toDoSlots = $this->slotRepository->getAll();
+        } else {
+            $toDoSlots = $this->slotRepository->where('phase', '=', 0);
+        }
+
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
