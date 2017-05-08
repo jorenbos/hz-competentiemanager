@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Student;
 use App\Repositories\StudentRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -8,18 +7,16 @@ class StudentTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /**
-     * @var StudentRepository
-     */
+     /**
+      * @var StudentRepository
+      */
      private $studentRepository;
 
-     public function setUp()
-     {
-         parent::setUp();
-         $this->studentRepository = $this->app->make('App\Repositories\StudentRepository');
-     }
-
-
+    public function setUp()
+    {
+        parent::setUp();
+        $this->studentRepository = $this->app->make('App\Repositories\StudentRepository');
+    }
 
     public function testRepositoryGetById()
     {
@@ -58,7 +55,6 @@ class StudentTest extends TestCase
         $this->studentRepository->delete($student->id);
         $this->assertEquals(0, count($this->studentRepository->getAll()));
     }
-
 
     // public function testRelationWithCompetencies()
     // {

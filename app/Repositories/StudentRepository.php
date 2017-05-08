@@ -9,7 +9,6 @@
 namespace App\Repositories;
 
 use App\Models\Competency;
-
 use App\Models\Student;
 use App\Util\Constants;
 use App\Util\RepositoryInterface;
@@ -17,22 +16,22 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository implements RepositoryInterface
 {
-
     /**
-     * @var Student
-     */
+      * @var Student
+      */
      private $students;
 
-     /**
-      * @var SlotRepository
-      */
+      /**
+       * @var SlotRepository
+       */
       private $slotRepository;
 
-     public function __construct(Student $students, SlotRepository $slots)
-     {
-         $this->students = $students;
-         $this->slots = $slots;
-     }
+    public function __construct(Student $students, SlotRepository $slots)
+    {
+        $this->students = $students;
+        $this->slots = $slots;
+    }
+
     /**
      * @param $id
      *

@@ -9,18 +9,18 @@ use Illuminate\Database\Eloquent\Collection;
 class CompetencyRepository implements RepositoryInterface
 {
     /**
-     * @var Competency $competency
+     * @var Competency
      */
     private $competencies;
 
     /**
-     * Constrcutor
+     * Constrcutor.
      */
     public function __construct(Competency $competencies)
     {
         $this->competencies = $competencies;
-
     }
+
     /**
      * Returns competency with given id from database.
      *

@@ -23,6 +23,7 @@ class UserRepository implements RepositoryInterface
     {
         $this->users = $users;
     }
+
     //TODO: add update functionality.
 
     /**

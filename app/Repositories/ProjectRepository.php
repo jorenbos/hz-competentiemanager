@@ -16,6 +16,7 @@ class ProjectRepository implements RepositoryInterface
     {
         $this->projects = $projects;
     }
+
     //TODO: add update functionality.
 
     /**
