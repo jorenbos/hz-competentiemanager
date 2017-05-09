@@ -17,6 +17,7 @@ class CreateStudentCompetency extends Migration
             $table->increments('id');
             $table->integer('student_id');
             $table->integer('competency_id');
+            $table->integer('slot_id');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

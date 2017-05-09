@@ -172,7 +172,7 @@ class StudentRepository implements RepositoryInterface
         //Collect slots depending on student phase
         $studentHoofdfaseDate = new \DateTime($student->starting_date);
         $studentHoofdfaseDate->modify('+1 year');
-        if ($studentHoofdfaseDate <= $this->timetableRepository->getNext()['starting_date']) {
+        if ($studentHoofdfaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
             $toDoSlots = $this->slotRepository->getAll();
         } else {
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
@@ -184,7 +184,7 @@ class StudentRepository implements RepositoryInterface
                 $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
             ) {
                 array_push($doneSlots, array_search($studentCompetency->pivot->slot_id,
-                           array_column($toDoSlots, 'id')));
+                           array_column($toDoSlots->toArray(), 'id')));
             }
         }
 
@@ -200,7 +200,7 @@ class StudentRepository implements RepositoryInterface
 
     private function filterToDoSlots($toDoSlots, $student)
     {
-        $keysToDoSlots = array_keys($toDoSlots);
+        $keysToDoSlots = $toDoSlots->keys();
         $completedCompetencies = $student->competencies;
         $keysCompletedCompetencies = array_keys($completedCompetencies->toArray());
 
