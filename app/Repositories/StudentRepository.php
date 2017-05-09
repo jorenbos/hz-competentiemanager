@@ -172,7 +172,7 @@ class StudentRepository implements RepositoryInterface
         //Collect slots depending on student phase
         $studentHoofdfaseDate = new \DateTime($student->starting_date);
         $studentHoofdfaseDate->modify('+1 year');
-        if ($studentHoofdfaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
+        if ($studentHoofdfaseDate < new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
             $toDoSlots = $this->slotRepository->getAll();
         } else {
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
