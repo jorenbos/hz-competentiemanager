@@ -20,10 +20,16 @@ class StudentRepository implements RepositoryInterface
        */
       private $slotRepository;
 
-    public function __construct(Student $students, SlotRepository $slots)
+      /**
+       * @var TimetableRepository
+       */
+      private $timetableRepository;
+
+    public function __construct(Student $students, SlotRepository $slotRepository, TimetableRepository $timetable)
     {
         $this->students = $students;
-        $this->slots = $slots;
+        $this->slotRepository = $slotRepository;
+        $this->timetableRepository = $timetable;
     }
 
     /**
@@ -160,15 +166,25 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $toDoSlots = $this->slotRepository->getAll();
         $doneSlots = [];
+        $toDoSlots = [];
+
+        //Collect slots depending on student phase
+        $studentHoofdfaseDate = new \DateTime($student->starting_date);
+        $studentHoofdfaseDate->modify('+1 year');
+        if ($studentHoofdfaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
+            $toDoSlots = $this->slotRepository->getAll();
+        } else {
+            $toDoSlots = $this->slotRepository->getAllPropedeuse();
+        }
+
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
                 $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
             ) {
                 array_push($doneSlots, array_search($studentCompetency->pivot->slot_id,
-                           array_column($toDoSlots, 'id')));
+                           array_column($toDoSlots->toArray(), 'id')));
             }
         }
 
@@ -184,7 +200,7 @@ class StudentRepository implements RepositoryInterface
 
     private function filterToDoSlots($toDoSlots, $student)
     {
-        $keysToDoSlots = array_keys($toDoSlots);
+        $keysToDoSlots = $toDoSlots->keys();
         $completedCompetencies = $student->competencies;
         $keysCompletedCompetencies = array_keys($completedCompetencies->toArray());
 

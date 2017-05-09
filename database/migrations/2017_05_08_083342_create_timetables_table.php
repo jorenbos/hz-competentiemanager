@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentCompetency extends Migration
+class CreateTimetablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateStudentCompetency extends Migration
      */
     public function up()
     {
-        Schema::create('student_competency', function (Blueprint $table) {
+        Schema::create('timetables', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('student_id');
-            $table->integer('competency_id');
-            $table->integer('slot_id');
-            $table->integer('status')->default(0);
+            $table->date('starting_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateStudentCompetency extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_competency');
+        Schema::dropIfExists('timetables');
     }
 }

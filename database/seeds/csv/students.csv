@@ -1,6 +1,6 @@
-id,name,student_code,gender
-1,Gert de Pagter,11111,male
-2,Quintijn Vos,22222,male
-3,Zoe van Harrewijn,33333,female
-4,Erik van der Maden,44444,male
-5,Jacco de Visser,55555,male
+id,name,student_code,starting_date,gender
+1,Gert de Pagter,11111,2015-09-01,male
+2,Quintijn Vos,22222,2015-09-01,male
+3,Zoe van Harrewijn,33333,2015-09-01,female
+4,Erik van der Maden,44444,2015-09-01,male
+5,Jacco de Visser,55555,2015-09-01,male
