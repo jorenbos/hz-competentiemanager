@@ -105,8 +105,8 @@ class CompetencyTest extends TestCase
 
         $competency->students()->sync(
             [
-            $studentA->id => ['status'=>0],
-            $studentC->id => ['status'=>0],
+            $studentA->id => ['status'=>0, 'slot_id' => 1],
+            $studentC->id => ['status'=>0, 'slot_id' => 1],
             ]
         );
 
