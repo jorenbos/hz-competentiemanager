@@ -12,8 +12,8 @@ class StudentApiTest extends TestCase
 
         \App\Models\Student::create(
             [
-            'name'         => 'John Doe',
-            'student_code' => '00038574',
+            'name'          => 'John Doe',
+            'student_code'  => '00038574',
             'date_of_birth' => '1996-11-11',
             'starting_date' => '2011-09-01',
             ]
