@@ -52,6 +52,6 @@ $factory->define(App\Models\Student::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Slot::class, function (Faker\Generator $faker) {
     return [
-        'phase' => '1'
+        'phase' => '1',
     ];
 });
