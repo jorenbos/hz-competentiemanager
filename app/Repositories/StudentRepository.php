@@ -152,8 +152,7 @@ class StudentRepository implements RepositoryInterface
         $toDoCredits = 0;
 
         foreach ($toDoSlots as $slot) {
-            $keysStudentSlotCompetencies = array_keys($slot->competencies->toArray());
-            $toDoCredits += $slot->competencies[$keysStudentSlotCompetencies[0]]->ec_value;
+            $toDoCredits += $slot->competencies->first()->ec_value;
         }
 
         return $toDoCredits;
@@ -166,35 +165,38 @@ class StudentRepository implements RepositoryInterface
      */
     public function getToDoSlots($student)
     {
-        $doneSlots = [];
-        $toDoSlots = [];
+        $doneSlots = collect();
+        $toDoSlots = collect();
 
         //Collect slots depending on student phase
-        $studentHoofdfaseDate = new \DateTime($student->starting_date);
-        $studentHoofdfaseDate->modify('+1 year');
-        if ($studentHoofdfaseDate < new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
+        $studentMainPhaseDate = new \DateTime($student->starting_date);
+        $studentMainPhaseDate->modify('+1 year');
+        if ($studentMainPhaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
             $toDoSlots = $this->slotRepository->getAll();
         } else {
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
         }
+        $selectableToDoSlots = $toDoSlots;
 
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
                 $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
             ) {
-                array_push($doneSlots, array_search($studentCompetency->pivot->slot_id,
-                           array_column($toDoSlots->toArray(), 'id')));
+                $doneSlots->push($this->determineBestSlotChoice($studentCompetency, $selectableToDoSlots));
             }
         }
 
-        array_multisort($doneSlots, SORT_DESC);
+        //Filter toDoSlots so that all done slots are removed
         foreach ($doneSlots as $doneSlot) {
-            unset($toDoSlots[$doneSlot]);
+            $filteredToDoSlots = $toDoSlots->reject(function ($value, $key) use ($doneSlot)
+            {
+                return $value->id === $doneSlot->id;
+            });
+            $toDoSlots = $filteredToDoSlots;
         }
 
         $toDoSlots = $this->filterToDoSlots($toDoSlots, $student);
-
         return $toDoSlots;
     }
 
@@ -214,5 +216,28 @@ class StudentRepository implements RepositoryInterface
         }
 
         return $toDoSlots;
+    }
+
+    private function determineBestSlotChoice($studentCompetency, $selectableToDoSlots)
+    {
+        //Determine in which slots the competency is able to be done
+        $possibleInSlots = $selectableToDoSlots->filter(function ($value, $key) use ($studentCompetency) {
+            $ret = $value->competencies;
+            return $ret->contains('id',$studentCompetency->id);
+        });
+
+        //Order possible slots by amount of possible competencies in slot
+        $sortedPossibleInSlots = $possibleInSlots->sortBy(function ($value, $key)
+        {
+            return count($value->competencies);
+        });
+
+        //Remove selected slot from list of selectable slots
+        $selectableToDoSlotsFiltered = $selectableToDoSlots->reject(function ($value, $key) use ($sortedPossibleInSlots)
+        {
+            return $value->id === $sortedPossibleInSlots->first()->id;
+        });
+        $selectableToDoSlots = $selectableToDoSlotsFiltered;
+        return $sortedPossibleInSlots->first();
     }
 }//end class

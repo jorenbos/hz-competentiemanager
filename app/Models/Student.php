@@ -66,7 +66,7 @@ class Student extends Model
      */
     public function competencies()
     {
-        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id')->withPivot('status', 'slot_id');
+        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id')->withPivot('status');
     }
 
 //end competencies()
