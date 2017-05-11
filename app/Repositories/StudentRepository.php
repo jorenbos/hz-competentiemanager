@@ -189,14 +189,14 @@ class StudentRepository implements RepositoryInterface
 
         //Filter toDoSlots so that all done slots are removed
         foreach ($doneSlots as $doneSlot) {
-            $filteredToDoSlots = $toDoSlots->reject(function ($value, $key) use ($doneSlot)
-            {
+            $filteredToDoSlots = $toDoSlots->reject(function ($value, $key) use ($doneSlot) {
                 return $value->id === $doneSlot->id;
             });
             $toDoSlots = $filteredToDoSlots;
         }
 
         $toDoSlots = $this->filterToDoSlots($toDoSlots, $student);
+
         return $toDoSlots;
     }
 
@@ -223,21 +223,21 @@ class StudentRepository implements RepositoryInterface
         //Determine in which slots the competency is able to be done
         $possibleInSlots = $selectableToDoSlots->filter(function ($value, $key) use ($studentCompetency) {
             $ret = $value->competencies;
-            return $ret->contains('id',$studentCompetency->id);
+
+            return $ret->contains('id', $studentCompetency->id);
         });
 
         //Order possible slots by amount of possible competencies in slot
-        $sortedPossibleInSlots = $possibleInSlots->sortBy(function ($value, $key)
-        {
+        $sortedPossibleInSlots = $possibleInSlots->sortBy(function ($value, $key) {
             return count($value->competencies);
         });
 
         //Remove selected slot from list of selectable slots
-        $selectableToDoSlotsFiltered = $selectableToDoSlots->reject(function ($value, $key) use ($sortedPossibleInSlots)
-        {
+        $selectableToDoSlotsFiltered = $selectableToDoSlots->reject(function ($value, $key) use ($sortedPossibleInSlots) {
             return $value->id === $sortedPossibleInSlots->first()->id;
         });
         $selectableToDoSlots = $selectableToDoSlotsFiltered;
+
         return $sortedPossibleInSlots->first();
     }
 }//end class
