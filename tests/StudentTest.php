@@ -65,14 +65,10 @@ class StudentTest extends TestCase
        $competencyC = factory(App\Models\Competency::class)->create();
 
        $student->competencies()->sync([
-           [
-               'competency_id' => $competencyA->id,
-               'status'        => Constants::COMPETENCY_STATUS_DONE,
-           ],
-           [
-               'competency_id' => $competencyB->id,
-               'status'        => Constants::COMPETENCY_STATUS_DOING,
-           ],
+           $competencyA->id     =>
+                ['status'       => Constants::COMPETENCY_STATUS_DONE,],
+           $competencyB->id     =>
+               ['status'        => Constants::COMPETENCY_STATUS_DOING,],
        ]);
 
        $this->assertEquals($student->competencies->find($competencyA->id)->id, $competencyA->id);
