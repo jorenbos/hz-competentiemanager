@@ -1,11 +1,4 @@
 <?php
-/**
- * Class containing all constants for our application.
- *
- * User: Roel van Endhoven
- * Date: 30-11-2016
- * Time: 19:45
- */
 
 namespace App\Util;
 
@@ -22,4 +15,7 @@ class Constants
     const COMPETENCY_STATUS_DONE = 2;
     const COMPETENCY_STATUS_HALF_DOING = 3;
     const COMPETENCY_STATUS_HALF_DONE = 4;
+
+    const SLOT_PHASE_PROPEDEUSE = 0;
+    const SLOT_PAHSE_MAIN = 1;
 }//end class

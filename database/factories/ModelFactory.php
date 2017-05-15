@@ -55,3 +55,10 @@ $factory->define(App\Models\Slot::class, function (Faker\Generator $faker) {
         'phase' => '1',
     ];
 });
+
+$factory->define(App\Models\Timetable::class, function(Faker\Generator $faker) {
+    return [
+        'starting_date' => $faker->date('Y-m-d'),
+        'end_date'      => $faker->date('Y-m-d'),
+    ];
+});

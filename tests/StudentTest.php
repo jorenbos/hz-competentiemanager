@@ -1,6 +1,7 @@
 <?php
 
 use App\Repositories\StudentRepository;
+use App\Util\Constants;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class StudentTest extends TestCase
@@ -56,24 +57,26 @@ class StudentTest extends TestCase
         $this->assertEquals(0, count($this->studentRepository->getAll()));
     }
 
-    // public function testRelationWithCompetencies()
-    // {
-    //     $student = factory(App\Models\Student::class)->create();
-    //     $competencyA = factory(App\Models\Competency::class)->create();
-    //     $competencyB = factory(App\Models\Competency::class)->create();
-    //     $competencyC = factory(App\Models\Competency::class)->create();
-    //
-    //     $student->competencies()->sync(
-    //         [
-    //         $competencyA->id => ['status'=>1],
-    //         $competencyC->id => ['status'=>0],
-    //         ]
-    //     );
-    //
-    //     $this->assertEquals($student->competencies->find($competencyA->id)->cu_code, $competencyA->cu_code);
-    //     $this->assertEquals($student->competencies->find($competencyB->id), null);
-    //     $this->assertEquals($student->competencies->find($competencyC->id)->cu_code, $competencyC->cu_code);
-    // }
+    public function testRelationWithCompetencies()
+    {
+       $student = factory(App\Models\Student::class)->create();
+       $competencyA = factory(App\Models\Competency::class)->create();
+       $competencyB = factory(App\Models\Competency::class)->create();
+       $competencyC = factory(App\Models\Competency::class)->create();
+
+       $student->competencies()->sync([
+           [
+               'competency_id' => $competencyA->id,
+               'status'        => Constants::COMPETENCY_STATUS_DONE,
+           ],
+           [
+               'competency_id' => $competencyB->id,
+               'status'        => Constants::COMPETENCY_STATUS_DOING,
+           ],
+       ]);
+
+       $this->assertEquals($student->competencies->find($competencyA->id)->id, $competencyA->id);
+   }
 
     public function testRelationWithProjects()
     {
