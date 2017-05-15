@@ -4,7 +4,6 @@
  * TODO: Since the demand calculations are still being (re)done, this may
  * need to be remade and/or expanded once its finished.
  */
-
 use App\Repositories\StudentRepository;
 use App\Util\Constants;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -129,5 +128,4 @@ class DemandTest extends TestCase
         ]);
         $this->assertEquals(3, count($this->studentRepository->getToDoSlots($student)));
     }
-
 }
