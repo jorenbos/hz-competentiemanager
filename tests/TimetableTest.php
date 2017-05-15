@@ -1,12 +1,9 @@
 <?php
 
 use App\Repositories\TimetableRepository;
-
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TimeTableTest extends TestCase
+class TimetableTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -45,5 +42,4 @@ class TimeTableTest extends TestCase
         $this->assertEquals('1997-10-04', $timetable->starting_date);
         $this->assertEquals('1998-04-10', $timetable->end_date);
     }
-    
 }

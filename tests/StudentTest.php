@@ -59,20 +59,18 @@ class StudentTest extends TestCase
 
     public function testRelationWithCompetencies()
     {
-       $student = factory(App\Models\Student::class)->create();
-       $competencyA = factory(App\Models\Competency::class)->create();
-       $competencyB = factory(App\Models\Competency::class)->create();
-       $competencyC = factory(App\Models\Competency::class)->create();
+        $student = factory(App\Models\Student::class)->create();
+        $competencyA = factory(App\Models\Competency::class)->create();
+        $competencyB = factory(App\Models\Competency::class)->create();
+        $competencyC = factory(App\Models\Competency::class)->create();
 
-       $student->competencies()->sync([
-           $competencyA->id     =>
-                ['status'       => Constants::COMPETENCY_STATUS_DONE,],
-           $competencyB->id     =>
-               ['status'        => Constants::COMPETENCY_STATUS_DOING,],
+        $student->competencies()->sync([
+           $competencyA->id     => ['status'       => Constants::COMPETENCY_STATUS_DONE],
+           $competencyB->id     => ['status'        => Constants::COMPETENCY_STATUS_DOING],
        ]);
 
-       $this->assertEquals($student->competencies->find($competencyA->id)->id, $competencyA->id);
-   }
+        $this->assertEquals($student->competencies->find($competencyA->id)->id, $competencyA->id);
+    }
 
     public function testRelationWithProjects()
     {
