@@ -6,6 +6,7 @@ use App\Models\Competency;
 use App\Models\Student;
 use App\Util\Constants;
 use App\Util\RepositoryInterface;
+use App\Util\SequentialityRules\RulesContext;
 use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository implements RepositoryInterface
@@ -140,10 +141,50 @@ class StudentRepository implements RepositoryInterface
         return [];
     }
 
-    //end getUncompletedCompetencies()
+    /**
+     * @param Competency[]|Collection $competencies
+     *
+     * @return Competency[]|Collection
+     */
+    public function filterSequentiality($competencies)
+    {
+        $returnCompetencies = collect();
+        foreach ($competencies as $competency) {
+            $isAllowed = true;
+            $ruleSequentialComboRequired = 0;
+            $ruleSequentialComboCounter = 0;
+
+            foreach ($competency->sequentiality as $sequentialCompetency) {
+                if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED
+                    && $competencies->contains($sequentialCompetency)
+                ) {
+                    $isAllowed = false;
+                    break;
+                } else if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
+                    if ($ruleSequentialComboRequired === 0) {
+                        $ruleSequentialComboRequired = $sequentialCompetency->pivot->amount_required;
+                    }
+                    if (!$competencies->contains($sequentialCompetency)) {
+                        $ruleSequentialComboCounter++;
+                    }
+                }
+            }
+
+            if ($ruleSequentialComboCounter < $ruleSequentialComboRequired) {
+                $isAllowed = false;
+            }
+
+            if ($isAllowed) {
+                $returnCompetencies->push($competency);
+            }
+        }
+
+        return $returnCompetencies;
+    }
 
     /**
-     * @param $id
+     * @param Student $student
+     * @param Slot[]|Collection $toDoSlots
      *
      * @return int
      */
@@ -202,18 +243,28 @@ class StudentRepository implements RepositoryInterface
 
     private function filterToDoSlots($toDoSlots, $student)
     {
-        $keysToDoSlots = $toDoSlots->keys();
-        $completedCompetencies = $student->competencies;
-        $keysCompletedCompetencies = array_keys($completedCompetencies->toArray());
+        $toDoCompetencies = $this->filterSequentiality($this->getUncompletedCompetencies($student));
 
-        //Remove completed competencies from toDoSlots.
-        for ($i = 0; $i < count($keysToDoSlots); $i++) {
-            for ($j = 0; $j < count($keysCompletedCompetencies); $j++) {
-                if ($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
-                    unset($toDoSlots[$keysToDoSlots[$i]]->competencies[$toDoSlots[$keysToDoSlots[$i]]->competencies->search($completedCompetencies[$keysCompletedCompetencies[$j]])]);
-                }
-            }
-        }
+        //Remove all but viable competencies from toDoSlots
+        $toDoSlots = $toDoSlots->each(function ($slot, $key) use ($toDoCompetencies) {
+            $filteredSlot = $slot->competencies->reject(function ($value, $key) use ($toDoCompetencies) {
+                return $toDoCompetencies->contains($value);
+            });
+            $slot = $filteredSlot;
+        });
+
+        // $keysToDoSlots = $toDoSlots->keys();
+        // $completedCompetencies = $student->competencies;
+        // $keysCompletedCompetencies = $completedCompetencies->keys());
+        //
+        // //Remove completed competencies from toDoSlots.
+        // for ($i = 0; $i < count($keysToDoSlots); $i++) {
+        //     for ($j = 0; $j < count($keysCompletedCompetencies); $j++) {
+        //         if ($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
+        //             unset($toDoSlots[$keysToDoSlots[$i]]->competencies[$toDoSlots[$keysToDoSlots[$i]]->competencies->search($completedCompetencies[$keysCompletedCompetencies[$j]])]);
+        //         }
+        //     }
+        // }
 
         return $toDoSlots;
     }
