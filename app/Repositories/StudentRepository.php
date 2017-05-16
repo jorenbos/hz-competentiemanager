@@ -6,7 +6,6 @@ use App\Models\Competency;
 use App\Models\Student;
 use App\Util\Constants;
 use App\Util\RepositoryInterface;
-use App\Util\SequentialityRules\RulesContext;
 use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository implements RepositoryInterface
@@ -135,6 +134,7 @@ class StudentRepository implements RepositoryInterface
                 }
             }
         }
+
         return $returnCompetencies;
     }
 
@@ -157,7 +157,7 @@ class StudentRepository implements RepositoryInterface
                 ) {
                     $isAllowed = false;
                     break;
-                } else if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
+                } elseif ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
                     if ($ruleSequentialComboRequired === 0) {
                         $ruleSequentialComboRequired = $sequentialCompetency->pivot->amount_required;
                     }
@@ -176,11 +176,12 @@ class StudentRepository implements RepositoryInterface
                 $returnCompetencies->push($competency);
             }
         }
+
         return $returnCompetencies;
     }
 
     /**
-     * @param Student $student
+     * @param Student           $student
      * @param Slot[]|Collection $toDoSlots
      *
      * @return int
@@ -241,6 +242,7 @@ class StudentRepository implements RepositoryInterface
         }
 
         $toDoSlots = $this->filterToDoSlots($toDoSlots, $student);
+
         return $toDoSlots;
     }
 
