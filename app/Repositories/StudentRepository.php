@@ -120,25 +120,22 @@ class StudentRepository implements RepositoryInterface
      */
     public function getUncompletedCompetencies($student)
     {
+        $returnCompetencies = collect();
         if ($student != null) {
             $allCompetencies = Competency::all()->all();
-            $returnCompetencies = [];
 
             foreach ($allCompetencies as $competency) {
                 $matching_comp = $student->competencies()->find($competency->id);
                 if ($matching_comp != null) {
                     if ($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
-                        $returnCompetencies[] = $matching_comp;
+                        $returnCompetencies->push($matching_comp);
                     }
                 } else {
-                    $returnCompetencies[] = $competency;
+                    $returnCompetencies->push($competency);
                 }
             }
-
-            return $returnCompetencies;
         }
-
-        return [];
+        return $returnCompetencies;
     }
 
     /**
@@ -156,7 +153,7 @@ class StudentRepository implements RepositoryInterface
 
             foreach ($competency->sequentiality as $sequentialCompetency) {
                 if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED
-                    && $competencies->contains($sequentialCompetency)
+                    && $competencies->contains('id', $sequentialCompetency->id)
                 ) {
                     $isAllowed = false;
                     break;
@@ -164,8 +161,9 @@ class StudentRepository implements RepositoryInterface
                     if ($ruleSequentialComboRequired === 0) {
                         $ruleSequentialComboRequired = $sequentialCompetency->pivot->amount_required;
                     }
-                    if (!$competencies->contains($sequentialCompetency)) {
+                    if (!$competencies->contains('id', $sequentialCompetency->id)) {
                         $ruleSequentialComboCounter++;
+                        var_dump($ruleSequentialComboCounter);
                     }
                 }
             }
@@ -178,7 +176,6 @@ class StudentRepository implements RepositoryInterface
                 $returnCompetencies->push($competency);
             }
         }
-
         return $returnCompetencies;
     }
 
@@ -224,7 +221,14 @@ class StudentRepository implements RepositoryInterface
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
                 $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
             ) {
-                $doneSlots->push($this->determineBestSlotChoice($studentCompetency, $selectableToDoSlots));
+                $bestSlot = $this->determineBestSlotChoice($studentCompetency, $selectableToDoSlots);
+                $doneSlots->push($bestSlot);
+
+                //Remove selected slot from list of selectable slots
+                $selectableToDoSlotsFiltered = $selectableToDoSlots->reject(function ($value, $key) use ($bestSlot) {
+                    return $value->id === $bestSlot->id;
+                });
+                $selectableToDoSlots = $selectableToDoSlotsFiltered;
             }
         }
 
@@ -237,36 +241,33 @@ class StudentRepository implements RepositoryInterface
         }
 
         $toDoSlots = $this->filterToDoSlots($toDoSlots, $student);
-
         return $toDoSlots;
     }
 
     private function filterToDoSlots($toDoSlots, $student)
     {
-        $toDoCompetencies = $this->filterSequentiality($this->getUncompletedCompetencies($student));
+        $toDoSlots = $toDoSlots->keyBy('id');
+        $viableCompetencies = $this->filterSequentiality($this->getUncompletedCompetencies($student))->keyBy('id');
 
-        //Remove all but viable competencies from toDoSlots
-        $toDoSlots = $toDoSlots->each(function ($slot, $key) use ($toDoCompetencies) {
-            $filteredSlot = $slot->competencies->reject(function ($value, $key) use ($toDoCompetencies) {
-                return $toDoCompetencies->contains($value);
+        //Removes completed and not allowed(sequentiality) competencies
+        $toDoSlots = $toDoSlots->map(function ($slot, $key) use ($viableCompetencies) {
+            $competenciesToBeRemoved = $slot->competencies->filter(function ($competency, $key) use ($viableCompetencies) {
+                return !$viableCompetencies->contains('id', $competency->id);
             });
-            $slot = $filteredSlot;
+
+            for ($i = 0; $i < count($competenciesToBeRemoved); $i++) {
+                unset($slot->competencies[$slot->competencies->search($competenciesToBeRemoved->values()[$i])]);
+            }
+
+            return $slot;
         });
 
-        // $keysToDoSlots = $toDoSlots->keys();
-        // $completedCompetencies = $student->competencies;
-        // $keysCompletedCompetencies = $completedCompetencies->keys());
-        //
-        // //Remove completed competencies from toDoSlots.
-        // for ($i = 0; $i < count($keysToDoSlots); $i++) {
-        //     for ($j = 0; $j < count($keysCompletedCompetencies); $j++) {
-        //         if ($toDoSlots[$keysToDoSlots[$i]]->competencies->contains($completedCompetencies[$keysCompletedCompetencies[$j]])) {
-        //             unset($toDoSlots[$keysToDoSlots[$i]]->competencies[$toDoSlots[$keysToDoSlots[$i]]->competencies->search($completedCompetencies[$keysCompletedCompetencies[$j]])]);
-        //         }
-        //     }
-        // }
+        //Removes slots with no possible competencies
+        $filteredToDoSlots = $toDoSlots->reject(function ($slot, $key) {
+            return $slot->competencies->isEmpty();
+        });
 
-        return $toDoSlots;
+        return $filteredToDoSlots;
     }
 
     private function determineBestSlotChoice($studentCompetency, $selectableToDoSlots)
@@ -282,12 +283,6 @@ class StudentRepository implements RepositoryInterface
         $sortedPossibleInSlots = $possibleInSlots->sortBy(function ($value, $key) {
             return count($value->competencies);
         });
-
-        //Remove selected slot from list of selectable slots
-        $selectableToDoSlotsFiltered = $selectableToDoSlots->reject(function ($value, $key) use ($sortedPossibleInSlots) {
-            return $value->id === $sortedPossibleInSlots->first()->id;
-        });
-        $selectableToDoSlots = $selectableToDoSlotsFiltered;
 
         return $sortedPossibleInSlots->first();
     }

@@ -41,7 +41,6 @@ class DemandController extends Controller
 
     public function index()
     {
-        // $this->getStudents()->getToDoSlots(1);
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
@@ -75,7 +74,6 @@ class DemandController extends Controller
                 }
             }
         }
-
         return $competencyDemand;
     }
 
