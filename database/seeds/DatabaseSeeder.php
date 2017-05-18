@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StudentCompetenciesSeeder::class);
         $this->call(SlotCompetenciesSeeder::class);
         $this->call(TimetableSeeder::class);
+        $this->call(CompetencyPrerequisitesSeeder::class);
     }
 }
