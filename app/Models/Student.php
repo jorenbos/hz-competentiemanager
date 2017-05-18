@@ -74,5 +74,4 @@ class Student extends Model
             'competency_id')
             ->withPivot('status', 'timetable');
     }
-
 }

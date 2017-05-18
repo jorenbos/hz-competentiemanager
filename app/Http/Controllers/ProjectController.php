@@ -130,7 +130,6 @@ class ProjectController extends Controller
         return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
     }
 
-
     /**
      * Remove the specified project from storage.
      *
@@ -157,5 +156,4 @@ class ProjectController extends Controller
             ]
         );
     }
-
 }
