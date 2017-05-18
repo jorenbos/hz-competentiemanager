@@ -15,7 +15,6 @@
     <table class="table">
         <thead>
             <th>Competentie</th>
-            <th>Maximum potentiele vraag</th>
             <th>Gewogen gemiddelde vraag</th>
         </thead>
 
@@ -23,7 +22,6 @@
             @foreach ($competencies as $competency)
                 <tr>
                     <td>{{$competency['competency']->name}}</td>
-                    <td>{{$competency['count']}}</td>
                     <td>{{$competency['mean_demand']}}</td>
 
                 </tr>
