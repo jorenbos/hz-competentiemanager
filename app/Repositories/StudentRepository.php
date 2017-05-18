@@ -34,7 +34,6 @@ class StudentRepository implements RepositoryInterface
         $this->students = $students;
         $this->slotRepository = $slotRepository;
         $this->competencyRepository = $competencyRepository;
-
     }
 
     /**
