@@ -24,10 +24,8 @@ class Project extends Model
      */
     public function contact()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->hasOne(User::class);
     }
-
-//end contact()
 
     /**
      * Many to many elequent relation with students. (or collection if called without parentheces).
@@ -36,10 +34,13 @@ class Project extends Model
      */
     public function students()
     {
-        return $this->belongsToMany('App\Models\Student', 'project_student', 'project_id', 'student_id');
+        return $this->belongsToMany(
+            Student::class,
+            'project_student',
+            'project_id',
+            'student_id'
+        );
     }
-
-//end students()
 
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces).
@@ -48,8 +49,12 @@ class Project extends Model
      */
     public function competencies()
     {
-        return $this->belongsToMany('App\Models\Competency', 'project_competency', 'project_id', 'competency_id');
+        return $this->belongsToMany(
+            Competency::class,
+            'project_competency',
+            'project_id',
+            'competency_id'
+        );
     }
 
-//end competencies()
-}//end class
+}
