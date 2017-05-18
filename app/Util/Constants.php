@@ -7,8 +7,6 @@ class Constants
     const RULE_TYPE_SEQUENTIAL_REQUIRED = 0;
     const RULE_TYPE_SEQUENTIAL_COMBO = 1;
 
-    const TIMEFRAME_EC_TOTAL = 27.5; //TODO switch to timetable
-
     const USER_ROLE_STUDENT = 0;
     const USER_ROLE_TEACHER = 1;
     const USER_ROLE_ADMIN = 2;

@@ -66,7 +66,7 @@ class DemandController extends Controller
             if ($toDoCredits > 0) {
                 foreach ($toDoSlots as $toDoSlot) {
                     $slot_ec_value = $toDoSlot->competencies->first()->ec_value;
-                    $slotDemand = ($slot_ec_value / $toDoCredits) * (Constants::TIMEFRAME_EC_TOTAL / $slot_ec_value);
+                    $slotDemand = ($slot_ec_value / $toDoCredits) * ($timetable->ec_value / $slot_ec_value);
 
                     foreach ($toDoSlot->competencies as $toDoCompetency) {
                         $competencyDemand[$toDoCompetency->id]['mean_demand'] += $slotDemand / count($toDoSlot->competencies);
