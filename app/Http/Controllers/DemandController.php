@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\SlotRepository;
 use App\Repositories\StudentRepository;
+use App\Repositories\TimetableRepository;
 use App\Util\Constants;
 
 class DemandController extends Controller
@@ -61,7 +62,7 @@ class DemandController extends Controller
 
         foreach ($this->studentRepository->getStudentsForAlgorithm($timetable) as $student) {
             $toDoSlots = $this->studentRepository->getToDoSlots($student, $timetable);
-            $toDoCredits = $this->students->getToDoCredits($student, $toDoSlots);
+            $toDoCredits = $this->studentRepository->getToDoCredits($student, $toDoSlots);
 
             if ($toDoCredits > 0) {
                 foreach ($toDoSlots as $toDoSlot) {

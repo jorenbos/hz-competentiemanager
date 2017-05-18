@@ -83,7 +83,25 @@ class StudentRepository implements RepositoryInterface
      */
     public function getStudentsForAlgorithm($timetable)
     {
-        return $this->students->all();
+        //Currently hard coded to exlude internship/minor
+        $competenciesThatExludeStudentsFromAlgorithm = collect([37]);
+        $studentsForAlgorithm = collect();
+
+        foreach ($this->students->all() as $student) {
+            $isStudentForAlgorithm = true;
+            foreach ($student->competencies as $competency) {
+                if ($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
+                    && $competency->pivot->timetable === $timetable->id) {
+                    $isStudentForAlgorithm = false;
+                }
+            }
+
+            if ($isStudentForAlgorithm) {
+                $studentsForAlgorithm->push($student);
+            }
+        }
+
+        return $studentsForAlgorithm;
     }
 
 //end getStudentsForAlgorithm()
