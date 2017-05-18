@@ -81,9 +81,8 @@ class StudentRepository implements RepositoryInterface
     /**
      * @return Student[]|Collection not on minor or internship
      */
-    public function getStudentsForAlgorithm()
+    public function getStudentsForAlgorithm($timetable)
     {
-        //TODO Filtering moet nog toegepast worden
         return $this->students->all();
     }
 
@@ -202,7 +201,7 @@ class StudentRepository implements RepositoryInterface
      *
      * @return Slot[] left to do by Student
      */
-    public function getToDoSlots($student)
+    public function getToDoSlots($student, $timetable)
     {
         $doneSlots = collect();
         $toDoSlots = collect();
@@ -210,7 +209,7 @@ class StudentRepository implements RepositoryInterface
         //Collect slots depending on student phase
         $studentMainPhaseDate = new \DateTime($student->starting_date);
         $studentMainPhaseDate->modify('+1 year');
-        if ($studentMainPhaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
+        if ($studentMainPhaseDate <= new \DateTime($timetable->starting_date)) {
             $toDoSlots = $this->slotRepository->getAll();
         } else {
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
