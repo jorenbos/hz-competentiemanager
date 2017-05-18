@@ -11,6 +11,11 @@ abstract class AbstractRepository
       */
      protected $model;
 
+     /**
+      * @var array
+      */
+     protected $columns = ['*'];
+
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -33,9 +38,10 @@ abstract class AbstractRepository
       *
       * @return Model | Collection[]
       */
-     public function getAll()
+     public function getAll($columns = null)
      {
-         return $this->model->all();
+         if ($columns == null); $columns = $this->columns;
+         return $this->model->all($columns);
      }
 
      /**
@@ -73,5 +79,18 @@ abstract class AbstractRepository
       public function update(array $attributes, $id)
       {
           return $this->model->findOrFail($id)->update($attributes);
+      }
+
+      /**
+       * Sets columns to be retrieved
+       *
+       * @param array $columns
+       *
+       * @return AbstractRepository
+       */
+      public function setColumns(array $columns)
+      {
+          $this->columns = $columns;
+          return $this;
       }
 }

@@ -35,6 +35,8 @@ class StudentRepository extends AbstractRepository
         $this->competencyRepository = $competencyRepository;
         $this->slotRepository = $slotRepository;
         $this->timetableRepository = $timetableRepository;
+
+        $this->setColumns(['id', 'starting_date']);
     }
 
     /**
@@ -73,27 +75,6 @@ class StudentRepository extends AbstractRepository
      *
      * @return Competency[]
      */
-    public function getCompletedCompetencies($student)
-    {
-        if ($student != null) {
-            $competencies = [];
-            foreach ($student->competencies as $competency) {
-                if ($competency->pivot->status == Constants::COMPETENCY_STATUS_DONE) {
-                    $competencies[] = $competency;
-                }
-            }
-
-            return $competencies;
-        }
-
-        return [];
-    }
-
-    /**
-     * @param $id
-     *
-     * @return Competency[]
-     */
     public function getUncompletedCompetencies($student)
     {
         $returnCompetencies = collect();
@@ -101,7 +82,7 @@ class StudentRepository extends AbstractRepository
             $allCompetencies = $this->competencyRepository->filterAllowedForAlgorithm();
 
             foreach ($allCompetencies as $competency) {
-                $matching_comp = $student->competencies()->find($competency->id);
+                $matching_comp = $student->competencies()->select(['competency_id'])->find($competency->id);
                 if ($matching_comp != null) {
                     if ($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
                         $returnCompetencies->push($matching_comp);
