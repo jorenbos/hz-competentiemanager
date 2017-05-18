@@ -34,11 +34,11 @@ class ProjectRepository implements RepositoryInterface
     /**
      * Returns all projects in the database.
      *
-     * @return Collection|Project d[]
+     * @return Collection|Project []
      */
     public function getAll()
     {
-        return $this->projects->get();
+        return $this->projects->all();
     }
 
     /**
