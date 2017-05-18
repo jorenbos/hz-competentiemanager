@@ -110,7 +110,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo 'update';
               // Check if the form was correctly filled in
               $this->validate(
                   $request,
