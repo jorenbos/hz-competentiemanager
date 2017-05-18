@@ -17,6 +17,7 @@ class CreateTimetablesTable extends Migration
             $table->increments('id');
             $table->date('starting_date');
             $table->date('end_date');
+            $table->float('ec_value');
             $table->timestamps();
         });
     }
