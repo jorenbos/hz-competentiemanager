@@ -65,8 +65,16 @@ class Competency extends Model
      */
     public function slots()
     {
-        $this->belongsToMany('App\Models\Slot', 'slots_competencies', 'competency_id', 'slot_id');
+        return $this->belongsToMany('App\Models\Slot', 'slots_competencies', 'competency_id', 'slot_id');
     }
 
-//end slots()
+    /**
+     * Many to many elequent relation with slots. (or collection if called without parentheces).
+     *
+     * @return Relation
+     */
+    public function sequentiality()
+    {
+        return $this->belongsToMany(self::class, 'competencies_prerequisites', 'competency_id', 'competency_prerequisite_id')->withPivot('rule', 'amount_required');
+    }
 }//end class
