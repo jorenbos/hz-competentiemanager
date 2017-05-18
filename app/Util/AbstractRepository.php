@@ -43,6 +43,7 @@ abstract class AbstractRepository
          if ($columns == null) {
              $columns = $this->columns;
          }
+
          return $this->model->all($columns);
      }
 
@@ -105,8 +106,8 @@ abstract class AbstractRepository
        */
       public function __call($method, $parameters)
       {
-          if(method_exists($this->model, $method)) {
-              return call_user_func_array(array($this->location, $method), $parameters);
+          if (method_exists($this->model, $method)) {
+              return call_user_func_array([$this->location, $method], $parameters);
           }
       }
 }
