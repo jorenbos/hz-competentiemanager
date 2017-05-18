@@ -23,6 +23,11 @@ class Slot extends Model
      */
     public function competencies()
     {
-        return $this->belongsToMany(Competency::class, 'slots_competencies', 'slot_id', 'competency_id');
+        return $this->belongsToMany(
+            Competency::class,
+            'slots_competencies',
+            'slot_id',
+            'competency_id'
+        );
     }
-}//end class
+}
