@@ -16,8 +16,8 @@ class StudentRepository implements RepositoryInterface
      private $students;
 
      /**
-     * @var CompetencyRepository
-     */
+      * @var CompetencyRepository
+      */
      private $competencyRepository;
 
       /**
@@ -86,7 +86,7 @@ class StudentRepository implements RepositoryInterface
     public function getStudentsForAlgorithm($timetable)
     {
         //Currently hard coded to exlude internship/minor
-        $competenciesThatExludeStudentsFromAlgorithm = collect([17,18,19,20,27]);
+        $competenciesThatExludeStudentsFromAlgorithm = collect([17, 18, 19, 20, 27]);
         $studentsForAlgorithm = collect();
 
         foreach ($this->students->all() as $student) {
@@ -106,7 +106,7 @@ class StudentRepository implements RepositoryInterface
                 $studentsForAlgorithm->push($student);
             }
         }
-        
+
         return $studentsForAlgorithm;
     }
 
