@@ -15,25 +15,31 @@ class StudentRepository implements RepositoryInterface
       */
      private $students;
 
+     /**
+     * @var CompetencyRepository
+     */
+     private $competencyRepository;
+
       /**
        * @var SlotRepository
        */
       private $slotRepository;
 
       /**
-       * @var CompetencyRepository
+       * @var TimetableRepository
        */
-      private $competencyRepository;
+      private $timetableRepository;
 
     public function __construct(
         Student $students,
+        CompetencyRepository $competencyRepository,
         SlotRepository $slotRepository,
-        TimetableRepository $timetable,
-        CompetencyRepository $competencyRepository
+        TimetableRepository $timetableRepository
     ) {
         $this->students = $students;
-        $this->slotRepository = $slotRepository;
         $this->competencyRepository = $competencyRepository;
+        $this->slotRepository = $slotRepository;
+        $this->timetableRepository = $timetableRepository;
     }
 
     /**
@@ -86,8 +92,11 @@ class StudentRepository implements RepositoryInterface
         foreach ($this->students->all() as $student) {
             $isStudentForAlgorithm = true;
             foreach ($student->competencies as $competency) {
-                if ($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
-                    && $competency->pivot->timetable === $timetable->id) {
+                if (($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
+                    && $competency->pivot->timetable === $timetable->id)
+                    || ($competency->id === 27
+                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date)
+                ) {
                     $isStudentForAlgorithm = false;
                     break;
                 }
@@ -97,7 +106,7 @@ class StudentRepository implements RepositoryInterface
                 $studentsForAlgorithm->push($student);
             }
         }
-
+        
         return $studentsForAlgorithm;
     }
 
