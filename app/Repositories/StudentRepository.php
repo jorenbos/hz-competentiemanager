@@ -21,15 +21,19 @@ class StudentRepository implements RepositoryInterface
       private $slotRepository;
 
       /**
-       * @var TimetableRepository
+       * @var CompetencyRepository
        */
-      private $timetableRepository;
+      private $competencyRepository;
 
-    public function __construct(Student $students, SlotRepository $slotRepository, TimetableRepository $timetable)
-    {
+    public function __construct(
+        Student $students,
+        SlotRepository $slotRepository,
+        TimetableRepository $timetable,
+        CompetencyRepository $competencyRepository
+    ) {
         $this->students = $students;
         $this->slotRepository = $slotRepository;
-        $this->timetableRepository = $timetable;
+        $this->competencyRepository = $competencyRepository;
     }
 
     /**
@@ -42,8 +46,6 @@ class StudentRepository implements RepositoryInterface
         return $this->students->findOrFail($id);
     }
 
-//end getById()
-
     /**
      * @return Student[]|Collection
      */
@@ -51,8 +53,6 @@ class StudentRepository implements RepositoryInterface
     {
         return $this->students->all();
     }
-
-//end getAll()
 
     /**
      * @param array $attributes
@@ -64,8 +64,6 @@ class StudentRepository implements RepositoryInterface
         return $this->students->create($attributes);
     }
 
-//end create()
-
     /**
      * @param int $ids
      *
@@ -76,18 +74,32 @@ class StudentRepository implements RepositoryInterface
         return $this->students->destroy($ids);
     }
 
-//end delete()
-
     /**
      * @return Student[]|Collection not on minor or internship
      */
-    public function getStudentsForAlgorithm()
+    public function getStudentsForAlgorithm($timetable)
     {
-        //TODO Filtering moet nog toegepast worden
-        return $this->students->all();
-    }
+        //Currently hard coded to exlude internship/minor
+        $competenciesThatExludeStudentsFromAlgorithm = collect([37]);
+        $studentsForAlgorithm = collect();
 
-//end getStudentsForAlgorithm()
+        foreach ($this->students->all() as $student) {
+            $isStudentForAlgorithm = true;
+            foreach ($student->competencies as $competency) {
+                if ($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
+                    && $competency->pivot->timetable === $timetable->id) {
+                    $isStudentForAlgorithm = false;
+                    break;
+                }
+            }
+
+            if ($isStudentForAlgorithm) {
+                $studentsForAlgorithm->push($student);
+            }
+        }
+
+        return $studentsForAlgorithm;
+    }
 
     /**
      * @param $id
@@ -110,8 +122,6 @@ class StudentRepository implements RepositoryInterface
         return [];
     }
 
-//end getCompletedCompetencies()
-
     /**
      * @param $id
      *
@@ -121,7 +131,7 @@ class StudentRepository implements RepositoryInterface
     {
         $returnCompetencies = collect();
         if ($student != null) {
-            $allCompetencies = Competency::all()->all();
+            $allCompetencies = $this->competencyRepository->filterAllowedForAlgorithm();
 
             foreach ($allCompetencies as $competency) {
                 $matching_comp = $student->competencies()->find($competency->id);
@@ -202,7 +212,7 @@ class StudentRepository implements RepositoryInterface
      *
      * @return Slot[] left to do by Student
      */
-    public function getToDoSlots($student)
+    public function getToDoSlots($student, $timetable)
     {
         $doneSlots = collect();
         $toDoSlots = collect();
@@ -210,7 +220,7 @@ class StudentRepository implements RepositoryInterface
         //Collect slots depending on student phase
         $studentMainPhaseDate = new \DateTime($student->starting_date);
         $studentMainPhaseDate->modify('+1 year');
-        if ($studentMainPhaseDate <= new \DateTime($this->timetableRepository->getNext()['starting_date'])) {
+        if ($studentMainPhaseDate <= new \DateTime($timetable->starting_date)) {
             $toDoSlots = $this->slotRepository->getAll();
         } else {
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
