@@ -306,4 +306,4 @@ class StudentRepository implements RepositoryInterface
 
         return $sortedPossibleInSlots->first();
     }
-}//end class
+}
