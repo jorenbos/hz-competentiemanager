@@ -34,8 +34,6 @@ class CompetencyRepository implements RepositoryInterface
         return $this->competencies->findOrFail($id);
     }
 
-//end getById()
-
     /**
      * Returns all competencies in the database.
      *
@@ -43,10 +41,8 @@ class CompetencyRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return $this->competencies->get();
+        return $this->competencies->all();
     }
-
-//end getAll()
 
     /**
      * Creates a new competency and stores it in the database.
@@ -60,8 +56,6 @@ class CompetencyRepository implements RepositoryInterface
         return $this->competencies->create($attributes);
     }
 
-//end create()
-
     /**
      * Removes competencies with given ids from the database.
      *
@@ -73,8 +67,6 @@ class CompetencyRepository implements RepositoryInterface
     {
         return $this->competencies->destroy($ids);
     }
-
-//end delete()
 
     /**
      * Updates given fields of the repository with the given id.
