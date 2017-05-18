@@ -136,7 +136,6 @@ class ProjectController extends Controller
         $project->save();
         // Redirect to the project.index page with a success message.
         return redirect('projects')->with(['status' => "$project->name is bijgewerkt"]);
-
     }
 
     /**
