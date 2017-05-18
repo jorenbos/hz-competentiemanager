@@ -20,8 +20,6 @@ class ProjectController extends Controller
         $this->projects = $projectRepository;
     }
 
-//end __construct()
-
     /**
      * Display a listing of the projects.
      *
@@ -37,8 +35,6 @@ class ProjectController extends Controller
         );
     }
 
-//end index()
-
     /**
      * Show the form for creating a new project.
      *
@@ -48,8 +44,6 @@ class ProjectController extends Controller
     {
         return view('project.create');
     }
-
-//end create()
 
     /**
      * Store a newly created project in storage.
@@ -71,8 +65,6 @@ class ProjectController extends Controller
         return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
     }
 
-//end store()
-
     /**
      * Display the specified project.
      *
@@ -90,8 +82,6 @@ class ProjectController extends Controller
         );
     }
 
-//end show()
-
     /**
      * Show the form for editing the specified project.
      *
@@ -108,8 +98,6 @@ class ProjectController extends Controller
             ]
         );
     }
-
-//end edit()
 
     /**
      * Update the specified project in storage.
@@ -136,14 +124,12 @@ class ProjectController extends Controller
         $project->name = $request['name'];
         $project->projectnumber = $request['projectnumber'];
 
-              // Save the changes in the database
-              $project->save();
-
-              // Redirect to the project.index page with a success message.
-              return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
+        // Save the changes in the database
+        $project->save();
+        // Redirect to the project.index page with a success message.
+        return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
     }
 
-//end update()
 
     /**
      * Remove the specified project from storage.
@@ -160,8 +146,6 @@ class ProjectController extends Controller
         return redirect('project')->with(['status' => "$project->name is verwijderd"]);
     }
 
-//end destroy()
-
     protected function validator(array $data)
     {
         return Validator::make(
@@ -174,5 +158,4 @@ class ProjectController extends Controller
         );
     }
 
-//end validator()
-}//end class
+}
