@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Roel van Endhoven.
- * User: Roel van Endhoven
- * Date: 8-12-16
- * Time: 12:02.
- */
 
 namespace App\Util;
 
@@ -43,9 +37,4 @@ interface RepositoryInterface
      */
     public function delete($ids);
 
-    /*
-        * @param $ids The id of the user to update
-        * @return Model
-        */
-    // public function update($ids);
-}//end interface
+}
