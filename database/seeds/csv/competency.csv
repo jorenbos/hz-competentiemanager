@@ -1,37 +1,58 @@
-id,name,abbreviation,description,ec_value,cu_code
-1,Externe Certificering,Ext. Cert.,Externe Certificering,2.5,CU14180
-2,Software Realiseren 1a,SRE1a,Software Realiseren 1a,5,CU19636
-3,Software Analyseren 1,SAN1,Software Analyseren 1,5,CU19637
-4,Software Ontwerpen 1,SON1,Software Ontwerpen 1,5,CU19638
-5,Software Beheren 1,SBE1,Software Beheren 1,5,CU19639
-6,Gebruikersinteractie Realiseren 1,GSI1,Gebruikersinteractie Realiseren 1,5,CU19640
-7,Infrastructuur Realiseren 1,IRE1,Infrastructuur Realiseren 1,5,CU19641
-8,Software Analyseren 2a,SAN2a,Software Analyseren 2a,5,CU19642
-9,Software Ontwerpen 2a,SON2a,Software Ontwerpen 2a,5,CU19643
-10,Software Realiseren 2a,SRE2a,Software Realiseren 2a,5,CU19644
-11,Software Beheren 2,SBE2,Software Beheren 2,5,CU19645
-12,Software Adviseren 1,SAD1,Software Adviseren 1,5,CU19646
-13,Software Adviseren 2,SAD2,Software Adviseren 2,5,CU19647
-14,Software Adviseren 3,SAD3,Software Adviseren 3,5,CU19648
-15,Software Beheren 3a,SBE3a,Software Beheren 3a,5,CU19649
-16,Gebruikersinteractie Analyseren 1,GAN1,Gebruikersinteractie Analyseren 1,5,CU19650
-17,Gebruikersinteractie Analyseren 2,GAN2,Gebruikersinteractie Analyseren 2,5,CU19651
-18,Bedrijfsprocessen Analyseren 1,BAN1,Bedrijfsprocessen Analyseren 1,5,CU19652
-19,Bedrijfsprocessen Analyseren 2,BAN2,Bedrijfsprocessen Analyseren 2,5,CU19653
-20,Bedrijfsprocessen Ontwerpen 1,BON1,Bedrijfsprocessen Ontwerpen 1,5,CU19654
-21,Software Analyseren 2b,SAN2b,Software Analyseren 2b,5,CU20043
-22,Software Ontwerpen 2b,SON2b,Software Ontwerpen 2b,5,CU20069
-23,Software Realiseren 2b,SRE2b,Software Realiseren 2b,5,CU20082
-24,Software Realiseren 3,SRE3,Software Realiseren 3,5,CU20083
-25,Infrastructuur Analyseren 1,IAN1,Infrastructuur Analyseren 1,5,CU20084
-26,Infrastructuur Ontwerpen 1,ION1,Infrastructuur Ontwerpen 1,5,CU20085
-27,Infrastructuur Adviseren 1,IAD1,Infrastructuur Adviseren 1,5,CU20086
-28,HZ Personality 1,HZP1,HZ Personality 1,2.5,CU20096
-29,HZ Personality 2,HZP2,HZ Personality 2,2.5,CU20097
-30,HZ Personality 3,HZP3,HZ Personality 3,2.5,CU20098
-31,HZ Personality 4,HZP4,HZ Personality 4,2.5,CU20099
-32,Software Realiseren 1b,SRE1b,Software Realiseren 1b,5,CU20192
-33,Bedrijfsprocessen Adviseren 1,BAD1,Bedrijfsprocessen Adviseren 1,5,CU20198
-34,Gebruikersinteractie Ontwerpen 1,GON1,Gebruikersinteractie Ontwerpen 1,5,CU20225
-35,Infrastructuur Adviseren 2,IAD2,Infrastructuur Adviseren 2,5,CU20226
-36,Software Beheren 3b,SBE3b,Software Beheren 3b,5,CU20304
+id,name,abbreviation,description,ec_value,cu_code,pickable_for_algorithm
+1,Opleidings- en beroepsorientatie,OBE,,15,CU20018,1
+2,Werk- en denkniveau Tekst en beeld 2,WEDTB,,2.5,CU22124,1
+3,Werk- en denkniveau Agile 2a,WEDAG2a,,2.5,CU22126,1
+4,Werk- en denkniveau English 2a,WEDEN2a,,2.5,CU04093,1
+5,HZ Personality 2a,HZP2a,,2.5,CU20096,1
+6,Software Analyseren 1,SAN1,,5,CU19637,1
+7,Software Ontwerpen 1,SON1,,2.5,CU22131,1
+8,Software Realiseren 1a,SRE1a,,5,CU19636,1
+9,Software Realiseren 1b,SRE1b,,5,CU20192,1
+10,Software Beheren 1,SBE1,,5,CU19639,1
+11,Gebruikersinteractie Realiseren 1,GRE1,,5,CU19640,1
+12,Infrastructuur Realiseren 1,IRE1,,5,CU19641,1
+13,IT Personality 2a,ITP2a,,2.5,CU22128,1
+14,Werk- en denkniveau Agile 2b,WEDAG2b,,2.5,CU22134,1
+15,Werk- en denkniveau Projectmanagement 2,WEDPM2,,2.5,CU12419,1
+16,HZ Personality 2b,HZP2b,,2.5,CU20097,1
+17,Werk- en denkniveau Meewerkstage 2a,WEDMS2a,,5,CU20336,0
+18,Werk- en denkniveau Meewerkstage 2b,WEDMS2b,,5,CU20337,0
+19,Minor 3a,MIN3a,,15,variabel,0
+20,Minor 3b,MIN3b,,15,variabel,0
+21,Werk- en denkniveau Agile 3a,WEDAG3a,,2.5,CU22144,1
+22,Werk- en denkniveau English 2b,WEDEN2b,,2.5,CU04101,1
+23,HZ Personality 3a,HZP3a,,2.5,CU20098,1
+24,Werk- en denkniveau Agile 3b,WEDAG3b,,2.5,CU22147,1
+25,Werk- en denkniveau Onderzoek 3,WEDON3,,2.5,CU14181,1
+26,HZ Personality 3b,HZP3b,,2.5,CU20089,1
+27,Werk- en denkniveau Afstudeeronderzoek 3,WEDAF,,10,CU00000,0
+28,Software Analyseren 2a,SAN2a,,5,CU19642,1
+29,Software Analyseren 2b,SAN2b,,5,CU20043,1
+30,Software Adviseren 1,SAD1,,5,CU19646,1
+31,Software Adviseren 2,SAD2,,5,CU19647,1
+32,Software Ontwerpen 2a,SON2a,,5,CU19643,1
+33,Software Beheren 2,SBE2,,5,CU19645,1
+34,Bedrijfsprocessen Analyseren 1,BAN1,,5,CU19652,1
+35,Bedrijfsprocessen Analyseren 2,BAN2,,5,CU19653,1
+36,Gebruikersinteractie Analyseren 1,GAN1,,5,CU19650,1
+37,Gebruikersinteractie Analyseren 2,GAN2,,5,CU19651,1
+38,Infrastructuur Analyseren 1,IAN1,,5,CU20084,1
+39,Infrastructuur Adviseren 1,IAD1,,5,CU20086,1
+40,IT Personality 2b,ITP2b,,2.5,CU22149,1
+41,IT Personality 3a,ITP3a,,2.5,CU22152,1
+42,IT Personality 3b,ITP3b,,2.5,CU22153,1
+43,Software Adviseren 3,SAD3,,5,CU19648,1
+44,Software Ontwerpen 2b,SON2b,,5,CU20069,1
+45,Software Realiseren 2a,SRE2a,,5,CU19644,1
+46,Software Realiseren 2b,SRE2b,,5,CU20082,1
+47,Software Realiseren 2c,SRE2c,,5,CU22154,1
+48,Software Realiseren 3,SRE3,,5,CU20083,1
+49,Software Beheren 3a,SBE3a,,5,CU19649,1
+50,Software Beheren 3b,SBE3b,,5,CU20304,1
+51,Data science 2,DSC2,,5,CU22155,1
+52,Data science 3,DSC3,,5,CU22156,1
+53,Bedrijfsprocessen Adviseren 1,BAD1,,5,CU20193,1
+54,Bedrijfsprocessen Ontwerpen 1,BON1,,5,CU19654,1
+55,Gebruikersinteractie Ontwerpen 1,GON1,,5,CU20225,1
+56,Infrastructuur Ontwerpen 1,ION1,,5,variabel,0
+57,Externe Certificering,Ext. Cert.,,2.5,variabel,0

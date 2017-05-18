@@ -2,12 +2,13 @@
 
 use Flynsarmy\CsvSeeder\CsvSeeder;
 
-class SlotSeeder extends CsvSeeder
+class CompetencyPrerequisitesSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->table = 'slots';
-        $this->filename = base_path().'/database/seeds/csv/slots.csv';
+        //TODO: add new competencies
+        $this->table = 'competencies_prerequisites';
+        $this->filename = base_path().'/database/seeds/csv/competency_preqs.csv';
     }
 
     public function run()

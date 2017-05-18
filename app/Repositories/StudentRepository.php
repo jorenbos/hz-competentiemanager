@@ -15,25 +15,31 @@ class StudentRepository implements RepositoryInterface
       */
      private $students;
 
+     /**
+      * @var CompetencyRepository
+      */
+     private $competencyRepository;
+
       /**
        * @var SlotRepository
        */
       private $slotRepository;
 
       /**
-       * @var CompetencyRepository
+       * @var TimetableRepository
        */
-      private $competencyRepository;
+      private $timetableRepository;
 
     public function __construct(
         Student $students,
+        CompetencyRepository $competencyRepository,
         SlotRepository $slotRepository,
-        TimetableRepository $timetable,
-        CompetencyRepository $competencyRepository
+        TimetableRepository $timetableRepository
     ) {
         $this->students = $students;
-        $this->slotRepository = $slotRepository;
         $this->competencyRepository = $competencyRepository;
+        $this->slotRepository = $slotRepository;
+        $this->timetableRepository = $timetableRepository;
     }
 
     /**
@@ -80,14 +86,17 @@ class StudentRepository implements RepositoryInterface
     public function getStudentsForAlgorithm($timetable)
     {
         //Currently hard coded to exlude internship/minor
-        $competenciesThatExludeStudentsFromAlgorithm = collect([37]);
+        $competenciesThatExludeStudentsFromAlgorithm = collect([17, 18, 19, 20, 27]);
         $studentsForAlgorithm = collect();
 
         foreach ($this->students->all() as $student) {
             $isStudentForAlgorithm = true;
             foreach ($student->competencies as $competency) {
-                if ($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
-                    && $competency->pivot->timetable === $timetable->id) {
+                if (($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
+                    && $competency->pivot->timetable === $timetable->id)
+                    || ($competency->id === 27
+                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date)
+                ) {
                     $isStudentForAlgorithm = false;
                     break;
                 }
@@ -173,7 +182,6 @@ class StudentRepository implements RepositoryInterface
                     }
                     if (!$competencies->contains('id', $sequentialCompetency->id)) {
                         $ruleSequentialComboCounter++;
-                        var_dump($ruleSequentialComboCounter);
                     }
                 }
             }
@@ -226,7 +234,7 @@ class StudentRepository implements RepositoryInterface
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
         }
         $selectableToDoSlots = $toDoSlots;
-
+        //TODO: Add rule 3: Minimum EC value
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||

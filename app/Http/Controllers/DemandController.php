@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
-use App\Util\Constants;
 
 class DemandController extends Controller
 {
@@ -67,7 +66,7 @@ class DemandController extends Controller
                 foreach ($toDoSlots as $toDoSlot) {
                     $keysToDoSlotCompetencies = array_keys($toDoSlot->competencies->toArray());
                     $slot_ec_value = $toDoSlot->competencies[$keysToDoSlotCompetencies[0]]->ec_value;
-                    $slotDemand = ($slot_ec_value / $toDoCredits) * (Constants::TIMEFRAME_EC_TOTAL / $slot_ec_value);
+                    $slotDemand = ($slot_ec_value / $toDoCredits) * ($timetable->ec_value / $slot_ec_value);
 
                     foreach ($toDoSlot->competencies as $toDoCompetency) {
                         $competencyDemand[$toDoCompetency->id]['mean_demand'] += $slotDemand / count($toDoSlot->competencies);

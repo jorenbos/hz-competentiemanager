@@ -24,7 +24,7 @@ class TimetableRepository implements RepositoryInterface
      */
     public function getById($id)
     {
-        return $this->timetable->findOrFail($if);
+        return $this->timetable->findOrFail($id);
     }
 
      /**

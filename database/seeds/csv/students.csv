@@ -1,7 +1,48 @@
 id,name,student_code,starting_date,gender
 1,Gert de Pagter,11111,2015-09-01,male
 2,Quintijn Vos,22222,2015-09-01,male
-3,Zoe van Harrewijn,33333,2015-09-01,female
+3,Zoe van Harrewijn,33333,2013-09-01,female
 4,Erik van der Maden,44444,2015-09-01,male
 5,Jacco de Visser,55555,2015-09-01,male
-6,Jesse Kramer,71356,2015-09-01,male
+6,Jesse Kramer,66666,2015-09-01,male
+7,Mark Dingemanse,10065,2013-09-01,male
+8,Jesse Labruijere,10066,2013-09-01,male
+9,Isabel Wouters,10067,2013-09-01,female
+10,Marcel Nauta,10068,2013-09-01,male
+11,Leander Molengraaf,10069,2013-09-01,male
+12,Roel van Endhoven,10070,2013-09-01,male
+13,Vito Minheere,10071,2013-09-01,male
+14,Corne Flikweert,10072,2013-09-01,male
+15,Chris Verkroost,10073,2013-09-01,male
+16,Peter Wouters,10074,2013-09-01,male
+17,Thomas Phil,10075,2013-09-01,male
+18,Jeroen van der Genugten,10076,2013-09-01,male
+19,Pieter Voorwinden,10077,2013-09-01,male
+20,Laurens Vonken,10078,2013-09-01,male
+21,Max Hoekman,10079,2013-09-01,male
+22,Melvin Versluijs,10080,2013-09-01,male
+23,Mick Vleeshouwer,10081,2013-09-01,male
+24,Willem van Vliet,10082,2013-09-01,male
+25,Eelco van der Berge,10083,2013-09-01,male
+26,Louisa Heijboer,10084,2013-09-01,female
+27,Matthijs Pinxteren,10085,2013-09-01,male
+28,Matthijs van der Welle,10086,2013-09-01,male
+29,Kees Meliefste,10087,2013-09-01,male
+30,Robert Fornari,10088,2013-09-01,male
+31,Robin Vermeulen,10089,2013-09-01,male
+32,Steef Houtekamer,10090,2013-09-01,male
+33,Bart Sprengelmeijer,10091,2013-09-01,male
+34,Bauke van der Woude,10092,2013-09-01,male
+35,Jona Ceulemans,10093,2013-09-01,male
+36,Onur Arslan,10094,2013-09-01,male
+37,Tristan Schoonen,10095,2013-09-01,male
+38,Bas Witte,10096,2013-09-01,male
+39,Ivan Popovic,10097,2013-09-01,male
+40,Kevin Verstraten,10098,2013-09-01,male
+41,Leonard Siemonse,10099,2013-09-01,male
+42,Melchior Vrolijk,10100,2013-09-01,male
+43,Mladen Zivanovic,10101,2013-09-01,male
+44,Robert Walhout,10102,2013-09-01,male
+45,Sander van t Veer,10103,2013-09-01,male
+46,Thien Tin Lam Ngoc,10104,2013-09-01,male
+47,Paul Gorniak,10105,2013-09-01,male
