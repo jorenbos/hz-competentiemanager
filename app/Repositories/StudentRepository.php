@@ -226,7 +226,7 @@ class StudentRepository implements RepositoryInterface
             $toDoSlots = $this->slotRepository->getAllPropedeuse();
         }
         $selectableToDoSlots = $toDoSlots;
-
+        //TODO: Add rule 3: Minimum EC value
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
             if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||

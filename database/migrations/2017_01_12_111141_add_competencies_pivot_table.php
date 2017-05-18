@@ -15,7 +15,7 @@ class AddCompetenciesPivotTable extends Migration
     {
         Schema::create('competencies_prerequisites', function (Blueprint $table) {
             $table->integer('competency_id')->unsigned();
-            $table->integer('competency_prerequisite_id')->unsigned();
+            $table->integer('competency_prerequisite_id')->unsigned()->nullable();
             $table->integer('rule');
             $table->integer('amount_required')->nullable();
 
