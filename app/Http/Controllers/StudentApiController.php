@@ -18,8 +18,6 @@ class StudentApiController extends Controller
         return response()->json(['students' => Student::all()]);
     }
 
-//end index()
-
     /**
      * Store a newly created student in storage.
      *
@@ -49,7 +47,6 @@ class StudentApiController extends Controller
         return response()->json($student, StatusCodes::CREATED);
     }
 
-//end store()
 
     /**
      * Display the specified student.
@@ -62,8 +59,6 @@ class StudentApiController extends Controller
     {
         return response()->json(Student::findOrFail($id));
     }
-
-//end show()
 
     /**
      * Update the specified student in storage.
@@ -95,8 +90,6 @@ class StudentApiController extends Controller
         return response()->json($student);
     }
 
-//end update()
-
     /**
      * Remove the specified student from storage.
      *
@@ -111,5 +104,4 @@ class StudentApiController extends Controller
         return response()->json([], StatusCodes::NO_CONTENT);
     }
 
-//end destroy()
-}//end class
+}
