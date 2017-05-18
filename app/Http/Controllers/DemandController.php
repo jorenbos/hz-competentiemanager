@@ -29,23 +29,21 @@ class DemandController extends Controller
      * @param StudentRepository    $studentRepository
      * @param CompetencyRepository $competencyRepository
      */
-    public function __construct(StudentRepository $studentRepository, CompetencyRepository $competencyRepository, TimetableRepository $timetableRepository)
-    {
+    public function __construct(
+        StudentRepository $studentRepository,
+        CompetencyRepository $competencyRepository,
+        TimetableRepository $timetableRepository
+    ) {
         $this->studentRepository = $studentRepository;
         $this->competencyRepository = $competencyRepository;
         $this->timetableRepository = $timetableRepository;
     }
 
-//end __construct()
 
     public function index()
     {
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
-
-//end index()
-
-//end calculate()
 
     private function calculateDemand()
     {
@@ -77,4 +75,4 @@ class DemandController extends Controller
 
         return $competencyDemand;
     }
-}//end class
+}
