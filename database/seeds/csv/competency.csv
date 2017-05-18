@@ -1,5 +1,5 @@
 id,name,abbreviation,description,ec_value,cu_code,pickable_for_algorithm
-1,Opleidings- en beroepsoriëntatie,OBE,,15,CU20018,1
+1,Opleidings- en beroepsorientatie,OBE,,15,CU20018,1
 2,Werk- en denkniveau Tekst en beeld 2,WEDTB,,2.5,CU22124,1
 3,Werk- en denkniveau Agile 2a,WEDAG2a,,2.5,CU22126,1
 4,Werk- en denkniveau English 2a,WEDEN2a,,2.5,CU04093,1
