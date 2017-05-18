@@ -54,5 +54,5 @@ id,name,abbreviation,description,ec_value,cu_code,pickable_for_algorithm
 53,Bedrijfsprocessen Adviseren 1,BAD1,,5,CU20193,1
 54,Bedrijfsprocessen Ontwerpen 1,BON1,,5,CU19654,1
 55,Gebruikersinteractie Ontwerpen 1,GON1,,5,CU20225,1
-56,Infrastructuur Ontwerpen 1,ION1,,5,variabel,1
-57,Externe Certificering,Ext. Cert.,,2.5,variabel,1
+56,Infrastructuur Ontwerpen 1,ION1,,5,variabel,0
+57,Externe Certificering,Ext. Cert.,,2.5,variabel,0

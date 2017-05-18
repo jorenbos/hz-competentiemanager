@@ -173,7 +173,6 @@ class StudentRepository implements RepositoryInterface
                     }
                     if (!$competencies->contains('id', $sequentialCompetency->id)) {
                         $ruleSequentialComboCounter++;
-                        var_dump($ruleSequentialComboCounter);
                     }
                 }
             }
