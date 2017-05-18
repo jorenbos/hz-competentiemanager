@@ -57,7 +57,8 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="{{ url('/competency') }}">Competenties</a></li>
+                        <li><a href="{{ url('/project') }}">Projecten</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,7 +73,10 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -91,6 +95,8 @@
                 </div>
             </div>
         </nav>
+
+
 
         @yield('content')
     </div>

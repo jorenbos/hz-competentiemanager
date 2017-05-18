@@ -1,0 +1,20 @@
+.navbar-header > .navbar-brand{
+    
+    // Brand position fix
+
+    display: flex;
+    flex-direction: row;
+
+    .brand-logo {
+        height: 40px;
+        position: relative;
+        top: -10px;
+        margin-right: 0.5em;
+    }
+
+    .brand-name {
+        display: inline-block;
+        font-size: 16px;
+    }
+
+}

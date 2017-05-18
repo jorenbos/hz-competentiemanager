@@ -24,7 +24,7 @@ class Project extends Model
      */
     public function contact()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'project_contact_id');
     }
 
     /**
