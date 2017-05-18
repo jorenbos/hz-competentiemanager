@@ -7,7 +7,7 @@ class SlotSeeder extends CsvSeeder
     public function __construct()
     {
         $this->table = 'slots';
-        $this->filename = base_path().'/database/seeds/csv/Slots.csv';
+        $this->filename = base_path().'/database/seeds/csv/slots.csv';
     }
 
     public function run()
