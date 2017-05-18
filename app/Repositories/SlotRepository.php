@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SlotRepository extends AbstractRepository
 {
-
-
     public function __construct(Slot $slots)
     {
         parent::__construct($slots);

@@ -4,14 +4,13 @@ namespace App\Repositories;
 
 use App\Models\Competency;
 use App\Models\Student;
-use App\Util\Constants;
 use App\Util\AbstractRepository;
+use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 
 class StudentRepository extends AbstractRepository
 {
-
-     /**
+    /**
       * @var CompetencyRepository
       */
      private $competencyRepository;
@@ -37,7 +36,6 @@ class StudentRepository extends AbstractRepository
         $this->slotRepository = $slotRepository;
         $this->timetableRepository = $timetableRepository;
     }
-
 
     /**
      * @return Student[]|Collection not on minor or internship
