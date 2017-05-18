@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
-use App\Util\Constants;
 
 class DemandController extends Controller
 {
