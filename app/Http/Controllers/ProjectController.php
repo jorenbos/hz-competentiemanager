@@ -109,7 +109,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-              // Check if the form was correctly filled in
+        // Check if the form was correctly filled in
               $this->validate(
                   $request,
                   [

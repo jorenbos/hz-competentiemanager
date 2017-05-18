@@ -40,7 +40,9 @@ abstract class AbstractRepository
       */
      public function getAll($columns = null)
      {
-         if ($columns == null); $columns = $this->columns;
+         if ($columns == null);
+         $columns = $this->columns;
+
          return $this->model->all($columns);
      }
 
@@ -82,7 +84,7 @@ abstract class AbstractRepository
       }
 
       /**
-       * Sets columns to be retrieved
+       * Sets columns to be retrieved.
        *
        * @param array $columns
        *
@@ -91,6 +93,7 @@ abstract class AbstractRepository
       public function setColumns(array $columns)
       {
           $this->columns = $columns;
+
           return $this;
       }
 }
