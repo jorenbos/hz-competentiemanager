@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository
 {
-
     /**
-     * @var Model
-     */
+      * @var Model
+      */
      protected $model;
 
-     public function __construct(Model $model)
-     {
-         $this->model = $model;
-     }
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
 
      /**
-      * Retrieves one model from Database
+      * Retrieves one model from Database.
       *
       * @param int $id
       *
@@ -30,7 +29,7 @@ abstract class AbstractRepository
      }
 
      /**
-      * Retrieves all models of type from Databse
+      * Retrieves all models of type from Databse.
       *
       * @return Model | Collection[]
       */
@@ -40,7 +39,7 @@ abstract class AbstractRepository
      }
 
      /**
-      * Creates model and adds it to database
+      * Creates model and adds it to database.
       *
       * @param array $attributes
       *
@@ -52,7 +51,7 @@ abstract class AbstractRepository
      }
 
      /**
-      * Deletes entry from database
+      * Deletes entry from database.
       *
       * @param int $id
       *
@@ -63,17 +62,16 @@ abstract class AbstractRepository
          return $this->model->destroy($id);
      }
 
-     /**
-      * Updates entry in database
-      *
-      * @param array $attributes
-      * @param int $id
-      *
-      * @return mixed
-      */
+      /**
+       * Updates entry in database.
+       *
+       * @param array $attributes
+       * @param int   $id
+       *
+       * @return mixed
+       */
       public function update(array $attributes, $id)
       {
           return $this->model->findOrFail($id)->update($attributes);
       }
-
 }

@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TimetableRepository extends AbstractRepository
 {
-
     public function __construct(Timetable $timetable)
     {
         parent::__construct($timetable);
     }
-
 
       /**
        * @return Timetable[]|Collection

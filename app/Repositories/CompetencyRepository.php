@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\Competency;
-use App\Util\Constants;
 use App\Util\AbstractRepository;
+use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 
 class CompetencyRepository extends AbstractRepository
 {
-
     /**
      * Constrcutor.
      */

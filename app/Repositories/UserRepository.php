@@ -8,8 +8,6 @@ use App\Util\AbstractRepository;
 
 class UserRepository extends AbstractRepository
 {
-
-
     public function __construct(User $users)
     {
         parent::__construct($users);
@@ -24,5 +22,4 @@ class UserRepository extends AbstractRepository
     {
         return $this->users->find($id)->student;
     }
-
 }
