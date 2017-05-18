@@ -1,7 +1,6 @@
 <?php
 
 use App\Util\Constants;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
