@@ -45,7 +45,6 @@ class CompetencyController extends Controller
         return view('competency.create');
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -69,7 +68,6 @@ class CompetencyController extends Controller
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -87,7 +85,6 @@ class CompetencyController extends Controller
         );
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -104,7 +101,6 @@ class CompetencyController extends Controller
             ]
         );
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -128,7 +124,6 @@ class CompetencyController extends Controller
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -170,7 +165,6 @@ class CompetencyController extends Controller
         );
     }
 
-
     /**
      * Validator for form data when a update call is made.
      *
@@ -191,5 +185,4 @@ class CompetencyController extends Controller
             ]
         );
     }
-
 }

@@ -56,5 +56,4 @@ class Project extends Model
             'competency_id'
         );
     }
-
 }

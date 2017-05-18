@@ -47,7 +47,6 @@ class StudentApiController extends Controller
         return response()->json($student, StatusCodes::CREATED);
     }
 
-
     /**
      * Display the specified student.
      *
@@ -103,5 +102,4 @@ class StudentApiController extends Controller
 
         return response()->json([], StatusCodes::NO_CONTENT);
     }
-
 }
