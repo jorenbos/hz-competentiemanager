@@ -74,6 +74,7 @@ class DemandController extends Controller
                 }
             }
         }
+
         return $competencyDemand;
     }
 

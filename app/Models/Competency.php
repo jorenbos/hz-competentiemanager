@@ -75,7 +75,6 @@ class Competency extends Model
      */
     public function sequentiality()
     {
-        return $this->belongsToMany(Competency::class, 'competencies_prerequisites', 'competency_id', 'competency_prerequisite_id')->withPivot('rule', 'amount_required');
+        return $this->belongsToMany(self::class, 'competencies_prerequisites', 'competency_id', 'competency_prerequisite_id')->withPivot('rule', 'amount_required');
     }
-
 }//end class
