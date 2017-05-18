@@ -36,5 +36,4 @@ interface RepositoryInterface
      * @return int count of deleted rows
      */
     public function delete($ids);
-
 }

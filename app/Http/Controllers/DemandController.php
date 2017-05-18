@@ -39,7 +39,6 @@ class DemandController extends Controller
         $this->timetableRepository = $timetableRepository;
     }
 
-
     public function index()
     {
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
