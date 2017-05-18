@@ -21,15 +21,20 @@ class StudentRepository implements RepositoryInterface
       private $slotRepository;
 
       /**
-       * @var TimetableRepository
+       * @var CompetencyRepository
        */
-      private $timetableRepository;
+      private $competencyRepository;
 
-    public function __construct(Student $students, SlotRepository $slotRepository, TimetableRepository $timetable)
-    {
+    public function __construct(
+        Student $students,
+        SlotRepository $slotRepository,
+        TimetableRepository $timetable,
+        CompetencyRepository $competencyRepository
+    ) {
         $this->students = $students;
         $this->slotRepository = $slotRepository;
-        $this->timetableRepository = $timetable;
+        $this->competencyRepository = $competencyRepository;
+
     }
 
     /**
@@ -120,7 +125,7 @@ class StudentRepository implements RepositoryInterface
     {
         $returnCompetencies = collect();
         if ($student != null) {
-            $allCompetencies = Competency::all()->all();
+            $allCompetencies = $this->competencyRepository->filterAllowedForAlgorithm();
 
             foreach ($allCompetencies as $competency) {
                 $matching_comp = $student->competencies()->find($competency->id);

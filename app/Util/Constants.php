@@ -1,11 +1,4 @@
 <?php
-/**
- * Class containing all constants for our application.
- *
- * User: Roel van Endhoven
- * Date: 30-11-2016
- * Time: 19:45
- */
 
 namespace App\Util;
 
@@ -25,4 +18,7 @@ class Constants
     const COMPETENCY_STATUS_DONE = 2;
     const COMPETENCY_STATUS_HALF_DOING = 3;
     const COMPETENCY_STATUS_HALF_DONE = 4;
+
+    const COMPETENCY_ALGORITHIM_ALLOWED_FALSE = 0;
+    const COMPETENCY_ALGORITHIM_ALLOWED_TRUE = 1;
 }//end class

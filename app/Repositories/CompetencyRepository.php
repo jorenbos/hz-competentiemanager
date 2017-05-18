@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Competency;
 use App\Util\RepositoryInterface;
+use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 
 class CompetencyRepository implements RepositoryInterface
@@ -91,5 +92,18 @@ class CompetencyRepository implements RepositoryInterface
         return $result;
     }
 
-//end update()
-}//end class
+    /**
+     * Filters competencies on whether or not they are allowed to be picked by the Algorithm
+     * @param Competency |Collection[] (optional) $competencies
+     *
+     * @return Collection[]
+     */
+    public function filterAllowedForAlgorithm($competencies = null)
+    {
+        if ($competencies === null) {
+            $competencies = $this->getAll();
+        }
+        return $competencies->where('pickable_for_algorithm', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE);
+    }
+
+}
