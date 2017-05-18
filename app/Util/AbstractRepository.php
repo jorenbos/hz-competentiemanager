@@ -40,9 +40,9 @@ abstract class AbstractRepository
       */
      public function getAll($columns = null)
      {
-         if ($columns == null);
-         $columns = $this->columns;
-
+         if ($columns == null) {
+             $columns = $this->columns;
+         }
          return $this->model->all($columns);
      }
 
@@ -95,5 +95,18 @@ abstract class AbstractRepository
           $this->columns = $columns;
 
           return $this;
+      }
+
+      /**
+       * Magic method to allow calls directly to model.
+       * Mostly because i wanted to use a magic method.
+       *
+       * @return mixed
+       */
+      public function __call($method, $parameters)
+      {
+          if(method_exists($this->model, $method)) {
+              return call_user_func_array(array($this->location, $method), $parameters);
+          }
       }
 }
