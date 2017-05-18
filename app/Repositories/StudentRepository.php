@@ -46,8 +46,6 @@ class StudentRepository implements RepositoryInterface
         return $this->students->findOrFail($id);
     }
 
-//end getById()
-
     /**
      * @return Student[]|Collection
      */
@@ -55,8 +53,6 @@ class StudentRepository implements RepositoryInterface
     {
         return $this->students->all();
     }
-
-//end getAll()
 
     /**
      * @param array $attributes
@@ -68,8 +64,6 @@ class StudentRepository implements RepositoryInterface
         return $this->students->create($attributes);
     }
 
-//end create()
-
     /**
      * @param int $ids
      *
@@ -79,8 +73,6 @@ class StudentRepository implements RepositoryInterface
     {
         return $this->students->destroy($ids);
     }
-
-//end delete()
 
     /**
      * @return Student[]|Collection not on minor or internship
@@ -97,6 +89,7 @@ class StudentRepository implements RepositoryInterface
                 if ($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
                     && $competency->pivot->timetable === $timetable->id) {
                     $isStudentForAlgorithm = false;
+                    break;
                 }
             }
 
@@ -107,8 +100,6 @@ class StudentRepository implements RepositoryInterface
 
         return $studentsForAlgorithm;
     }
-
-//end getStudentsForAlgorithm()
 
     /**
      * @param $id
@@ -130,8 +121,6 @@ class StudentRepository implements RepositoryInterface
 
         return [];
     }
-
-//end getCompletedCompetencies()
 
     /**
      * @param $id
