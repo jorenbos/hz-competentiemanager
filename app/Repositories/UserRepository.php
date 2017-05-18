@@ -39,7 +39,7 @@ class UserRepository implements RepositoryInterface
      */
     public function getAll()
     {
-        return $this->users->orderBy('name', 'asc')->get();
+        return $this->users->orderBy('name', 'asc')->all();
     }
 
     /**
