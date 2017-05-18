@@ -65,8 +65,7 @@ class DemandController extends Controller
 
             if ($toDoCredits > 0) {
                 foreach ($toDoSlots as $toDoSlot) {
-                    $keysToDoSlotCompetencies = array_keys($toDoSlot->competencies->toArray());
-                    $slot_ec_value = $toDoSlot->competencies[$keysToDoSlotCompetencies[0]]->ec_value;
+                    $slot_ec_value = $toDoSlot->competencies->first()->ec_value;
                     $slotDemand = ($slot_ec_value / $toDoCredits) * (Constants::TIMEFRAME_EC_TOTAL / $slot_ec_value);
 
                     foreach ($toDoSlot->competencies as $toDoCompetency) {
