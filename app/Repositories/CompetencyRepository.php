@@ -4,84 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Competency;
 use App\Util\Constants;
-use App\Util\RepositoryInterface;
+use App\Util\AbstractRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class CompetencyRepository implements RepositoryInterface
+class CompetencyRepository extends AbstractRepository
 {
-    /**
-     * @var Competency
-     */
-    private $competencies;
 
     /**
      * Constrcutor.
      */
     public function __construct(Competency $competencies)
     {
-        $this->competencies = $competencies;
-    }
-
-    /**
-     * Returns competency with given id from database.
-     *
-     * @param  $id
-     *
-     * @return mixed
-     */
-    public function getById($id)
-    {
-        return $this->competencies->findOrFail($id);
-    }
-
-    /**
-     * Returns all competencies in the database.
-     *
-     * @return Collection|Competency[]
-     */
-    public function getAll()
-    {
-        return $this->competencies->all();
-    }
-
-    /**
-     * Creates a new competency and stores it in the database.
-     *
-     * @param array $attributes
-     *
-     * @return Competency
-     */
-    public function create(array $attributes)
-    {
-        return $this->competencies->create($attributes);
-    }
-
-    /**
-     * Removes competencies with given ids from the database.
-     *
-     * @param int $ids
-     *
-     * @return mixed
-     */
-    public function delete($ids)
-    {
-        return $this->competencies->destroy($ids);
-    }
-
-    /**
-     * Updates given fields of the repository with the given id.
-     *
-     * @param  array
-     * @param int $id
-     *
-     * @return Competency
-     */
-    public function update($data, $id)
-    {
-        $result = $this->competencies->findOrFail($id)->update($data);
-        $this->competencies->findOrFail($id)->save();
-
-        return $result;
+        parent::__construct($competencies);
     }
 
     /**
