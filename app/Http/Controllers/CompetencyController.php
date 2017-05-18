@@ -20,8 +20,6 @@ class CompetencyController extends Controller
         $this->competencies = $CompetencyRepository;
     }
 
-//end __construct()
-
     /**
      * Display a listing of the resource.
      *
@@ -37,8 +35,6 @@ class CompetencyController extends Controller
         );
     }
 
-//end index()
-
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +45,6 @@ class CompetencyController extends Controller
         return view('competency.create');
     }
 
-//end create()
 
     /**
      * Store a newly created resource in storage.
@@ -74,7 +69,6 @@ class CompetencyController extends Controller
         return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
     }
 
-//end store()
 
     /**
      * Display the specified resource.
@@ -93,7 +87,6 @@ class CompetencyController extends Controller
         );
     }
 
-//end show()
 
     /**
      * Show the form for editing the specified resource.
@@ -112,7 +105,6 @@ class CompetencyController extends Controller
         );
     }
 
-//end edit()
 
     /**
      * Update the specified resource in storage.
@@ -137,7 +129,6 @@ class CompetencyController extends Controller
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
     }
 
-//end update()
 
     /**
      * Remove the specified resource from storage.
@@ -157,8 +148,6 @@ class CompetencyController extends Controller
         // Redirect to the competency. index page with a succes message.
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');
     }
-
-//end destroy()
 
     /**
      * Validator for form data when a store call is made.
@@ -181,7 +170,6 @@ class CompetencyController extends Controller
         );
     }
 
-//end storeValidator()
 
     /**
      * Validator for form data when a update call is made.
@@ -204,5 +192,4 @@ class CompetencyController extends Controller
         );
     }
 
-//end updateValidator()
-}//end class
+}
