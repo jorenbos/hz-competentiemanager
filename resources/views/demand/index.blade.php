@@ -1,23 +1,27 @@
-@extends('layouts.app')
-
-@section('title')
-    Lijst van competenties
-@endsection
-
+@extends('layouts.master')
+@section('title', 'Competentie behoefte')
 @section('content')
+{{-- BreadCrumbs --}}
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Demand</li>
+</ol>
 
-    <table class="table table-striped table-hover">
+{{-- Page Title --}}
+<h1>Demand</h1>
+
+
+
+    <table class="table">
         <thead>
-            <th class="col-sm-4">Competentie</th>
-            <th class="col-sm-2">Maximum potentiele vraag</th>
-            <th class="col-sm-2">Gewogen gemiddelde vraag</th>
+            <th>Competentie</th>
+            <th>Gewogen gemiddelde vraag</th>
         </thead>
 
         <tbody>
             @foreach ($competencies as $competency)
                 <tr>
                     <td>{{$competency['competency']->name}}</td>
-                    <td>{{$competency['count']}}</td>
                     <td>{{$competency['mean_demand']}}</td>
 
                 </tr>

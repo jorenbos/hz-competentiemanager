@@ -42,10 +42,8 @@ class Student extends Model
     public function user()
     {
         // business rules limit this relation to 0 or 1.
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany(User::class);
     }
-
-//end user()
 
     /**
      * Many to many elequent relation with projects. (or collection if called without parentheces).
@@ -54,10 +52,13 @@ class Student extends Model
      */
     public function projects()
     {
-        return $this->belongsToMany('App\Models\Project', 'project_student', 'student_id', 'project_id');
+        return $this->belongsToMany(
+            Project::class,
+            'project_student',
+            'student_id',
+            'project_id'
+        );
     }
-
-//end projects()
 
     /**
      * Many to many elequent relation with competencies. (or collection if called without parentheces).
@@ -66,8 +67,11 @@ class Student extends Model
      */
     public function competencies()
     {
-        return $this->belongsToMany('App\Models\Competency', 'student_competency', 'student_id', 'competency_id')->withPivot('status', 'timetable');
+        return $this->belongsToMany(
+            Competency::class,
+            'student_competency',
+            'student_id',
+            'competency_id')
+            ->withPivot('status', 'timetable');
     }
-
-//end competencies()
-}//end class
+}

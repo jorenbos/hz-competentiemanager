@@ -4,18 +4,13 @@ namespace App\Repositories;
 
 use App\Models\Competency;
 use App\Models\Student;
+use App\Util\AbstractRepository;
 use App\Util\Constants;
-use App\Util\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class StudentRepository implements RepositoryInterface
+class StudentRepository extends AbstractRepository
 {
     /**
-      * @var Student
-      */
-     private $students;
-
-     /**
       * @var CompetencyRepository
       */
      private $competencyRepository;
@@ -36,48 +31,12 @@ class StudentRepository implements RepositoryInterface
         SlotRepository $slotRepository,
         TimetableRepository $timetableRepository
     ) {
-        $this->students = $students;
+        parent::__construct($students);
         $this->competencyRepository = $competencyRepository;
         $this->slotRepository = $slotRepository;
         $this->timetableRepository = $timetableRepository;
-    }
 
-    /**
-     * @param $id
-     *
-     * @return Student
-     */
-    public function getById($id)
-    {
-        return $this->students->findOrFail($id);
-    }
-
-    /**
-     * @return Student[]|Collection
-     */
-    public function getAll()
-    {
-        return $this->students->all();
-    }
-
-    /**
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function create(array $attributes)
-    {
-        return $this->students->create($attributes);
-    }
-
-    /**
-     * @param int $ids
-     *
-     * @return mixed
-     */
-    public function delete($ids)
-    {
-        return $this->students->destroy($ids);
+        $this->setColumns(['id', 'starting_date']);
     }
 
     /**
@@ -89,12 +48,13 @@ class StudentRepository implements RepositoryInterface
         $competenciesThatExludeStudentsFromAlgorithm = collect([17, 18, 19, 20, 27]);
         $studentsForAlgorithm = collect();
 
-        foreach ($this->students->all() as $student) {
+        foreach ($this->getAll() as $student) {
             $isStudentForAlgorithm = true;
             foreach ($student->competencies as $competency) {
                 if (($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
                     && $competency->pivot->timetable === $timetable->id)
                     || ($competency->id === 27
+                    && $competency->pivot->timetable != null
                     && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date)
                 ) {
                     $isStudentForAlgorithm = false;
@@ -115,27 +75,6 @@ class StudentRepository implements RepositoryInterface
      *
      * @return Competency[]
      */
-    public function getCompletedCompetencies($student)
-    {
-        if ($student != null) {
-            $competencies = [];
-            foreach ($student->competencies as $competency) {
-                if ($competency->pivot->status == Constants::COMPETENCY_STATUS_DONE) {
-                    $competencies[] = $competency;
-                }
-            }
-
-            return $competencies;
-        }
-
-        return [];
-    }
-
-    /**
-     * @param $id
-     *
-     * @return Competency[]
-     */
     public function getUncompletedCompetencies($student)
     {
         $returnCompetencies = collect();
@@ -143,7 +82,7 @@ class StudentRepository implements RepositoryInterface
             $allCompetencies = $this->competencyRepository->filterAllowedForAlgorithm();
 
             foreach ($allCompetencies as $competency) {
-                $matching_comp = $student->competencies()->find($competency->id);
+                $matching_comp = $student->competencies()->select(['competency_id'])->find($competency->id);
                 if ($matching_comp != null) {
                     if ($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
                         $returnCompetencies->push($matching_comp);
@@ -306,4 +245,4 @@ class StudentRepository implements RepositoryInterface
 
         return $sortedPossibleInSlots->first();
     }
-}//end class
+}

@@ -20,8 +20,6 @@ class UserController extends Controller
         $this->users = $userRepository;
     }
 
-//end __construct()
-
     /**
      * Display a listing of the user.
      *
@@ -37,8 +35,6 @@ class UserController extends Controller
         );
     }
 
-//end index()
-
     /**
      * Show the form for creating a new user.
      *
@@ -48,8 +44,6 @@ class UserController extends Controller
     {
         return view('users.create');
     }
-
-//end create()
 
     /**
      * Store a newly created user in storage.
@@ -71,8 +65,6 @@ class UserController extends Controller
         return redirect('/user/create')->with(['status' => 'Gebruiker Aangemaakt']);
     }
 
-//end store()
-
     /**
      * Display the specified user.
      *
@@ -89,8 +81,6 @@ class UserController extends Controller
             ]
         );
     }
-
-//end show()
 
     /**
      * Show the form for editing the specified user.
@@ -109,8 +99,6 @@ class UserController extends Controller
         );
     }
 
-//end edit()
-
     /**
      * Update the specified user in storage.
      * FIXME This doesn't validate at all, we might actually want to rewrite this whole thing.
@@ -122,8 +110,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo 'update';
-              // Check if the form was correctly filled in
+        // Check if the form was correctly filled in
               $this->validate(
                   $request,
                   [
@@ -143,8 +130,6 @@ class UserController extends Controller
               return redirect("/user/$id/edit")->with(['status' => 'Gebruiker aangepast']);
     }
 
-//end update()
-
     /**
      * Remove the specified user from storage.
      *
@@ -159,8 +144,6 @@ class UserController extends Controller
 
         return redirect('/user');
     }
-
-//end destroy()
 
     /**
      * Validator for form data when a update call is made.
@@ -181,8 +164,6 @@ class UserController extends Controller
         );
     }
 
-//end updateValidator()
-
     /**
      * Validator for form data when a generic call is made.
      *
@@ -201,6 +182,4 @@ class UserController extends Controller
             ]
         );
     }
-
-//end validator()
-}//end class
+}

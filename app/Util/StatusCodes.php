@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by Roel van Endhoven.
- * User: Roel van Endhoven
- * Date: 21-12-16
- * Time: 9:56.
- */
 
 namespace App\Util;
 
@@ -23,4 +17,4 @@ class StatusCodes
     const NOT_FOUND = 404;
     const UNPROCESSABLE_ENTITY = 422;
     const IM_A_TEAPOT = 418;
-}//end class
+}

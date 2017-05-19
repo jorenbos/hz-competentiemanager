@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Repositories\ProjectRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Validator;
 use View;
@@ -15,12 +16,16 @@ class ProjectController extends Controller
      */
     private $projects;
 
-    public function __construct(ProjectRepository $projectRepository)
+    /**
+     * @var UserRepository
+     */
+    private $users;
+
+    public function __construct(ProjectRepository $projectRepository, UserRepository $userRepository)
     {
         $this->projects = $projectRepository;
+        $this->users = $userRepository;
     }
-
-//end __construct()
 
     /**
      * Display a listing of the projects.
@@ -30,14 +35,12 @@ class ProjectController extends Controller
     public function index()
     {
         return view(
-            'project.index',
+            'projects.index',
             [
              'projects' => $this->projects->getAll(),
             ]
         );
     }
-
-//end index()
 
     /**
      * Show the form for creating a new project.
@@ -46,10 +49,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('projects.create', [
+            'users' => $this->users->getAll(),
+        ]);
     }
-
-//end create()
 
     /**
      * Store a newly created project in storage.
@@ -63,15 +66,13 @@ class ProjectController extends Controller
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
-            return redirect('/project/create')->withErrors($validator)->withInput();
+            return redirect('/projects/create')->withErrors($validator)->withInput();
         }
 
         $this->projects->create($request->all());
 
-        return redirect('/project/create')->with(['status' => 'Project Aangemaakt']);
+        return redirect('/projects')->with(['status' => 'Project Aangemaakt']);
     }
-
-//end store()
 
     /**
      * Display the specified project.
@@ -83,14 +84,12 @@ class ProjectController extends Controller
     public function show($id)
     {
         return view(
-            'project.show',
+            'projects.show',
             [
              'project' => $this->projects->getById($id),
             ]
         );
     }
-
-//end show()
 
     /**
      * Show the form for editing the specified project.
@@ -102,14 +101,12 @@ class ProjectController extends Controller
     public function edit($id)
     {
         return view(
-            'project.edit',
+            'projects.edit',
             [
              'project' => $this->projects->getById($id),
             ]
         );
     }
-
-//end edit()
 
     /**
      * Update the specified project in storage.
@@ -121,8 +118,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo 'update';
-              // Check if the form was correctly filled in
+        // Check if the form was correctly filled in
               $this->validate(
                   $request,
                   [
@@ -136,14 +132,11 @@ class ProjectController extends Controller
         $project->name = $request['name'];
         $project->projectnumber = $request['projectnumber'];
 
-              // Save the changes in the database
-              $project->save();
-
-              // Redirect to the project.index page with a success message.
-              return redirect('project')->with(['status' => "$project->name is bijgewerkt"]);
+        // Save the changes in the database
+        $project->save();
+        // Redirect to the project.index page with a success message.
+        return redirect('projects')->with(['status' => "$project->name is bijgewerkt"]);
     }
-
-//end update()
 
     /**
      * Remove the specified project from storage.
@@ -157,10 +150,8 @@ class ProjectController extends Controller
         $project = $this->projects->getById($id);
         $project->delete();
 
-        return redirect('project')->with(['status' => "$project->name is verwijderd"]);
+        return redirect('projects')->with(['status' => "$project->name is verwijderd"]);
     }
-
-//end destroy()
 
     protected function validator(array $data)
     {
@@ -173,6 +164,4 @@ class ProjectController extends Controller
             ]
         );
     }
-
-//end validator()
-}//end class
+}

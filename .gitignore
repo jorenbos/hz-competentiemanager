@@ -14,4 +14,5 @@ app/bootstrap/cache/*
 app/bootstrap/cache/*
 !app/bootstrap/cache/.gitignore
 Vagrantfile
-
+npm-debug.log
+.DS_Store
