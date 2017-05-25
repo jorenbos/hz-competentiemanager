@@ -51,7 +51,6 @@ class DemandController extends Controller
 
         foreach ($this->competencyRepository->getAll() as $competency) {
             $competencyDemand[$competency->id]['competency'] = $competency;
-            $competencyDemand[$competency->id]['count'] = 0;
             $competencyDemand[$competency->id]['mean_demand'] = 0;
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Competencies\Filters\ApplicabilityFilter;
 use App\Models\Competency;
 use App\Models\Student;
 use App\Util\AbstractRepository;
@@ -103,38 +104,7 @@ class StudentRepository extends AbstractRepository
      */
     public function filterSequentiality($competencies)
     {
-        $returnCompetencies = collect();
-        foreach ($competencies as $competency) {
-            $isAllowed = true;
-            $ruleSequentialComboRequired = 0;
-            $ruleSequentialComboCounter = 0;
-
-            foreach ($competency->sequentiality as $sequentialCompetency) {
-                if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED
-                    && $competencies->contains('id', $sequentialCompetency->id)
-                ) {
-                    $isAllowed = false;
-                    break;
-                } elseif ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
-                    if ($ruleSequentialComboRequired === 0) {
-                        $ruleSequentialComboRequired = $sequentialCompetency->pivot->amount_required;
-                    }
-                    if (!$competencies->contains('id', $sequentialCompetency->id)) {
-                        $ruleSequentialComboCounter++;
-                    }
-                }
-            }
-
-            if ($ruleSequentialComboCounter < $ruleSequentialComboRequired) {
-                $isAllowed = false;
-            }
-
-            if ($isAllowed) {
-                $returnCompetencies->push($competency);
-            }
-        }
-
-        return $returnCompetencies;
+        return ApplicabilityFilter::filterApplicability($competencies);
     }
 
     /**
