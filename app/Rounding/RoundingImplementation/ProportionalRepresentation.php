@@ -19,19 +19,19 @@ class ProportionalRepresentation implements RoundingInterface
     private $roundByValue;
     private $toDistribute;
 
-    public function __construct ($roundByValue)
+    public function __construct($roundByValue)
     {
         $this->roundByValue = $roundByValue;
     }
 
     /**
-     * Rounds off an array of numbers, using Proportional Representation
+     * Rounds off an array of numbers, using Proportional Representation.
      *
-     * @param double[] $unroundenArray | Also works with floats because PHP
+     * @param float[] $unroundenArray | Also works with floats because PHP
      *
      * @return int[]
      */
-    public function roundOff ($unroundedArray)
+    public function roundOff($unroundedArray)
     {
         $this->baseArray = $unroundedArray;
         $this->surplusArray = [];
@@ -54,7 +54,7 @@ class ProportionalRepresentation implements RoundingInterface
     }
 
     /**
-     *  Rounds down the value to the nearest $roundByValue
+     *  Rounds down the value to the nearest $roundByValue.
      *
      *  @param float $value
      */

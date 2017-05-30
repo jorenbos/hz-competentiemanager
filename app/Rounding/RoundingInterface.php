@@ -4,11 +4,10 @@ namespace App\Rounding;
 
 interface RoundingInterface
 {
-
     /**
-     * Rounds off an array of numbers
+     * Rounds off an array of numbers.
      *
-     * @param double[] $unroundenArray | Also works with floats because PHP
+     * @param float[] $unroundenArray | Also works with floats because PHP
      *
      * @return int[]
      */

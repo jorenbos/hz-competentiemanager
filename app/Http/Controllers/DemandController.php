@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
-
 use App\Rounding\RoundingImplementation\ProportionalRepresentation;
 
 class DemandController extends Controller
@@ -45,6 +44,7 @@ class DemandController extends Controller
     {
         $lol = new ProportionalRepresentation(2.5);
         $lol->roundOff([10.2, 3.8, 1.0]);
+
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
