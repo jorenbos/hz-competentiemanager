@@ -42,9 +42,6 @@ class DemandController extends Controller
 
     public function index()
     {
-        $lol = new ProportionalRepresentation(2.5);
-        $lol->roundOff([10.2, 3.8, 1.0]);
-
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
