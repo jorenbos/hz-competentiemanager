@@ -6,6 +6,8 @@ use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
 
+use App\Rounding\RoundingImplementation\ProportionalRepresentation;
+
 class DemandController extends Controller
 {
     /**
@@ -41,6 +43,8 @@ class DemandController extends Controller
 
     public function index()
     {
+        $lol = new ProportionalRepresentation(2.5);
+        $lol->roundOff([10.2, 3.8, 1.0]);
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
@@ -51,7 +55,6 @@ class DemandController extends Controller
 
         foreach ($this->competencyRepository->getAll() as $competency) {
             $competencyDemand[$competency->id]['competency'] = $competency;
-            $competencyDemand[$competency->id]['count'] = 0;
             $competencyDemand[$competency->id]['mean_demand'] = 0;
         }
 
@@ -70,6 +73,19 @@ class DemandController extends Controller
                     }
                 }
             }
+        }
+
+        $unroundedDemand = [];
+        foreach ($competencyDemand as $competencyId) {
+            $unroundedDemand[array_search($competencyId, $competencyDemand)] = $competencyId['mean_demand'] * $competencyId['competency']->ec_value;
+        }
+
+        $rounder = new ProportionalRepresentation(2.5);
+        $roundedDemand = $rounder->roundOff($unroundedDemand);
+        $i = 0;
+        foreach ($this->competencyRepository->getAll() as $competency) {
+            $competencyDemand[$competency->id]['mean_demand'] = $roundedDemand[$i] / $competency->ec_value;
+            $i++;
         }
 
         return $competencyDemand;
