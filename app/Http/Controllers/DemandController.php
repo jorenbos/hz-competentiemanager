@@ -71,16 +71,15 @@ class DemandController extends Controller
                 }
             }
         }
-        dd("herro");
-
+        dd('herro');
 
         $unroundedDemand = array_map(
-            function($value) {
+            function ($value) {
                 return [
                     'demand'    => $value['mean_demand'],
-                    'ec_value'  =>$value['competency']->ec_value,
+                    'ec_value'  => $value['competency']->ec_value,
                 ];
-            } ,$competencyDemand
+            }, $competencyDemand
         );
 
         $rounder = new ProportionalRepresentation();
