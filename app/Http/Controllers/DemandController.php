@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
+use App\Util\Constants;
 use App\Rounding\RoundingImplementation\ProportionalRepresentation;
 
 class DemandController extends Controller
@@ -49,6 +50,7 @@ class DemandController extends Controller
     {
         $timetable = $this->timetableRepository->getNext();
         $competencyDemand = [];
+        $testDemand = 0;
 
         foreach ($this->competencyRepository->getAll() as $competency) {
             $competencyDemand[$competency->id]['competency'] = $competency;
@@ -66,7 +68,16 @@ class DemandController extends Controller
                     $slotDemand = ($slot_ec_value / $toDoCredits) * ($timetable->ec_value / $slot_ec_value);
 
                     foreach ($toDoSlot->competencies as $toDoCompetency) {
-                        $competencyDemand[$toDoCompetency->id]['mean_demand'] += $slotDemand / count($toDoSlot->competencies);
+                        switch ($toDoCompetency->pickable_for_algorithm) {
+                            case Constants::COMPETENCY_ALGORITHM_ALLOWED_NORMAL:
+                                $competencyDemand[$toDoCompetency->id]['mean_demand'] += $slotDemand / count($toDoSlot->competencies);
+                                $testDemand += ($slotDemand / count($toDoSlot->competencies)) * $slot_ec_value;
+                                break;
+                            case Constants::COMPETENCY_ALGORITHM_ALLOWED_MANDATORY:
+                                $competencyDemand[$toDoCompetency->id]['mean_demand'] += 1;
+                                $testDemand += $slot_ec_value;
+                                break;
+                        }
                     }
                 }
             }
@@ -84,7 +95,7 @@ class DemandController extends Controller
             $competencyDemand[$competency->id]['mean_demand'] = $roundedDemand[$i] / $competency->ec_value;
             $i++;
         }
-
+        var_dump($testDemand);
         return $competencyDemand;
     }
 }

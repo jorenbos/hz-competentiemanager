@@ -20,7 +20,7 @@ class CreateCompetencyTable extends Migration
             $table->text('description')->nullable();
             $table->float('ec-value');
             $table->string('cu-code');
-            $table->integer('pickable_for_algorithm')->default(Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE);
+            $table->integer('pickable_for_algorithm')->default(Constants::COMPETENCY_ALGORITHM_ALLOWED_NORMAL);
             $table->timestamps();
         });
     }

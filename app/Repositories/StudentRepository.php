@@ -148,7 +148,9 @@ class StudentRepository extends AbstractRepository
         $toDoCredits = 0;
 
         foreach ($toDoSlots as $slot) {
-            $toDoCredits += $slot->competencies->first()->ec_value;
+            if ($slot->competencies->first()->pickable_for_algorithm === Constants::COMPETENCY_ALGORITHM_ALLOWED_NORMAL) {
+                $toDoCredits += $slot->competencies->first()->ec_value;
+            }
         }
 
         return $toDoCredits;

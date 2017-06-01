@@ -30,6 +30,6 @@ class CompetencyRepository extends AbstractRepository
             $competencies = $this->setColumns(['id', 'pickable_for_algorithm'])->getAll();
         }
 
-        return $competencies->where('pickable_for_algorithm', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE);
+        return $competencies->where('pickable_for_algorithm', !Constants::COMPETENCY_ALGORITHM_ALLOWED_FALSE);
     }
 }

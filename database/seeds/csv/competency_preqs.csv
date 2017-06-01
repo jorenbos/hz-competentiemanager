@@ -1,7 +1,7 @@
 competency_id,competency_prerequisite_id,rule,amount_required
 2,1,0,
 3,2,0,
-4,1,0,
+4,3,0,
 5,1,0,
 6,1,0,
 7,1,0,
@@ -11,7 +11,7 @@ competency_id,competency_prerequisite_id,rule,amount_required
 11,1,0,
 12,1,0,
 13,1,0,
-15,3,0,
+15,14,0,
 16,5,0,
 17,1,0,
 17,2,0,
@@ -30,10 +30,10 @@ competency_id,competency_prerequisite_id,rule,amount_required
 19,,3,90
 20,,3,90
 21,14,0,
-22,4,0,
+22,21,0,
 23,16,0,
 24,21,0,
-25,14,0,
+25,24,0,
 26,23,0,
 31,30,0,
 35,34,0,
