@@ -71,17 +71,23 @@ class DemandController extends Controller
                 }
             }
         }
+        dd("herro");
 
-        $unroundedDemand = [];
-        foreach ($competencyDemand as $competencyId) {
-            $unroundedDemand[array_search($competencyId, $competencyDemand)] = $competencyId['mean_demand'] * $competencyId['competency']->ec_value;
-        }
 
-        $rounder = new ProportionalRepresentation(2.5);
+        $unroundedDemand = array_map(
+            function($value) {
+                return [
+                    'demand'    => $value['mean_demand'],
+                    'ec_value'  =>$value['competency']->ec_value,
+                ];
+            } ,$competencyDemand
+        );
+
+        $rounder = new ProportionalRepresentation();
         $roundedDemand = $rounder->roundOff($unroundedDemand);
-        $i = 0;
+        $i = 1;
         foreach ($this->competencyRepository->getAll() as $competency) {
-            $competencyDemand[$competency->id]['mean_demand'] = $roundedDemand[$i] / $competency->ec_value;
+            $competencyDemand[$competency->id]['mean_demand'] = $roundedDemand[$competency->id]['demand'];
             $i++;
         }
 

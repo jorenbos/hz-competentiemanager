@@ -2,67 +2,93 @@
 
 namespace App\Rounding\RoundingImplementation;
 
-use App\Rounding\RoundingInterface;
+use App\Rounding\ComptencyDemandRoundingInterface;
 
-class ProportionalRepresentation implements RoundingInterface
+class ProportionalRepresentation implements ComptencyDemandRoundingInterface
 {
     /**
-     * @var Array's
+     * @var float
      */
-    private $baseArray;
-    private $surplusArray;
-    private $roundedArray;
-
-    /**
-     * @var doubles
-     */
-    private $roundByValue;
     private $toDistribute;
-
-    public function __construct($roundByValue)
-    {
-        $this->roundByValue = $roundByValue;
-    }
 
     /**
      * Rounds off an array of numbers, using Proportional Representation.
      *
-     * @param float[] $unroundenArray | Also works with floats because PHP
+     * @param Array $unroundedArray | Array containing demand and ec value
      *
      * @return int[]
      */
     public function roundOff($unroundedArray)
     {
-        $this->baseArray = $unroundedArray;
-        $this->surplusArray = [];
-        $this->roundedArray = [];
+
         $this->toDistribute = 0;
 
-        foreach ($this->baseArray as $value) {
-            $this->roundDown($value);
-        }
+        $demandArray = array_map(array($this, "calcECDemand"), $unroundedArray);
+        $demandSurplusArray = array_map(array($this, "calculateSurplus"),$demandArray);
+        return $this->increaseHighest($demandSurplusArray);
 
-        asort($this->surplusArray);
-        while (abs(($this->toDistribute - $this->roundByValue) / $this->roundByValue) < 0.00001) {
-            $keyHighestValue = array_search(end($this->surplusArray), $this->surplusArray);
-            $this->roundedArray[$keyHighestValue] += $this->roundByValue;
-            unset($this->surplusArray[$keyHighestValue]);
-            $this->toDistribute -= $this->roundByValue;
-        }
-
-        return $this->roundedArray;
     }
 
     /**
-     *  Rounds down the value to the nearest $roundByValue.
+     * Caluclates the demand based on EC value of competency.
      *
-     *  @param float $value
+     * @param Array $value
+     *
+     * @return Array
      */
-    private function roundDown($value)
+    private function calcECDemand($value)
     {
-        $surplus = fmod($value, $this->roundByValue);
-        $this->toDistribute += $surplus;
-        array_push($this->surplusArray, $surplus);
-        array_push($this->roundedArray, $value - $surplus);
+        $value['demand'] = $value['demand'] * $value['ec_value'];
+        return $value;
+    }
+
+    /**
+     * Calculates the surplus and adds it to the to distribute.
+     *
+     * @param Array $value
+     *
+     * @return Array
+     */
+    private function calculateSurplus($value)
+    {
+        $value['surplus'] = fmod($value['demand'], $value['ec_value']);
+        $this->toDistribute += $value['surplus'];
+        $value['demand_absolute'] = $value['demand'];
+        $value['demand'] = $value['demand'] - $value['surplus'];
+        return $value;
+    }
+
+    private function increaseHighest($demandArray)
+    {
+        if ($this->toDistribute > 2.5 ) {
+
+            $highestKey = $this->findHighestKey($demandArray);
+            if ($this->toDistribute - $demandArray[$highestKey]['ec_value'] >= 0) {
+                $demandArray[$highestKey]['demand'] +=1;
+                $this->toDistribute -= $demandArray[$highestKey]['ec_value'];
+            }
+            $demandArray[$highestKey]['surplus'] = 0;
+            return $this->increaseHighest($demandArray);
+        }
+        return $demandArray;
+
+    }
+
+    private function findHighestKey($array)
+    {
+        $max = 0;
+        $founditem = null;
+        foreach($array as $value) {
+            if ($value['demand_absolute'] == 0) {
+                continue;
+            }
+            $percent = $value['surplus'] / ($value['demand_absolute'] * $value['ec_value']);
+            if ($percent < $max) {
+                $max = $percent;
+                $founditem = $value;
+            }
+        }
+
+        return array_search($value, $array);
     }
 }

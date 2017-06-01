@@ -2,7 +2,7 @@
 
 namespace App\Rounding;
 
-interface RoundingInterface
+interface ComptencyDemandRoundingInterface
 {
     /**
      * Rounds off an array of numbers.
