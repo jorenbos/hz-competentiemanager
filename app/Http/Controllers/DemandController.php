@@ -48,44 +48,53 @@ class DemandController extends Controller
 
     private function calculateDemand()
     {
-        $timetable = $this->timetableRepository->getNext();
-        $competencyDemand = [];
-
-        foreach ($this->competencyRepository->getAll() as $competency) {
-            $competencyDemand[$competency->id]['competency'] = $competency;
-            $competencyDemand[$competency->id]['mean_demand'] = 0;
-        }
-
-        foreach ($this->studentRepository->getStudentsForAlgorithm($timetable) as $student) {
-            $toDoSlots = $this->studentRepository->getToDoSlots($student, $timetable);
-            $toDoCredits = $this->studentRepository->getToDoCredits($student, $toDoSlots);
-
-            if ($toDoCredits > 0) {
-                foreach ($toDoSlots as $toDoSlot) {
-                    $keysToDoSlotCompetencies = array_keys($toDoSlot->competencies->toArray());
-                    $slot_ec_value = $toDoSlot->competencies[$keysToDoSlotCompetencies[0]]->ec_value;
-                    $slotDemand = ($slot_ec_value / $toDoCredits) * ($timetable->ec_value / $slot_ec_value);
-
-                    foreach ($toDoSlot->competencies as $toDoCompetency) {
-                        $competencyDemand[$toDoCompetency->id]['mean_demand'] += $slotDemand / count($toDoSlot->competencies);
+        return $this->competencyRepository->getAll()
+            ->mapWithKeys(function($competency) {
+                return [$competency->name => 0];
+            })
+            ->pipe(function($demandByCompetency) {
+                $timetable = $this->timetableRepository->getNext();
+                $this->studentRepository->getStudentsForAlgorithm($timetable)->each(function($student) use ($timetable, $demandByCompetency) {
+                    $todoSlots = $this->studentRepository->getToDoSlots($student, $timetable);
+                    $todoCreditCount = $this->studentRepository->getToDoCredits($student, $todoSlots);
+                    if ($todoCreditCount > 0) {
+                        $todoSlots->each(function($slot) use ($todoCreditCount, $timetable, $demandByCompetency) {
+                            $ecValue = $slot->competencies->first()->ec_value;
+                            $demand = ($ecValue / $todoCreditCount) * ($timetable->ec_value / $ecValue);
+                            $slot->competencies->each(function($competency) use ($demandByCompetency, $demand) {
+                                $demandByCompetency[$competency->name] += $demand;
+                            });
+                        });
                     }
-                }
-            }
-        }
+                });
+                return $demandByCompetency;
+            })
+            ->map(function($demand, $name) {
+                // TODO: refactor with new repositories
+                $competency = \App\Models\Competency::where('name', $name)->first();
+                return $demand * $competency->ec_value;
+            })
+            ->pipe(function($unrounded) {
+                $rounder = new ProportionalRepresentation(2.5);
+                // using collect and toArray because rounding engine doesn't support collections yet
+                return collect($rounder->roundOff($unrounded->toArray()));
+            })
+            ->pipe(function($rounded) {
+                // reattatch keys (rounding engine doesn't support this yet)
+                $competencyNames = $this->competencyRepository->getAll()->map(function($comp) {
+                    return $comp->name;
+                })->reverse();
+                return $rounded->mapWithKeys(function ($demand) use ($competencyNames) {
+                    return [$competencyNames->pop() => $demand];
+                });
+            })
+            ->map(function($competencyDemand, $name) {
+                $competency = \App\Models\Competency::where('name', $name)->first();
+                return $competencyDemand / $competency->ec_value;
+            })
+            ->sort()
+            ->reverse();
 
-        $unroundedDemand = [];
-        foreach ($competencyDemand as $competencyId) {
-            $unroundedDemand[array_search($competencyId, $competencyDemand)] = $competencyId['mean_demand'] * $competencyId['competency']->ec_value;
-        }
-
-        $rounder = new ProportionalRepresentation(2.5);
-        $roundedDemand = $rounder->roundOff($unroundedDemand);
-        $i = 0;
-        foreach ($this->competencyRepository->getAll() as $competency) {
-            $competencyDemand[$competency->id]['mean_demand'] = $roundedDemand[$i] / $competency->ec_value;
-            $i++;
-        }
-
-        return $competencyDemand;
     }
+
 }
