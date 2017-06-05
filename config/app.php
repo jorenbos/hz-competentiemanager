@@ -167,8 +167,8 @@ return [
          * Package Service Providers...
          */
          Collective\Html\HtmlServiceProvider::class,
-         Rinvex\Repository\Providers\RepositoryServiceProvider::class
-         
+         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

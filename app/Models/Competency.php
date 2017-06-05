@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Competency extends Model
 {
+    const STATUS_TODO = 0;
+    const STATUS_DOING = 1;
+    const STATUS_DONE = 2;
+    const STATUS_HALF_DOING = 3;
+    const STATUS_HALF_DONE = 4;
     /**
      * Mass fillable fields.
      */

@@ -4,12 +4,19 @@ namespace App\Repositories;
 
 use App\Models\Competency;
 use App\Models\Student;
-use App\Util\AbstractRepository;
 use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
+use Rinvex\Repository\Repositories\EloquentRepository;
 
-class StudentRepository extends AbstractRepository
+class StudentRepository extends EloquentRepository implements StudentRepositoryContract
 {
+    protected $repositoryId = 'hz.students';
+    protected $model = Student::class;
+    /**
+     * @var String[] What relations to eager load
+     */
+    protected $relations = ['competencies'];
+
     /**
       * @var CompetencyRepository
       */
@@ -25,18 +32,11 @@ class StudentRepository extends AbstractRepository
        */
       private $timetableRepository;
 
-    public function __construct(
-        Student $students,
-        CompetencyRepository $competencyRepository,
-        SlotRepository $slotRepository,
-        TimetableRepository $timetableRepository
-    ) {
-        parent::__construct($students);
+    public function __construct(CompetencyRepository $competencyRepository, SlotRepository $slotRepository, TimetableRepository $timetableRepository)
+    {
         $this->competencyRepository = $competencyRepository;
         $this->slotRepository = $slotRepository;
         $this->timetableRepository = $timetableRepository;
-
-        $this->setColumns(['id', 'starting_date']);
     }
 
     /**
@@ -46,28 +46,19 @@ class StudentRepository extends AbstractRepository
     {
         //Currently hard coded to exlude internship/minor
         $competenciesThatExludeStudentsFromAlgorithm = collect([17, 18, 19, 20, 27]);
-        $studentsForAlgorithm = collect();
-
-        foreach ($this->getAll() as $student) {
-            $isStudentForAlgorithm = true;
+        return $this->findAll()->filter(function($student) use ($competenciesThatExludeStudentsFromAlgorithm, $timetable) {
             foreach ($student->competencies as $competency) {
                 if (($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
                     && $competency->pivot->timetable === $timetable->id)
                     || ($competency->id === 27
                     && $competency->pivot->timetable != null
-                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date)
-                ) {
-                    $isStudentForAlgorithm = false;
-                    break;
+                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date))
+                {
+                    return false;
                 }
             }
-
-            if ($isStudentForAlgorithm) {
-                $studentsForAlgorithm->push($student);
-            }
-        }
-
-        return $studentsForAlgorithm;
+            return true;
+        });
     }
 
     /**
@@ -77,23 +68,19 @@ class StudentRepository extends AbstractRepository
      */
     public function getUncompletedCompetencies($student)
     {
-        $returnCompetencies = collect();
-        if ($student != null) {
-            $allCompetencies = $this->competencyRepository->filterAllowedForAlgorithm();
-
-            foreach ($allCompetencies as $competency) {
-                $matching_comp = $student->competencies()->select(['competency_id'])->find($competency->id);
-                if ($matching_comp != null) {
-                    if ($matching_comp->pivot->status !== Constants::COMPETENCY_STATUS_DONE) {
-                        $returnCompetencies->push($matching_comp);
-                    }
-                } else {
-                    $returnCompetencies->push($competency);
-                }
-            }
+        if ($student == null) {
+            return collect();
         }
 
-        return $returnCompetencies;
+        $statusByCompetency = $student->competencies;
+        return $this->competencyRepository->findAllowedForAlgorithm()->filter(function($competency) use ($statusByCompetency) {
+            $statusCompetency = $statusByCompetency->where('id', $competency->id)->first();
+            if ($statusCompetency == null) {
+                return true;
+            } else {
+                return ($statusCompetency->pivot->status !== Competency::STATUS_DONE);
+            }
+        });
     }
 
     /**
@@ -161,6 +148,7 @@ class StudentRepository extends AbstractRepository
      */
     public function getToDoSlots($student, $timetable)
     {
+        // TODO: optimize! right now: 89 db interactions per call
         $doneSlots = collect();
         $toDoSlots = collect();
 
@@ -168,16 +156,16 @@ class StudentRepository extends AbstractRepository
         $studentMainPhaseDate = new \DateTime($student->starting_date);
         $studentMainPhaseDate->modify('+1 year');
         if ($studentMainPhaseDate <= new \DateTime($timetable->starting_date)) {
-            $toDoSlots = $this->slotRepository->getAll();
+            $toDoSlots = $this->slotRepository->findAll();
         } else {
-            $toDoSlots = $this->slotRepository->getAllPropedeuse();
+            $toDoSlots = $this->slotRepository->findAllPropedeuseSlots();
         }
         $selectableToDoSlots = $toDoSlots;
         //TODO: Add rule 3: Minimum EC value
         //Create array with slotId's of competencies with status done or doing
         foreach ($student->competencies as $studentCompetency) {
-            if ($studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DOING ||
-                $studentCompetency->pivot->status === Constants::COMPETENCY_STATUS_DONE
+            if ($studentCompetency->pivot->status === Competency::STATUS_DOING ||
+                $studentCompetency->pivot->status === Competency::STATUS_DONE
             ) {
                 $bestSlot = $this->determineBestSlotChoice($studentCompetency, $selectableToDoSlots);
                 $doneSlots->push($bestSlot);

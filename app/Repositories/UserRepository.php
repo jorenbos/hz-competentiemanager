@@ -2,24 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Student;
 use App\Models\User;
-use App\Util\AbstractRepository;
+use Rinvex\Repository\Repositories\EloquentRepository;
 
-class UserRepository extends AbstractRepository
+class UserRepository extends EloquentRepository implements UserRepositoryContract
 {
-    public function __construct(User $users)
-    {
-        parent::__construct($users);
-    }
+    protected $repositoryId = 'hz.users';
+    protected $model = User::class;
 
-    /**
-     * Returns instance of coupled student if possible.
-     *
-     * @return Collection|Student[]
-     */
-    public function getStudent($id)
-    {
-        return $this->users->find($id)->student;
-    }
 }

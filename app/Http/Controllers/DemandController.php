@@ -46,9 +46,14 @@ class DemandController extends Controller
         return view('demand.index', ['competencies' => $this->calculateDemand()]);
     }
 
+    public function raw()
+    {
+        return $this->calculateDemand();
+    }
+
     private function calculateDemand()
     {
-        return $this->competencyRepository->getAll()
+        return $this->competencyRepository->findAll()
             ->mapWithKeys(function($competency) {
                 return [$competency->name => 0];
             })
@@ -70,8 +75,7 @@ class DemandController extends Controller
                 return $demandByCompetency;
             })
             ->map(function($demand, $name) {
-                // TODO: refactor with new repositories
-                $competency = \App\Models\Competency::where('name', $name)->first();
+                $competency = $this->competencyRepository->findBy('name', $name);
                 return $demand * $competency->ec_value;
             })
             ->pipe(function($unrounded) {
@@ -81,7 +85,7 @@ class DemandController extends Controller
             })
             ->pipe(function($rounded) {
                 // reattatch keys (rounding engine doesn't support this yet)
-                $competencyNames = $this->competencyRepository->getAll()->map(function($comp) {
+                $competencyNames = $this->competencyRepository->findAll()->map(function($comp) {
                     return $comp->name;
                 })->reverse();
                 return $rounded->mapWithKeys(function ($demand) use ($competencyNames) {
@@ -89,12 +93,11 @@ class DemandController extends Controller
                 });
             })
             ->map(function($competencyDemand, $name) {
-                $competency = \App\Models\Competency::where('name', $name)->first();
+                $competency = $this->competencyRepository->findBy('name', $name);
                 return $competencyDemand / $competency->ec_value;
             })
             ->sort()
             ->reverse();
-
     }
 
 }
