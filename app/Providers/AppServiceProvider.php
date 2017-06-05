@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\CompetencyRepositoryContract;
 use App\Repositories\ProjectRepository;
@@ -13,6 +12,7 @@ use App\Repositories\StudentRepository;
 use App\Repositories\StudentRepositoryContract;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryContract;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
     }
-
 
     /**
      * Register any application services.

@@ -12,7 +12,7 @@ class SlotRepository extends EloquentRepository implements SlotRepositoryContrac
     protected $model = Slot::class;
 
     /**
-     * @var String[] What relations to eager load
+     * @var string[] What relations to eager load
      */
     protected $relations = ['competencies'];
 
