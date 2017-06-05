@@ -13,11 +13,11 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
     protected $repositoryId = 'hz.students';
     protected $model = Student::class;
     /**
-     * @var String[] What relations to eager load
+     * @var string[] What relations to eager load
      */
     protected $relations = ['competencies'];
 
-    /**
+     /**
       * @var CompetencyRepository
       */
      private $competencyRepository;
@@ -46,17 +46,18 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
     {
         //Currently hard coded to exlude internship/minor
         $competenciesThatExludeStudentsFromAlgorithm = collect([17, 18, 19, 20, 27]);
-        return $this->findAll()->filter(function($student) use ($competenciesThatExludeStudentsFromAlgorithm, $timetable) {
+
+        return $this->findAll()->filter(function ($student) use ($competenciesThatExludeStudentsFromAlgorithm, $timetable) {
             foreach ($student->competencies as $competency) {
                 if (($competenciesThatExludeStudentsFromAlgorithm->contains($competency->id)
                     && $competency->pivot->timetable === $timetable->id)
                     || ($competency->id === 27
                     && $competency->pivot->timetable != null
-                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date))
-                {
+                    && $this->timetableRepository->getById($competency->pivot->timetable)->starting_date <= $timetable->starting_date)) {
                     return false;
                 }
             }
+
             return true;
         });
     }
@@ -73,12 +74,13 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
         }
 
         $statusByCompetency = $student->competencies;
-        return $this->competencyRepository->findAllowedForAlgorithm()->filter(function($competency) use ($statusByCompetency) {
+
+        return $this->competencyRepository->findAllowedForAlgorithm()->filter(function ($competency) use ($statusByCompetency) {
             $statusCompetency = $statusByCompetency->where('id', $competency->id)->first();
             if ($statusCompetency == null) {
                 return true;
             } else {
-                return ($statusCompetency->pivot->status !== Competency::STATUS_DONE);
+                return $statusCompetency->pivot->status !== Competency::STATUS_DONE;
             }
         });
     }

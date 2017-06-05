@@ -9,6 +9,7 @@ interface CompetencyRepositoryContract extends RepositoryContract, CacheableCont
 {
     /**
      * Filters competencies on whether or not they are allowed to be picked by the Algorithm.
+     *
      * @return Collection[]
      */
     public function findAllowedForAlgorithm();

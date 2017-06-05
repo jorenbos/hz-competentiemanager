@@ -9,5 +9,4 @@ class UserRepository extends EloquentRepository implements UserRepositoryContrac
 {
     protected $repositoryId = 'hz.users';
     protected $model = User::class;
-
 }

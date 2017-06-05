@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Competency;
-use App\Util\AbstractRepository;
 use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
 use Rinvex\Repository\Repositories\EloquentRepository;
@@ -15,6 +14,7 @@ class CompetencyRepository extends EloquentRepository implements CompetencyRepos
 
     /**
      * Filters competencies on whether or not they are allowed to be picked by the Algorithm.
+     *
      * @return Collection[]
      */
     public function findAllowedForAlgorithm()
