@@ -19,10 +19,10 @@
         </thead>
 
         <tbody>
-            @foreach ($competencies as $competency)
+            @foreach ($competencies as $name => $demand)
                 <tr>
-                    <td>{{$competency['competency']->name}}</td>
-                    <td>{{$competency['mean_demand']}}</td>
+                    <td>{{ $name }}</td>
+                    <td>{{ $demand }}</td>
 
                 </tr>
 

@@ -16,3 +16,4 @@ app/bootstrap/cache/*
 Vagrantfile
 npm-debug.log
 .DS_Store
+yarn.lock
