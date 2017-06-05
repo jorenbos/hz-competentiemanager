@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Repositories\CompetencyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TimetableRepository;
-use App\Util\Constants;
 use App\Rounding\RoundingImplementation\ProportionalRepresentation;
+use App\Util\Constants;
 
 class DemandController extends Controller
 {
@@ -96,6 +96,7 @@ class DemandController extends Controller
             $i++;
         }
         var_dump($testDemand);
+
         return $competencyDemand;
     }
 }
