@@ -6,30 +6,19 @@ use App\Models\Competency;
 use App\Util\AbstractRepository;
 use App\Util\Constants;
 use Illuminate\Database\Eloquent\Collection;
+use Rinvex\Repository\Repositories\EloquentRepository;
 
-class CompetencyRepository extends AbstractRepository
+class CompetencyRepository extends EloquentRepository implements CompetencyRepositoryContract
 {
-    /**
-     * Constrcutor.
-     */
-    public function __construct(Competency $competencies)
-    {
-        parent::__construct($competencies);
-    }
+    protected $repositoryId = 'hz.competencies';
+    protected $model = Competency::class;
 
     /**
      * Filters competencies on whether or not they are allowed to be picked by the Algorithm.
-     *
-     * @param Competency |Collection[] (optional) $competencies
-     *
      * @return Collection[]
      */
-    public function filterAllowedForAlgorithm($competencies = null)
+    public function findAllowedForAlgorithm()
     {
-        if ($competencies === null) {
-            $competencies = $this->setColumns(['id', 'pickable_for_algorithm'])->getAll();
-        }
-
-        return $competencies->where('pickable_for_algorithm', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE);
+        return $this->findWhere(['pickable_for_algorithm', '=', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE]);
     }
 }

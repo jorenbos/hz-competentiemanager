@@ -3,37 +3,24 @@
 namespace App\Repositories;
 
 use App\Models\Slot;
-use App\Util\AbstractRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Rinvex\Repository\Repositories\EloquentRepository;
 
-class SlotRepository extends AbstractRepository
+class SlotRepository extends EloquentRepository implements SlotRepositoryContract
 {
-    public function __construct(Slot $slots)
-    {
-        parent::__construct($slots);
-    }
+    protected $repositoryId = 'hz.slots';
+    protected $model = Slot::class;
+
+    /**
+     * @var String[] What relations to eager load
+     */
+    protected $relations = ['competencies'];
 
     /**
      * @return Slot[]|Collection
      */
-    public function getAllWithRelations()
+    public function findAllPropedeuseSlots()
     {
-        $slots = $this->getAll();
-        foreach ($slots as $slot) {
-            if ($slot->competencies()) {
-                foreach ($slot->competencies as $competency) {
-                }
-            }
-        }
-
-        return $slots;
-    }
-
-    /**
-     * @return Slot[]|Collection
-     */
-    public function getAllPropedeuse()
-    {
-        return $this->model->where('phase', '=', 0)->get();
+        return $this->findAll()->where('phase', 0);
     }
 }

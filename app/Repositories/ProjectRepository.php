@@ -3,12 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Project;
-use App\Util\AbstractRepository;
+use Rinvex\Repository\Repositories\EloquentRepository;
 
-class ProjectRepository extends AbstractRepository
+class ProjectRepository extends EloquentRepository implements ProjectRepositoryContract
 {
-    public function __construct(Project $projects)
-    {
-        parent::__construct($projects);
-    }
+    protected $repositoryId = 'hz.projects';
+    protected $model = Project::class;
 }
