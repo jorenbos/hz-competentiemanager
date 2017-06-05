@@ -14,40 +14,40 @@ class ProportionalRepresentation implements ComptencyDemandRoundingInterface
     /**
      * Rounds off an array of numbers, using Proportional Representation.
      *
-     * @param Array $unroundedArray | Array containing demand and ec value
+     * @param array $unroundedArray | Array containing demand and ec value
      *
      * @return int[]
      */
     public function roundOff($unroundedArray)
     {
-
         $this->toDistribute = 0;
 
-        $demandArray = array_map(array($this, "calcECDemand"), $unroundedArray);
-        $demandSurplusArray = array_map(array($this, "calculateSurplus"),$demandArray);
-        return $this->increaseHighest($demandSurplusArray);
+        $demandArray = array_map([$this, 'calcECDemand'], $unroundedArray);
+        $demandSurplusArray = array_map([$this, 'calculateSurplus'], $demandArray);
 
+        return $this->increaseHighest($demandSurplusArray);
     }
 
     /**
      * Caluclates the demand based on EC value of competency.
      *
-     * @param Array $value
+     * @param array $value
      *
-     * @return Array
+     * @return array
      */
     private function calcECDemand($value)
     {
         $value['demand'] = $value['demand'] * $value['ec_value'];
+
         return $value;
     }
 
     /**
      * Calculates the surplus and adds it to the to distribute.
      *
-     * @param Array $value
+     * @param array $value
      *
-     * @return Array
+     * @return array
      */
     private function calculateSurplus($value)
     {
@@ -55,30 +55,31 @@ class ProportionalRepresentation implements ComptencyDemandRoundingInterface
         $this->toDistribute += $value['surplus'];
         $value['demand_absolute'] = $value['demand'];
         $value['demand'] = $value['demand'] - $value['surplus'];
+
         return $value;
     }
 
     private function increaseHighest($demandArray)
     {
-        if ($this->toDistribute > 2.5 ) {
-
+        if ($this->toDistribute > 2.5) {
             $highestKey = $this->findHighestKey($demandArray);
             if ($this->toDistribute - $demandArray[$highestKey]['ec_value'] >= 0) {
-                $demandArray[$highestKey]['demand'] +=1;
+                $demandArray[$highestKey]['demand'] += 1;
                 $this->toDistribute -= $demandArray[$highestKey]['ec_value'];
             }
             $demandArray[$highestKey]['surplus'] = 0;
+
             return $this->increaseHighest($demandArray);
         }
-        return $demandArray;
 
+        return $demandArray;
     }
 
     private function findHighestKey($array)
     {
         $max = 0;
         $founditem = null;
-        foreach($array as $value) {
+        foreach ($array as $value) {
             if ($value['demand_absolute'] == 0) {
                 continue;
             }
