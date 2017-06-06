@@ -102,7 +102,7 @@ id,name,student_code,starting_date,gender
 101,Geffrey de Winter,10159,2016-09-01,male
 102,Jano van der Dussen,10160,2016-09-01,male
 103,Jasper de Pooter,10161,2016-09-01,male
-104,Jesper Robër,10162,2016-09-01,male
+104,Jesper Rober,10162,2016-09-01,male
 105,Jordy Lynch,10163,2016-09-01,male
 106,Joris Bakx,10164,2016-09-01,male
 107,Mitchell de Jonge,10165,2016-09-01,male
@@ -112,4 +112,40 @@ id,name,student_code,starting_date,gender
 111,Niek Mes,10169,2016-09-01,male
 112,Jordi Schaaf,10170,2016-09-01,male
 113,Bas van Dam,10171,2016-09-01,male
-114,Raphaël Verhage,10172,2016-09-01,male
+114,Raphael Verhage,10172,2016-09-01,male
+115,Pieter-Jan van Strien,10173,2014-09-01,male
+116,Lorena Slabbekoorn,10174,2014-09-01,female
+117,Rudger van Heuvel,10175,2014-09-01,male
+118,Carlo Geertse,10176,2014-09-01,male
+119,Loek van der Linde,10177,2014-09-01,male
+120,Maaike Brouwer,10178,2014-09-01,female
+121,Raymond de Looff,10179,2014-09-01,male
+122,Thijs Clowting,10180,2014-09-01,male
+123,Tim van Riet,10181,2014-09-01,male
+124,Brent Lobbezoo,10182,2014-09-01,male
+125,Mark Goedegebure,10183,2014-09-01,male
+126,Joey van Zweden,10184,2014-09-01,male
+127,Thomas de Rooij,10185,2014-09-01,male
+128,Robin de Rooij,10186,2014-09-01,male
+129,Nick Pourquie,10187,2014-09-01,male
+130,Brian Buijs,10188,2014-09-01,male
+131,Steven Neubacher,10189,2014-09-01,male
+132,Bjorn de Mol,10190,2014-09-01,male
+133,Bram Eikelboom,10191,2014-09-01,male
+134,Stef Jansen,10192,2014-09-01,male
+135,Rajenco Noort,10193,2014-09-01,male
+136,Remco van Os,10194,2014-09-01,male
+137,Sven de Ruijter,10195,2014-09-01,male
+138,Arjen Poppe,10196,2014-09-01,male
+139,Lutgard Roelans,10197,2014-09-01,female
+140,Maarten van Kalsbeek,10198,2014-09-01,male
+141,Wilco Boogert,10199,2014-09-01,male
+142,Bas Lafeber,10200,2014-09-01,male
+143,Joost Melkert,10201,2014-09-01,male
+144,Jules Wijt,10202,2014-09-01,male
+145,Lennart van den Bout,10203,2014-09-01,male
+146,Marlon Kewaldar,10204,2014-09-01,male
+147,Quintin Geervliet,10205,2014-09-01,male
+148,Sjoerd den Dekker,10206,2014-09-01,male
+149,Thijs van der Eerden,10207,2014-09-01,male
+150,Talitha Lansman,10208,2014-09-01,female
