@@ -38,6 +38,7 @@ class DemandController extends Controller
         $this->studentRepository = $studentRepository;
         $this->competencyRepository = $competencyRepository;
         $this->timetableRepository = $timetableRepository;
+        set_time_limit(0);
     }
 
     public function index()
