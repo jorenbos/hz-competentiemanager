@@ -43,7 +43,8 @@ class ProportionalRepresentation implements RoundingInterface
         }
 
         asort($this->surplusArray);
-        while (abs(($this->toDistribute - $this->roundByValue) / $this->roundByValue) < 0.00001) {
+        while ($this->toDistribute > $this->roundByValue
+            || abs(($this->toDistribute - $this->roundByValue) / $this->roundByValue) < 0.00001) {
             $keyHighestValue = array_search(end($this->surplusArray), $this->surplusArray);
             $this->roundedArray[$keyHighestValue] += $this->roundByValue;
             unset($this->surplusArray[$keyHighestValue]);
