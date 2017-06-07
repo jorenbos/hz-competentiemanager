@@ -43,7 +43,12 @@ class DemandController extends Controller
 
     public function index()
     {
-        return view('demand.index', ['competencies' => $this->calculateDemand()]);
+        return view('demand.index');
+    }
+
+    public function getDemand()
+    {
+        return $this->calculateDemand();
     }
 
     private function calculateDemand()
@@ -52,7 +57,8 @@ class DemandController extends Controller
         $competencyDemand = [];
 
         foreach ($this->competencyRepository->getAll() as $competency) {
-            $competencyDemand[$competency->id]['competency'] = $competency;
+            $competencyDemand[$competency->id]['competency_name'] = $competency->name;
+            $competencyDemand[$competency->id]['competency_ec_value'] = $competency->ec_value;
             $competencyDemand[$competency->id]['mean_demand'] = 0;
         }
 
@@ -75,7 +81,7 @@ class DemandController extends Controller
 
         $unroundedDemand = [];
         foreach ($competencyDemand as $competencyId) {
-            $unroundedDemand[array_search($competencyId, $competencyDemand)] = $competencyId['mean_demand'] * $competencyId['competency']->ec_value;
+            $unroundedDemand[array_search($competencyId, $competencyDemand)] = $competencyId['mean_demand'] * $competencyId['competency_ec_value'];
         }
 
         $rounder = new ProportionalRepresentation(2.5);
