@@ -89,22 +89,26 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
      */
     public function filterSequentiality($competencies)
     {
-        return $competencies->filter(function($competency) use ($competencies) {
+        return $competencies->filter(function ($competency) use ($competencies) {
             $comboCount = 0;
             $comboReq = 0;
             $allowed = true;
-            $competency->sequentiality->each(function($seqComp) use ($competencies) {
+            $competency->sequentiality->each(function ($seqComp) use ($competencies) {
                 $rule = $seqComp->pivot->rule;
                 $isInComps = $competencies->contains('id', $seqComp->id);
                 if ($rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED && $isInComps) {
                     $isAllowed = false;
+
                     return false; // equivalent to break
                 } elseif ($rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
                     $comboReq = ($comboReq === 0) ? $seqComp->pivot->amount_required : $comboReq;
-                    if ($isInComps) $comboCount++;
+                    if ($isInComps) {
+                        $comboCount++;
+                    }
                 }
             });
             $allowed = ($comboCount < $comboReq) ? false : $allowed;
+
             return $allowed;
         });
     }
