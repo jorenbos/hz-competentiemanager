@@ -1,14 +1,21 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('title')
 	Bewerk {{ $competency->name }}
 @endsection
-
 @section('content')
+    {{-- BreadCrumbs --}}
+	<ol class="breadcrumb">
+    	<li><a href="/">Home</a></li>
+    	<li><a href="/competencies">Competenties</a></li>
+		<li class="active">{{$competency->name }}
+	</ol>
 
-<div class = "container-fluid">
+	{{-- Page Title --}}
+	<h1>{{$competency->name}}</h1>
 
-	{!! Form::model($competency, ['route' => ['competency.update', $competency->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+
+
+	{!! Form::model($competency, ['route' => ['competencies.update', $competency->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 	<!-- Holds all the forms for filling in competency info-->
 	<div class="form-group">
 	<!-- Fill in name info -->
@@ -57,9 +64,9 @@
 			</button>
 		</div>
 	</div>
-  
+
 	{!! Form::close() !!}
 
-</div>
+
 
 @endsection
