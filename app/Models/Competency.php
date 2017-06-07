@@ -15,12 +15,12 @@ class Competency extends Model
      * Mass fillable fields.
      */
     protected $fillable = [
-                           'name',
-                           'abbreviation',
-                           'description',
-                           'ec_value',
-                           'cu_code',
-                          ];
+        'name',
+        'abbreviation',
+        'description',
+        'ec_value',
+        'cu_code',
+    ];
 
     /**
      * Many to many elequent relation with students. (or collection if called without parentheces).

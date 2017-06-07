@@ -12,9 +12,6 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
 {
     protected $repositoryId = 'hz.students';
     protected $model = Student::class;
-    /**
-     * @var string[] What relations to eager load
-     */
     protected $relations = ['competencies'];
 
      /**
@@ -72,7 +69,6 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
         if ($student == null) {
             return collect();
         }
-
         $statusByCompetency = $student->competencies;
 
         return $this->competencyRepository->findAllowedForAlgorithm()->filter(function ($competency) use ($statusByCompetency) {
@@ -92,38 +88,24 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
      */
     public function filterSequentiality($competencies)
     {
-        $returnCompetencies = collect();
-        foreach ($competencies as $competency) {
-            $isAllowed = true;
-            $ruleSequentialComboRequired = 0;
-            $ruleSequentialComboCounter = 0;
-
-            foreach ($competency->sequentiality as $sequentialCompetency) {
-                if ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED
-                    && $competencies->contains('id', $sequentialCompetency->id)
-                ) {
+        return $competencies->filter(function($competency) {
+            $comboCount = 0;
+            $comboReq = 0;
+            $allowed = true;
+            $competency->each(function($seqComp) {
+                $rule = $seqComp->pivot->rule;
+                $isInComps = $competencies->contains('id', $seqComp->id);
+                if ($rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED && $isInComps) {
                     $isAllowed = false;
-                    break;
-                } elseif ($sequentialCompetency->pivot->rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
-                    if ($ruleSequentialComboRequired === 0) {
-                        $ruleSequentialComboRequired = $sequentialCompetency->pivot->amount_required;
-                    }
-                    if (!$competencies->contains('id', $sequentialCompetency->id)) {
-                        $ruleSequentialComboCounter++;
-                    }
+                    return false; // equivalent to break
+                } elseif ($rule === Constants::RULE_TYPE_SEQUENTIAL_COMBO) {
+                    $comboReq = ($comboReq === 0) ? $seqComp->pivot->amount_required : $comboReq;
+                    if ($isInComps) $comboCount++;
                 }
-            }
-
-            if ($ruleSequentialComboCounter < $ruleSequentialComboRequired) {
-                $isAllowed = false;
-            }
-
-            if ($isAllowed) {
-                $returnCompetencies->push($competency);
-            }
-        }
-
-        return $returnCompetencies;
+            });
+            $allowed = ($comboCount < $comboReq) ? false : $allowed;
+            return $allowed;
+        });
     }
 
     /**
@@ -150,7 +132,6 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
      */
     public function getToDoSlots($student, $timetable)
     {
-        // TODO: optimize! right now: 89 db interactions per call
         $doneSlots = collect();
         $toDoSlots = collect();
 
@@ -196,7 +177,8 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
     private function filterToDoSlots($toDoSlots, $student)
     {
         $toDoSlots = $toDoSlots->keyBy('id');
-        $viableCompetencies = $this->filterSequentiality($this->getUncompletedCompetencies($student))->keyBy('id');
+        $uncompletedCompetencies = $this->getUncompletedCompetencies($student);
+        $viableCompetencies = $this->filterSequentiality($uncompletedCompetencies)->keyBy('id');
 
         //Removes completed and not allowed(sequentiality) competencies
         $toDoSlots = $toDoSlots->map(function ($slot, $key) use ($viableCompetencies) {

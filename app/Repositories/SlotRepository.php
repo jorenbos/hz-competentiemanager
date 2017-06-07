@@ -10,10 +10,6 @@ class SlotRepository extends EloquentRepository implements SlotRepositoryContrac
 {
     protected $repositoryId = 'hz.slots';
     protected $model = Slot::class;
-
-    /**
-     * @var string[] What relations to eager load
-     */
     protected $relations = ['competencies'];
 
     /**

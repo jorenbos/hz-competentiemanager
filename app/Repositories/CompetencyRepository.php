@@ -11,7 +11,7 @@ class CompetencyRepository extends EloquentRepository implements CompetencyRepos
 {
     protected $repositoryId = 'hz.competencies';
     protected $model = Competency::class;
-
+    protected $relations = ['sequentiality'];
     /**
      * Filters competencies on whether or not they are allowed to be picked by the Algorithm.
      *
@@ -21,4 +21,5 @@ class CompetencyRepository extends EloquentRepository implements CompetencyRepos
     {
         return $this->findWhere(['pickable_for_algorithm', '=', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE]);
     }
+
 }
