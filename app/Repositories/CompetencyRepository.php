@@ -12,6 +12,7 @@ class CompetencyRepository extends EloquentRepository implements CompetencyRepos
     protected $repositoryId = 'hz.competencies';
     protected $model = Competency::class;
     protected $relations = ['sequentiality'];
+    
     /**
      * Filters competencies on whether or not they are allowed to be picked by the Algorithm.
      *

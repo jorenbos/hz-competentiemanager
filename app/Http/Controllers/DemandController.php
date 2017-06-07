@@ -48,8 +48,7 @@ class DemandController extends Controller
 
     public function raw()
     {
-        $demandArray = $this->calculateDemand();
-        return $demandArray;
+        return $this->calculateDemand();
     }
 
     private function calculateDemand()

@@ -69,6 +69,10 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
         if ($student == null) {
             return collect();
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f398d10edb4f08befb9236a1d81f029e0c2f987e
         $statusByCompetency = $student->competencies;
 
         return $this->competencyRepository->findAllowedForAlgorithm()->filter(function ($competency) use ($statusByCompetency) {
@@ -132,6 +136,7 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
      */
     public function getToDoSlots($student, $timetable)
     {
+        // TODO: optimize! right now: 89 db interactions per call
         $doneSlots = collect();
         $toDoSlots = collect();
 
