@@ -37,7 +37,7 @@ class ProjectController extends Controller
         return view(
             'projects.index',
             [
-             'projects' => $this->projects->getAll(),
+             'projects' => $this->projects->findAll(),
             ]
         );
     }
@@ -50,7 +50,7 @@ class ProjectController extends Controller
     public function create()
     {
         return view('projects.create', [
-            'users' => $this->users->getAll(),
+            'users' => $this->users->findAll(),
         ]);
     }
 
@@ -86,7 +86,7 @@ class ProjectController extends Controller
         return view(
             'projects.show',
             [
-             'project' => $this->projects->getById($id),
+             'project' => $this->projects->find($id),
             ]
         );
     }
@@ -103,7 +103,7 @@ class ProjectController extends Controller
         return view(
             'projects.edit',
             [
-             'project' => $this->projects->getById($id),
+             'project' => $this->projects->find($id),
             ]
         );
     }
@@ -128,7 +128,7 @@ class ProjectController extends Controller
                   ]
               );
 
-        $project = $this->projects->getById($id);
+        $project = $this->projects->find($id);
         $project->name = $request['name'];
         $project->projectnumber = $request['projectnumber'];
 
@@ -147,8 +147,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = $this->projects->getById($id);
-        $project->delete();
+        $this->projects->delete($id);
 
         return redirect('projects')->with(['status' => "$project->name is verwijderd"]);
     }

@@ -28,9 +28,9 @@ class CompetencyController extends Controller
     public function index()
     {
         return view(
-            'competency.index',
+            'competencies.index',
             [
-             'competenties' => $this->competencies->getAll(),
+             'competenties' => $this->competencies->findAll(),
             ]
         );
     }
@@ -42,7 +42,7 @@ class CompetencyController extends Controller
      */
     public function create()
     {
-        return view('competency.create');
+        return view('competencies.create');
     }
 
     /**
@@ -78,7 +78,7 @@ class CompetencyController extends Controller
     public function show($id)
     {
         return view(
-            'competency/show',
+            'competencies.show',
             [
              'competency' => $this->competencies->getById($id),
             ]
@@ -95,9 +95,9 @@ class CompetencyController extends Controller
     public function edit($id)
     {
         return view(
-            'competency/edit',
+            'competencies.edit',
             [
-             'competency' => $this->competencies->getById($id),
+             'competency' => $this->competencies->find($id),
             ]
         );
     }
@@ -119,7 +119,7 @@ class CompetencyController extends Controller
             return redirect('/competency')->withErrors($validator)->withInput();
         }
 
-        $this->competencies->update($request->all(), $id);
+        $this->competencies->update($id, $request->all());
 
         // Redirect to the competency.index page with a success message.
         return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
@@ -134,11 +134,8 @@ class CompetencyController extends Controller
      */
     public function destroy($id)
     {
-        // Find the competency object in the database
-        $competency = $this->competencies->getById($id);
-
         // Remove the competency from the database
-        $competency->delete();
+        $this->competencies->delete($id);
 
         // Redirect to the competency. index page with a succes message.
         return redirect('competency')->with('success', $competency->name.' is verwijderd.');

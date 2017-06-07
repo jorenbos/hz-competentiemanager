@@ -15,6 +15,7 @@ class Project extends Model
                            'name',
                            'projectnumber',
                            'description',
+                           'project_contact_id'
                           ];
 
     /**
