@@ -69,10 +69,7 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
         if ($student == null) {
             return collect();
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> f398d10edb4f08befb9236a1d81f029e0c2f987e
         $statusByCompetency = $student->competencies;
 
         return $this->competencyRepository->findAllowedForAlgorithm()->filter(function ($competency) use ($statusByCompetency) {
@@ -92,11 +89,11 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryC
      */
     public function filterSequentiality($competencies)
     {
-        return $competencies->filter(function($competency) {
+        return $competencies->filter(function($competency) use ($competencies) {
             $comboCount = 0;
             $comboReq = 0;
             $allowed = true;
-            $competency->each(function($seqComp) {
+            $competency->sequentiality->each(function($seqComp) use ($competencies) {
                 $rule = $seqComp->pivot->rule;
                 $isInComps = $competencies->contains('id', $seqComp->id);
                 if ($rule === Constants::RULE_TYPE_SEQUENTIAL_REQUIRED && $isInComps) {
