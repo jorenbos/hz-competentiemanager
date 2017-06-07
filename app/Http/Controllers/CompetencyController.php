@@ -121,7 +121,6 @@ class CompetencyController extends Controller
 
         $this->competencies->update($request->all(), $id);
 
-
         // Redirect to the competency.index page with a success message.
         return redirect('competencies')->with('success', $request['name'].' is bijgewerkt.');
     }

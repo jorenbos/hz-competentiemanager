@@ -22,5 +22,5 @@ Route::get('/user', function (Request $request) {
 Route::get('/demand', 'DemandController@getDemand');
 
 Route::get('/test', function (Request $request) {
-    return "I did it!";
+    return 'I did it!';
 });
