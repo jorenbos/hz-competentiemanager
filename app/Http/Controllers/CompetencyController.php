@@ -28,7 +28,7 @@ class CompetencyController extends Controller
     public function index()
     {
         return view(
-            'competency.index',
+            'competencies.index',
             [
              'competenties' => $this->competencies->getAll(),
             ]
@@ -42,7 +42,7 @@ class CompetencyController extends Controller
      */
     public function create()
     {
-        return view('competency.create');
+        return view('competencies.create');
     }
 
     /**
@@ -58,14 +58,14 @@ class CompetencyController extends Controller
         $validator = $this->storeValidator($request->all());
 
         if ($validator->fails()) {
-            return redirect('/competency/create')->withErrors($validator)->withInput();
+            return redirect('/competencies/create')->withErrors($validator)->withInput();
         }
 
         // Create new Competency object with the info in the request
         $competency = $this->competencies->create($request->all());
 
         // Redirect to the competency.index page with a success message.
-        return redirect('competency')->with('success', $competency->name.' is toegevoegd.');
+        return redirect('competencies')->with('success', $competency->name.' is toegevoegd.');
     }
 
     /**
@@ -78,7 +78,7 @@ class CompetencyController extends Controller
     public function show($id)
     {
         return view(
-            'competency/show',
+            'competencies/show',
             [
              'competency' => $this->competencies->getById($id),
             ]
@@ -95,7 +95,7 @@ class CompetencyController extends Controller
     public function edit($id)
     {
         return view(
-            'competency/edit',
+            'competencies/edit',
             [
              'competency' => $this->competencies->getById($id),
             ]
@@ -116,13 +116,14 @@ class CompetencyController extends Controller
         $validator = $this->updateValidator($request->all());
 
         if ($validator->fails()) {
-            return redirect('/competency')->withErrors($validator)->withInput();
+            return redirect('competencies')->withErrors($validator)->withInput();
         }
 
         $this->competencies->update($request->all(), $id);
 
+
         // Redirect to the competency.index page with a success message.
-        return redirect('competency')->with('success', $request['name'].' is bijgewerkt.');
+        return redirect('competencies')->with('success', $request['name'].' is bijgewerkt.');
     }
 
     /**
@@ -141,7 +142,7 @@ class CompetencyController extends Controller
         $competency->delete();
 
         // Redirect to the competency. index page with a succes message.
-        return redirect('competency')->with('success', $competency->name.' is verwijderd.');
+        return redirect('competencies')->with('success', $competency->name.' is verwijderd.');
     }
 
     /**
@@ -179,7 +180,7 @@ class CompetencyController extends Controller
             [
              'name'         => 'required|max:255',
              'abbreviation' => 'required|max:5',
-             'description'  => 'required|max:2056',
+             'description'  => 'sometimes|max:2056',
              'ec_value'     => 'required',
              'cu_code'      => 'required|max:10',
             ]
