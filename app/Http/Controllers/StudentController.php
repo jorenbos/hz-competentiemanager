@@ -13,12 +13,13 @@ class StudentController extends Controller
     {
         $this->studentRepository = $studentRepository;
     }
+
     public function index()
     {
         return view(
             'students.index',
             [
-                'students' => $this->studentRepository->getAll()
+                'students' => $this->studentRepository->getAll(),
             ]
         );
     }
@@ -59,9 +60,7 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $this->studentRepository->update($request->all(), $id);
-
 
         // Redirect to the competency.index page with a success message.
         return redirect('students')->with('success', $request['name'].' is bijgewerkt.');
