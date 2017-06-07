@@ -40,7 +40,7 @@ class UserCompetenciesController extends Controller
 
     public function store(Request $request)
     {
-        $this->studentRepository->getById(Auth::id())->competencies()->attach($request['comp_id'], ['status' => 2 ]);
-        return redirect('/student/'.$request['student'] . 'competencies')->with('success', 'Uw competentie is gekozen');
+        $this->studentRepository->getById($request['student'])->competencies()->attach($request['comp_id'], ['status' => 2 ]);
+        return redirect('/student/'.$request['student'] . '/competencies')->with('success', 'Uw competentie is gekozen');
     }
 }

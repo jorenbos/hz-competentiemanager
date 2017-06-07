@@ -32,6 +32,15 @@
             var selected = e.options[e.selectedIndex].value;
             window.location.href = 'http://hz.app/student/'+ selected + '/competencies';
         }
+        window.onload = setSelected;
+        function setSelected()
+        {
+            var e = document.getElementById('student');
+            var url = window.location.href;
+            url = url.replace(/\D/g, '');
+            e.value= url;
+            console.log(url)
+        }
     </script>
 
 
@@ -53,6 +62,14 @@
                     {{$comp->abbreviation}}
                 </td>
 			    <td>
+                    <td class="table-text">
+					<div class="col-md-1">
+					{{ Form::open(['url' => ['student/'.$current. '/competencies'], 'method'=>'POST']) }}
+					{{ Form::hidden('comp_id', $comp->id) }}
+                    {{ Form::hidden('student', $current)}}
+					{!! Form::submit('Kiezen', array('class'=>'btn btn-primary')) !!}
+					{{ Form::close() }}
+					</div>
 
                 </td>
             </tr>
