@@ -24,3 +24,4 @@ Route::resource('projects', 'ProjectController');
 Route::resource('users', 'UserController');
 Route::resource('student.competencies', 'UserCompetenciesController');
 Route::get('student/{studentId}/competencies', 'UserCompetenciesController@index');
+Route::resource('students', 'StudentController');
