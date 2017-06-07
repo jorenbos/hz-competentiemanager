@@ -21,6 +21,12 @@ $(document).ready(function()
             });
         },
         error: function(msg) {
+            $('#demandTableBody').empty();
+            $('#demandTableBody').append(
+                '<tr>'
+                + '<td colspan="2">Er is een fout opgetreden, neem contact op met de beheerder.</td>'
+                + '</tr>'
+            );
             console.log(msg.responseText);
         }
     });
