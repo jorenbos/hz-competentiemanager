@@ -18,3 +18,9 @@ Route::resource('student', 'StudentApiController');
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::get('/demand', 'DemandController@getDemand');
+
+Route::get('/test', function (Request $request) {
+    return "I did it!";
+});
