@@ -1,5 +1,5 @@
 <div class="navbar navbar-default">
-  
+
   <nav class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -17,11 +17,13 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
+
       <ul class="nav navbar-nav navbar-right">
         @if(!Auth::guest())
           <li><a href="/projects">Projecten</a></li>
           <li><a href="/competencies">Competenties</a></li>
+          <li><a href='student/1/competencies'>Student Competenties</a></li>
+          <li><a href='/demand'>Competentiebehoefte</a></li>
         @endif
         @if(Auth::guest())
           <li><a href="/login">Inloggen</a></li>
