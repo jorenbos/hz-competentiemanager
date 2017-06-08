@@ -20,7 +20,3 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/demand', 'DemandController@getDemand');
-
-Route::get('/test', function (Request $request) {
-    return 'I did it!';
-});
