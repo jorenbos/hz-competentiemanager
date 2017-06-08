@@ -27,7 +27,7 @@ class CompetencyRepository extends AbstractRepository
     public function filterAllowedForAlgorithm($competencies = null)
     {
         if ($competencies === null) {
-            $competencies = $this->setColumns(['id', 'pickable_for_algorithm'])->getAll();
+            $competencies = $this->getAll();
         }
 
         return $competencies->where('pickable_for_algorithm', Constants::COMPETENCY_ALGORITHIM_ALLOWED_TRUE);

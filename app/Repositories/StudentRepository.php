@@ -35,8 +35,6 @@ class StudentRepository extends AbstractRepository
         $this->competencyRepository = $competencyRepository;
         $this->slotRepository = $slotRepository;
         $this->timetableRepository = $timetableRepository;
-
-        $this->setColumns(['id', 'starting_date']);
     }
 
     /**
